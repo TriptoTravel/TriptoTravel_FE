@@ -19,7 +19,8 @@ const config: Config = {
         l: ['32px', '40px'],
         m: ['28px', '36px'],
         s: ['24px', '32px'],
-        xs: ['20px', '28px']
+        xs: ['20px', '28px'],
+        xxs: ['12px', '18px']
       },
       fontWeight: {
         medium: '500',
