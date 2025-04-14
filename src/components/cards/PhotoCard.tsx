@@ -27,12 +27,12 @@ export default function PhotoCard({ num }: PhotoCardProps) {
   };
 
   return (
-    <div className="inline-block bg-white rounded-[40px] shadow-[0px_1px_4px_rgba(0,0,0,0.25)] p-5">
+    <div className="w-[360px] inline-block bg-white rounded-[40px] shadow-[0px_1px_4px_rgba(0,0,0,0.25)] p-5">
       <div className="grid grid-cols-3 gap-[10px] justify-center">
         {photos.map((_, idx) => (
           <div
             key={idx}
-            className={cn("w-24 h-24 bg-zinc-300", getRadiusClass(idx))}
+            className={cn("w-[100px] h-[100px] bg-zinc-300", getRadiusClass(idx))}
           />
         ))}
       </div>
