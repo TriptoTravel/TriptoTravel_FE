@@ -1,3 +1,5 @@
+"use client";
+import { useState } from "react";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 import CTAButton from "@/components/buttons/CTAButton";
@@ -6,8 +8,15 @@ import MultiSelectButton from "@/components/buttons/MultiSelectButton";
 import TextFieldBubble from "@/components/common/TextFieldBubble";
 import PhotoCard from "@/components/cards/PhotoCard";
 import TextCard from "@/components/cards/TextCard";
+import PhotoTextCard from "@/components/cards/PhotoTextCard";
+import { photoTextCardMock } from "@/components/cards/parts/PhotoTextCardMock";
 
 export default function Home() {
+  const [time, setTime] = useState("");
+  const [location, setLocation] = useState("");
+  const [timeEditMode, setTimeEditMode] = useState(false);
+  const [locationEditMode, setLocationEditMode] = useState(false);
+
   return (
     <main>
       <Header variation="type-back" />
@@ -46,7 +55,30 @@ export default function Home() {
         <div>
           <TextCard
             title="여행의 시작"
-            content={`왜 이렇게 엄살을 떨지? 근데 엄살 떠는 것도 회사 때문인 것 같습니다. 회사에 너무 오래 있어서 여유가 없는 것 입니다. 요즘 주 4일제에 대한 목소리가 많죠? 저는 당당하제 주 2일제를 주장하는 바입니다. 무슨 전당포에서 협상하듯 주 2일제 주장해서 주 4일제를 따내려는 전략이 아니고요. 진짜 진지하게 주 2일제 주장합니다. 여기까지 읽으면 '그래도 주 2일제는 오바 아닌가?'''라고 생각하시는 분들이 있을 텐데요 사측이세요? 노측이면 주 2일제 동의 부탁드립니다.`}
+            content={`왜 이렇게 엄살을 떨지? 근데 엄살 떠는 것도 회사 때문인 것 같습니다. 회사에 너무 오래 있어서 여유가 없는 것 입니다. 요즘 주 4일제에 대한 목소리가 많죠? 저는 당당하게 주 2일제를 주장하는 바입니다. 무슨 전당포에서 협상하듯 주 2일제 주장해서 주 4일제를 따내려는 전략이 아니고요. 진짜 진지하게 주 2일제 주장합니다. 여기까지 읽으면 '그래도 주 2일제는 오바 아닌가?'라고 생각하시는 분들이 있을 텐데요 사측이세요? 노측이면 주 2일제 동의 부탁드립니다.`}
+          />
+        </div>
+        <div>
+          <PhotoTextCard
+            imageUrl={photoTextCardMock.imageUrl}
+            timeMeta={{
+              value: time,
+              state: timeEditMode ? "edit" : time ? "default" : "error",
+              onEdit: () => setTimeEditMode(true),
+              onSave: (v) => {
+                setTime(v);
+                setTimeEditMode(false);
+              },
+            }}
+            locationMeta={{
+              value: location,
+              state: locationEditMode ? "edit" : location ? "default" : "error",
+              onEdit: () => setLocationEditMode(true),
+              onSave: (v) => {
+                setLocation(v);
+                setLocationEditMode(false);
+              },
+            }}
           />
         </div>
         <CTAButton variation="disabled" label="다음 단계" />
