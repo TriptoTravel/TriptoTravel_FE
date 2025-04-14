@@ -10,6 +10,8 @@ import PhotoCard from "@/components/cards/PhotoCard";
 import TextCard from "@/components/cards/TextCard";
 import EXIFCard from "@/components/cards/EXIFCard";
 import { eXIFCardMock } from "@/test/EXIFCardMock";
+import QnaHowCard from "@/components/cards/QnaHowCard";
+import { qnaHowCardMock } from "@/test/QnaHowCardMock";
 
 export default function Home() {
   const [time, setTime] = useState<string>(eXIFCardMock.timeMeta.value);
@@ -18,6 +20,7 @@ export default function Home() {
   );
   const [timeEditMode, setTimeEditMode] = useState(false);
   const [locationEditMode, setLocationEditMode] = useState(false);
+  const [answer, setAnswer] = useState<string>(qnaHowCardMock.answer);
 
   return (
     <main>
@@ -80,6 +83,17 @@ export default function Home() {
                 setLocation(v);
                 setLocationEditMode(false);
               },
+            }}
+          />
+        </div>
+        <div>
+          <QnaHowCard
+            imageUrl={qnaHowCardMock.imageUrl}
+            question={qnaHowCardMock.question}
+            answer={answer}
+            onSave={(newAnswer) => {
+              setAnswer(newAnswer);
+              qnaHowCardMock.onSave(newAnswer);
             }}
           />
         </div>
