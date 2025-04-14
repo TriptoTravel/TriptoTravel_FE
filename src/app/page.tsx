@@ -4,7 +4,7 @@ import CTAButton from "@/components/buttons/CTAButton";
 import ActionButton from "@/components/buttons/ActionButton";
 import MultiSelectButton from "@/components/buttons/MultiSelectButton";
 import TextFieldBubble from "@/components/common/TextFieldBubble";
-
+import PhotoCard from "@/components/cards/photocard";
 export default function Home() {
   return (
     <main>
@@ -36,6 +36,11 @@ export default function Home() {
           />
         </div>
         <br />
+        <div className="gap-2">
+          <PhotoCard num={9} />
+          <br />
+          <PhotoCard num={13} />
+        </div>
         <CTAButton variation="disabled" label="다음 단계" />
       </div>
       <Footer />
