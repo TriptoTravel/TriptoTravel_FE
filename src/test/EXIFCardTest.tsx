@@ -1,18 +1,18 @@
 'use client'
 
 import { useState } from 'react'
-import PhotoTextCard from './PhotoTextCard'
-import { photoTextCardMock } from './parts/PhotoTextCardMock'
+import EXIFCard from '../components/cards/EXIFCard'
+import { eXIFCardMock } from './EXIFCardMock'
 
-export default function PhotoTextCardTest() {
+export default function EXIFCardTest() {
   const [time, setTime] = useState('')
   const [location, setLocation] = useState('')
   const [timeEditMode, setTimeEditMode] = useState(false)
   const [locationEditMode, setLocationEditMode] = useState(false)
 
   return (
-    <PhotoTextCard
-      imageUrl={photoTextCardMock.imageUrl}
+    <EXIFCard
+      imageUrl={eXIFCardMock.imageUrl}
       timeMeta={{
         value: time,
         state: timeEditMode ? 'edit' : time ? 'default' : 'error',

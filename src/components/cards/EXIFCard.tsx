@@ -1,6 +1,6 @@
-import PhotoTextCardMeta from './parts/PhotoTextCardMeta'
+import EXIFCardMeta from "./parts/EXIFCardMeta"
 
-type PhotoTextCardProps = {
+type EXIFCardProps = {
   imageUrl?: string
   timeMeta: {
     value?: string
@@ -16,7 +16,7 @@ type PhotoTextCardProps = {
   }
 }
 
-export default function PhotoTextCard({ imageUrl, timeMeta, locationMeta }: PhotoTextCardProps) {
+export default function EXIFCard({ imageUrl, timeMeta, locationMeta }: EXIFCardProps) {
   return (
     <div className="w-[360px] bg-white rounded-[40px] shadow-[0px_1px_4px_rgba(0,0,0,0.25)] p-5 flex flex-col gap-4 items-start">
       {/* 사진 */}
@@ -27,7 +27,7 @@ export default function PhotoTextCard({ imageUrl, timeMeta, locationMeta }: Phot
       </div>
 
       {/* 시간 */}
-      <PhotoTextCardMeta
+      <EXIFCardMeta
         label="시간"
         value={timeMeta.value}
         state={timeMeta.state}
@@ -36,7 +36,7 @@ export default function PhotoTextCard({ imageUrl, timeMeta, locationMeta }: Phot
       />
 
       {/* 위치 */}
-      <PhotoTextCardMeta
+      <EXIFCardMeta
         label="위치"
         value={locationMeta.value}
         state={locationMeta.state}

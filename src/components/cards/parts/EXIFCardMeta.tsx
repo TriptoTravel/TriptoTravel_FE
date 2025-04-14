@@ -6,7 +6,7 @@ import ActionButton from '@/components/buttons/ActionButton'
 
 type MetaState = 'default' | 'error' | 'edit'
 
-interface PhotoTextCardMetaProps {
+interface EXIFCardMetaProps {
   label: string
   value?: string
   state?: MetaState
@@ -14,13 +14,13 @@ interface PhotoTextCardMetaProps {
   onSave?: (newValue: string) => void
 }
 
-export default function PhotoTextCardMeta({
+export default function EXIFCardMeta({
   label,
   value,
   state = value ? 'default' : 'error',
   onEdit,
   onSave
-}: PhotoTextCardMetaProps) {
+}: EXIFCardMetaProps) {
   const [inputValue, setInputValue] = useState(value || '')
 
   return (

@@ -1,6 +1,6 @@
 // api 연결 전 mock 데이터입니다.
 
-export const photoTextCardMock = {
+export const eXIFCardMock = {
     imageUrl: '/images/testimage.jpg',
     timeMeta: {
       value: '', // time 정보 없음 (error 상태)

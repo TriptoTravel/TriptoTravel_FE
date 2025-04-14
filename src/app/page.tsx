@@ -8,13 +8,13 @@ import MultiSelectButton from "@/components/buttons/MultiSelectButton";
 import TextFieldBubble from "@/components/common/TextFieldBubble";
 import PhotoCard from "@/components/cards/PhotoCard";
 import TextCard from "@/components/cards/TextCard";
-import PhotoTextCard from "@/components/cards/PhotoTextCard";
-import { photoTextCardMock } from "@/components/cards/parts/PhotoTextCardMock";
+import EXIFCard from "@/components/cards/EXIFCard";
+import { eXIFCardMock } from "@/test/EXIFCardMock";
 
 export default function Home() {
-  const [time, setTime] = useState<string>(photoTextCardMock.timeMeta.value);
+  const [time, setTime] = useState<string>(eXIFCardMock.timeMeta.value);
   const [location, setLocation] = useState<string>(
-    photoTextCardMock.locationMeta.value
+    eXIFCardMock.locationMeta.value
   );
   const [timeEditMode, setTimeEditMode] = useState(false);
   const [locationEditMode, setLocationEditMode] = useState(false);
@@ -61,8 +61,8 @@ export default function Home() {
           />
         </div>
         <div>
-          <PhotoTextCard
-            imageUrl={photoTextCardMock.imageUrl}
+          <EXIFCard
+            imageUrl={eXIFCardMock.imageUrl}
             timeMeta={{
               value: time,
               state: timeEditMode ? "edit" : time ? "default" : "error",
