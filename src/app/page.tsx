@@ -12,8 +12,10 @@ import PhotoTextCard from "@/components/cards/PhotoTextCard";
 import { photoTextCardMock } from "@/components/cards/parts/PhotoTextCardMock";
 
 export default function Home() {
-  const [time, setTime] = useState(photoTextCardMock.timeMeta.value)
-  const [location, setLocation] = useState(photoTextCardMock.locationMeta.value)
+  const [time, setTime] = useState<string>(photoTextCardMock.timeMeta.value);
+  const [location, setLocation] = useState<string>(
+    photoTextCardMock.locationMeta.value
+  );
   const [timeEditMode, setTimeEditMode] = useState(false);
   const [locationEditMode, setLocationEditMode] = useState(false);
 
