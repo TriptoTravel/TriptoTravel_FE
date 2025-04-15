@@ -1,11 +1,11 @@
 import { cn } from '@/utils/cn'
 
-type TextFieldBubbleProps = {
+type TextFieldProps = {
   type: 'instruction' | 'question' | 'answer'
   text: string
 }
 
-export default function TextFieldBubble({ type, text }: TextFieldBubbleProps) {
+export default function TextField({ type, text }: TextFieldProps) {
   const isWithPrefix = type === 'question' || type === 'answer'
   const prefix = type === 'question' ? 'Q' : type === 'answer' ? 'A' : null
 

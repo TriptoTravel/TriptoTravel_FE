@@ -4,7 +4,7 @@ import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 import CTAButton from "@/components/buttons/CTAButton";
 import ActionButton from "@/components/buttons/ActionButton";
-import TextFieldBubble from "@/components/common/TextFieldBubble";
+import TextField from "@/components/common/TextField";
 import MultiPhotoCard from "@/components/cards/MultiPhotoCard";
 import TextCard from "@/components/cards/TextCard";
 import EXIFCard from "@/components/cards/EXIFCard";
@@ -14,6 +14,7 @@ import { qnaHowCardMock } from "@/test/QnaHowCardMock";
 import QnaEmotionCard from "@/components/cards/QnaEmotionCard";
 import LogResultCard from "@/components/cards/LogResultCard";
 import LogEditCard from "@/components/cards/LogEditCard";
+import LogThumbnail from "@/components/common/LogThumbnail";
 
 export default function Home() {
   const [time, setTime] = useState<string>(eXIFCardMock.timeMeta.value);
@@ -35,15 +36,12 @@ export default function Home() {
         </div>
         <br />
         <div className="flex flex-col gap-2">
-          <TextFieldBubble
+          <TextField
             type="instruction"
             text="선호하는 여행기 문체를 선택해 주세요!"
           />
-          <TextFieldBubble
-            type="question"
-            text="이 여행은 누구와 함께 다녀왔나요?"
-          />
-          <TextFieldBubble
+          <TextField type="question" text="이 여행은 누구와 함께 다녀왔나요?" />
+          <TextField
             type="answer"
             text="친한 친구들과 함께 다녀왔어요. 일정도 같이 짜고 되게 신났어요."
           />
@@ -113,9 +111,11 @@ export default function Home() {
             content="친한 친구들과 함께 다녀왔어요. 일정도 같이 짜고 되게 신났어요."
           />
         </div>
+        <div>
+          <LogThumbnail imageUrl="/images/testimage.jpg" />
+        </div>
         <CTAButton variation="disabled" label="다음 단계" />
       </div>
-
       <Footer />
     </main>
   );
