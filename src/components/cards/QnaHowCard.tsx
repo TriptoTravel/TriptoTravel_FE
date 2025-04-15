@@ -1,40 +1,43 @@
-import Image from 'next/image'
-import { useState } from 'react'
-import ActionButton from '../buttons/ActionButton'
+import Image from "next/image";
+import { useState } from "react";
+import ImageModal from "../common/ImageModal";
+import ActionButton from "../buttons/ActionButton";
 
 type QnaHowCardProps = {
-  imageUrl: string
-  question: string
-  answer: string
-  onSave?: (newAnswer: string) => void
-}
+  imageUrl: string;
+  question: string;
+  answer: string;
+  onSave?: (newAnswer: string) => void;
+};
 
 export default function QnaHowCard({
   imageUrl,
   question,
   answer,
-  onSave
+  onSave,
 }: QnaHowCardProps) {
-  const [draft, setDraft] = useState(answer)
-  const [isEditing, setIsEditing] = useState(false)
+  const [draft, setDraft] = useState(answer);
+  const [isEditing, setIsEditing] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <div className="w-[360px] h-[360px] rounded-[40px] bg-white shadow-[0px_1px_4px_rgba(0,0,0,0.25)] p-5 flex flex-col gap-4">
       {/* 이미지 */}
-      <div className="w-full h-40 rounded-[20px] overflow-hidden bg-zinc-300">
-        <Image
-          src={imageUrl}
-          alt="card preview"
-          width={320}
-          height={160}
-          className="w-full h-full object-cover"
-        />
+      <div
+        className="w-[320px] h-[160px] bg-zinc-300 rounded-[20px] overflow-hidden cursor-pointer"
+        onClick={() => setIsModalOpen(true)}
+      >
+        {imageUrl && (
+          <img
+            src={imageUrl}
+            alt="photo"
+            className="w-full h-full object-cover"
+          />
+        )}
       </div>
 
       {/* 질문 */}
-      <p className="text-[16px] font-semibold text-black">
-        {question}
-      </p>
+      <p className="text-[16px] font-semibold text-black">{question}</p>
 
       {/* 답변 */}
       {isEditing ? (
@@ -49,8 +52,8 @@ export default function QnaHowCard({
             <ActionButton
               variation="save"
               onClick={() => {
-                onSave?.(draft)
-                setIsEditing(false)
+                onSave?.(draft);
+                setIsEditing(false);
               }}
             />
           </div>
@@ -70,6 +73,15 @@ export default function QnaHowCard({
           여기에 답변을 작성해 주세요.
         </div>
       )}
+      
+      {/* 이미지 모달 */}
+      {imageUrl && (
+        <ImageModal
+          imageUrl={imageUrl}
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+        />
+      )}
     </div>
-  )
+  );
 }

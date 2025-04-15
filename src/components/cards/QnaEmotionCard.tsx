@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useState } from "react";
+import ImageModal from "../common/ImageModal";
 import MultiSelectButton from "../buttons/MultiSelectButton";
 
 const EMOTIONS = [
@@ -27,6 +28,7 @@ const EMOTIONS = [
 
 export default function QnaEmotionCard({ imageUrl }: { imageUrl: string }) {
   const [selected, setSelected] = useState<string[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleEmotion = (emotion: string) => {
     if (selected.includes(emotion)) {
@@ -39,14 +41,17 @@ export default function QnaEmotionCard({ imageUrl }: { imageUrl: string }) {
   return (
     <div className="w-[360px] rounded-[40px] bg-white shadow-[0px_1px_4px_rgba(0,0,0,0.25)] p-5 flex flex-col gap-4">
       {/* 이미지 */}
-      <div className="w-full h-40 rounded-[20px] overflow-hidden bg-zinc-300">
-        <Image
-          src={imageUrl}
-          alt="card preview"
-          width={320}
-          height={160}
-          className="w-full h-full object-cover"
-        />
+      <div
+        className="w-[320px] h-[160px] bg-zinc-300 rounded-[20px] overflow-hidden cursor-pointer"
+        onClick={() => setIsModalOpen(true)}
+      >
+        {imageUrl && (
+          <img
+            src={imageUrl}
+            alt="photo"
+            className="w-full h-full object-cover"
+          />
+        )}
       </div>
 
       {/* 질문 */}
@@ -71,6 +76,15 @@ export default function QnaEmotionCard({ imageUrl }: { imageUrl: string }) {
           );
         })}
       </div>
+
+      {/* 이미지 모달 */}
+      {imageUrl && (
+        <ImageModal
+          imageUrl={imageUrl}
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+        />
+      )}
     </div>
   );
 }
