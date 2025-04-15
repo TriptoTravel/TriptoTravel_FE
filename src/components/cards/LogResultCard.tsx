@@ -5,7 +5,7 @@ import SinglePhotoCard from './SinglePhotoCard'
 import TextCard from './TextCard'
 import { cn } from '@/utils/cn'
 
-type LogCardProps = {
+type LogResultCardProps = {
   photoCardProps: {
     imageUrl: string
   }
@@ -15,7 +15,7 @@ type LogCardProps = {
   }
 }
 
-export default function LogCard({ photoCardProps, textCardProps }: LogCardProps) {
+export default function LogResultCard({ photoCardProps, textCardProps }: LogResultCardProps) {
   const [showPhoto, setShowPhoto] = useState(true)
 
   return (

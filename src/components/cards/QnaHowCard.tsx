@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useState } from "react";
-import ImageModal from "../common/ImageModal";
+import ImageModal from "./parts/ImageModal";
 import ActionButton from "../buttons/ActionButton";
 
 type QnaHowCardProps = {
@@ -37,13 +37,13 @@ export default function QnaHowCard({
       </div>
 
       {/* 질문 */}
-      <p className="text-[16px] font-semibold text-black">{question}</p>
+      <p className="text-base font-semibold text-black">{question}</p>
 
       {/* 답변 */}
       {isEditing ? (
         <div className="relative">
           <textarea
-            className="w-full h-20 p-4 resize-none rounded-[20px] bg-zinc-300 text-black text-[16px] font-medium focus:outline-none"
+            className="w-full h-20 p-4 resize-none rounded-[20px] bg-zinc-300 text-black text-base font-medium focus:outline-none"
             value={draft}
             onChange={(e) => setDraft(e.target.value)}
             placeholder="예시 답안 제공할건가요?"
@@ -60,14 +60,14 @@ export default function QnaHowCard({
         </div>
       ) : answer ? (
         <p
-          className="w-full text-black text-[16px] font-medium"
+          className="w-full text-black text-base font-medium"
           onClick={() => setIsEditing(true)}
         >
           {answer}
         </p>
       ) : (
         <div
-          className="w-full h-20 p-4 rounded-[20px] bg-zinc-300 flex px-4 text-black text-[16px] font-medium cursor-pointer"
+          className="w-full h-20 p-4 rounded-[20px] bg-zinc-300 flex px-4 text-black text-base font-medium cursor-pointer"
           onClick={() => setIsEditing(true)}
         >
           여기에 답변을 작성해 주세요.

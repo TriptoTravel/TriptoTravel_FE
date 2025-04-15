@@ -1,6 +1,6 @@
 import { useState } from "react";
 import EXIFCardMeta from "./parts/EXIFCardMeta";
-import ImageModal from "../common/ImageModal";
+import ImageModal from "./parts/ImageModal";
 
 type EXIFCardProps = {
   imageUrl?: string;

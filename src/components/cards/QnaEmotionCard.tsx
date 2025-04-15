@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useState } from "react";
-import ImageModal from "../common/ImageModal";
+import ImageModal from "./parts/ImageModal";
 import MultiSelectButton from "../buttons/MultiSelectButton";
 
 const EMOTIONS = [
@@ -55,7 +55,7 @@ export default function QnaEmotionCard({ imageUrl }: { imageUrl: string }) {
       </div>
 
       {/* 질문 */}
-      <p className="text-[16px] font-semibold text-black">
+      <p className="text-base font-semibold text-black">
         이 사진을 찍었을 때 느낀 감정은 무엇인가요?
       </p>
 
