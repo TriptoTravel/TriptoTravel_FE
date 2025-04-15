@@ -4,7 +4,6 @@ import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 import CTAButton from "@/components/buttons/CTAButton";
 import ActionButton from "@/components/buttons/ActionButton";
-import MultiSelectButton from "@/components/buttons/MultiSelectButton";
 import TextFieldBubble from "@/components/common/TextFieldBubble";
 import PhotoCard from "@/components/cards/PhotoCard";
 import TextCard from "@/components/cards/TextCard";
@@ -12,6 +11,7 @@ import EXIFCard from "@/components/cards/EXIFCard";
 import { eXIFCardMock } from "@/test/EXIFCardMock";
 import QnaHowCard from "@/components/cards/QnaHowCard";
 import { qnaHowCardMock } from "@/test/QnaHowCardMock";
+import QnaEmotionCard from "@/components/cards/QnaEmotionCard";
 
 export default function Home() {
   const [time, setTime] = useState<string>(eXIFCardMock.timeMeta.value);
@@ -26,11 +26,6 @@ export default function Home() {
     <main>
       <Header variation="type-back" />
       <div className="my-6 p-2">
-        <div className="flex gap-2 my-3">
-          <MultiSelectButton variation="default" label="친구와" />
-          <MultiSelectButton variation="unselected" label="친구와" />
-          <MultiSelectButton variation="selected" label="친구와" />
-        </div>
         <div className="flex gap-2">
           <ActionButton variation="edit" />
           <ActionButton variation="delete" />
@@ -96,6 +91,9 @@ export default function Home() {
               qnaHowCardMock.onSave(newAnswer);
             }}
           />
+        </div>
+        <div>
+          <QnaEmotionCard imageUrl="/images/testimage.jpg" />
         </div>
         <CTAButton variation="disabled" label="다음 단계" />
       </div>

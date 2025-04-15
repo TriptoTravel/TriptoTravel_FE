@@ -1,7 +1,7 @@
 import { cn } from "@/utils/cn";
 
 type MultiSelectButtonProps = {
-  variation: "default" | "unselected" | "selected";
+  variation: "default" | "unable" | "selected";
   label: string;
   onClick?: () => void;
 };
@@ -16,7 +16,7 @@ export default function MultiSelectButton({
       bg: "bg-white",
       text: "text-black",
     },
-    unselected: {
+    unable: {
       bg: "bg-gray-100",
       text: "text-neutral-400",
     },
@@ -30,11 +30,12 @@ export default function MultiSelectButton({
 
   return (
     <button
-      onClick={onClick}
+      onClick={variation === "unable" ? undefined : onClick}
       className={cn(
-        "h-7 px-4 rounded-[40px] shadow-[0px_1px_4px_rgba(0,0,0,0.25)] flex items-center justify-center text-xxs font-semibold font-pretendard leading-[7.2px]",
+        "h-7 px-2 rounded-[40px] shadow-[0px_1px_4px_rgba(0,0,0,0.25)] flex items-center justify-center text-[14px] font-semibold font-pretendard leading-[7.2px]",
         current.bg,
-        current.text
+        current.text,
+        variation === "unable" && "cursor-not-allowed opacity-50"
       )}
     >
       {label}
