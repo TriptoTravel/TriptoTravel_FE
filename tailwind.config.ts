@@ -26,7 +26,14 @@ const config: Config = {
         medium: '500',
         semibold: '600',
         bold: '700'
-      }
+      },
+      rotate: {
+        'y-180': '180deg',
+      },
+      transformOrigin: {
+        'center': 'center',
+      },
+      transform: ['hover', 'focus'],
     }
   },
   plugins: []

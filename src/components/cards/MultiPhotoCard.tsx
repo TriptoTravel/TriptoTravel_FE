@@ -1,11 +1,11 @@
 import React from "react";
 import { cn } from "@/utils/cn";
 
-type PhotoCardMultiProps = {
+type MultiPhotoCardProps = {
   num: number;
 };
 
-export default function PhotoCardMulti({ num }: PhotoCardMultiProps) {
+export default function MultiPhotoCard({ num }: MultiPhotoCardProps) {
   const photos = Array.from({ length: num });
 
   const getRadiusClass = (index: number) => {
