@@ -5,13 +5,14 @@ import Footer from "@/components/common/Footer";
 import CTAButton from "@/components/buttons/CTAButton";
 import ActionButton from "@/components/buttons/ActionButton";
 import TextFieldBubble from "@/components/common/TextFieldBubble";
-import PhotoCard from "@/components/cards/PhotoCard";
+import PhotoCardMulti from "@/components/cards/PhotoCardMulti";
 import TextCard from "@/components/cards/TextCard";
 import EXIFCard from "@/components/cards/EXIFCard";
 import { eXIFCardMock } from "@/test/EXIFCardMock";
 import QnaHowCard from "@/components/cards/QnaHowCard";
 import { qnaHowCardMock } from "@/test/QnaHowCardMock";
 import QnaEmotionCard from "@/components/cards/QnaEmotionCard";
+import PhotoCardSingle from "@/components/cards/PhotoCardSingle";
 
 export default function Home() {
   const [time, setTime] = useState<string>(eXIFCardMock.timeMeta.value);
@@ -48,9 +49,7 @@ export default function Home() {
         </div>
         <br />
         <div>
-          <PhotoCard num={9} />
-          <br />
-          <PhotoCard num={13} />
+          <PhotoCardMulti num={13} />
         </div>
         <div>
           <TextCard
@@ -94,6 +93,9 @@ export default function Home() {
         </div>
         <div>
           <QnaEmotionCard imageUrl="/images/testimage.jpg" />
+        </div>
+        <div>
+          <PhotoCardSingle imageUrl="/images/testimage.jpg" />
         </div>
         <CTAButton variation="disabled" label="다음 단계" />
       </div>
