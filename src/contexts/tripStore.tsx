@@ -1,6 +1,7 @@
 /**
  * Trip to Travel 서비스 전반에서 사용할 데이터를 전역 상태로 관리하는 Context입니다.
  * 사용자 선택 정보를 단계별로 전역 저장하여 페이지 전환 간 정보가 유지되도록 합니다.
+ * context + provider + hook
 */
 'use client'
 
