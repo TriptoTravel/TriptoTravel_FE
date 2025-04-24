@@ -25,7 +25,7 @@ export default function StylePage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-start items-center bg-white">
+    <div className="min-h-screen flex flex-col justify-between bg-white">
       <Header variation="type-back" />
 
       <main className="flex flex-col items-center justify-center my-[60px]">

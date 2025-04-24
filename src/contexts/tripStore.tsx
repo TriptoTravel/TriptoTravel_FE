@@ -23,11 +23,11 @@ type TripContextType = {
 
   // WHO
   who: TripCompanion | null
-  setWho: (companion: TripCompanion) => void
+  setWho: React.Dispatch<React.SetStateAction<TripCompanion | null>>
 
   // WHY
   why: TripPurpose[]
-  setWhy: (purposes: TripPurpose[]) => void
+  setWhy: React.Dispatch<React.SetStateAction<TripPurpose[]>>
 
   // 사진 개수
   photoCount: number | null

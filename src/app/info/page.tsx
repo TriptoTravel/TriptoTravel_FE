@@ -1,24 +1,98 @@
 "use client";
-import Header from "@/components/common/Header";
 
 import { useTrip } from "@/contexts/tripStore";
+import { useRouter } from "next/navigation";
+import Header from "@/components/common/Header";
+import Footer from "@/components/common/Footer";
+import TextField from "@/components/common/TextField";
+import MultiSelectButton from "@/components/buttons/MultiSelectButton";
+import CTAButton from "@/components/buttons/CTAButton";
+import type { TripCompanion, TripPurpose } from "@/contexts/types";
+
+const companionOptions: TripCompanion[] = [
+  "혼자",
+  "친구와",
+  "연인과",
+  "배우자와",
+  "아이와",
+  "부모님과",
+  "기타",
+];
+
+const purposeOptions: TripPurpose[] = [
+  "체험 액티비티",
+  "SNS 핫플레이스",
+  "자연과 함께",
+  "유명 관광지는 필수",
+  "여유롭게 힐링",
+  "문화 예술 역사",
+  "여행지 느낌 물씬",
+  "쇼핑은 열정적으로",
+  "관광보다 먹방",
+  "기타",
+];
 
 export default function InfoPage() {
-  const { style } = useTrip();
+  const { who, setWho, why, setWhy } = useTrip();
+  const router = useRouter();
+
+  const handleWhoClick = (option: TripCompanion) => {
+    setWho((prev) => (prev === option ? null : option));
+  };
+
+  const handleWhyClick = (option: TripPurpose) => {
+    setWhy((prev) =>
+      prev.includes(option)
+        ? prev.filter((item) => item !== option)
+        : [...prev, option]
+    );
+  };
+
+  const handleNext = () => {
+    router.push("/upload");
+  };
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+    <div className="min-h-screen flex flex-col justify-between bg-white">
       <Header variation="type-back" />
 
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <p>triptotravel</p>
-          <p className="text-sm text-gray-500">
-            선택한 문체 스타일: {style ?? "없음"}
-          </p>
-        </div>
+      <main className="flex flex-col items-center justify-center my-[60px] gap-[60px]">
+        <section className="flex flex-col items-start gap-[30px]">
+          <TextField type="question" text="누구와 함께 한 여행인가요?" />
+          <div className="flex flex-wrap gap-[10px] max-w-[300px]">
+            {companionOptions.map((option) => (
+              <MultiSelectButton
+                key={option}
+                label={option}
+                variation={who === option ? "selected" : "default"}
+                onClick={() => handleWhoClick(option)}
+              />
+            ))}
+          </div>
+        </section>
+
+        <section className="flex flex-col items-start gap-[30px]">
+          <TextField type="question" text="왜 이 여행을 떠나게 되었나요?" />
+          <div className="flex flex-wrap gap-[10px] max-w-[360px]">
+            {purposeOptions.map((option) => (
+              <MultiSelectButton
+                key={option}
+                label={option}
+                variation={why.includes(option) ? "selected" : "default"}
+                onClick={() => handleWhyClick(option)}
+              />
+            ))}
+          </div>
+        </section>
+
+        <CTAButton
+          variation={who && why.length > 0 ? "black" : "disabled"}
+          label="다음 단계"
+          onClick={handleNext}
+        />
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center"></footer>
+
+      <Footer />
     </div>
   );
 }
