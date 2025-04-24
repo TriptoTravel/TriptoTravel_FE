@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { cn } from "@/utils/cn";
 
 type HeaderProps = {
   variation: "type" | "combine" | "type-back" | "combine-back";
@@ -20,13 +19,19 @@ export default function Header({ variation }: HeaderProps) {
       {isBack && (
         <button
           onClick={() => router.back()}
-          className="absolute left-2 w-6 h-6"
+          className="absolute left-2 w-6 h-11"
         >
-          <Image src="/icons/Move.svg" alt="뒤로가기" width={24} height={24} className="rotate-180" />
+          <Image
+            src="/icons/Move.svg"
+            alt="뒤로가기"
+            width={24}
+            height={24}
+            className="rotate-180"
+          />
         </button>
       )}
 
-      <div className="absolute inset-0 flex top-2 justify-center">
+      <div className="flex pt-1 w-[180px] inset-0 justify-center">
         <Image
           src={logoSrc}
           alt="로고"
