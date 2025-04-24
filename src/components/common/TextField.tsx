@@ -12,7 +12,7 @@ export default function TextField({ type, text }: TextFieldProps) {
   return (
     <div
       className={cn(
-        'w-96 min-h-14 bg-gray-100 rounded-[40px] border shadow-[0px_1px_4px_rgba(0,0,0,0.25)]',
+        'w-[360px] min-h-14 bg-gray-100 rounded-[40px] border shadow-[0px_1px_4px_rgba(0,0,0,0.25)]',
         'flex items-center px-5 py-3 gap-3'
       )}
     >

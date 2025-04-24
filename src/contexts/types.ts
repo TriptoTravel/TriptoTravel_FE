@@ -4,7 +4,7 @@
  */
 
 // 여행기 문체 스타일 타입
-export type TripStyle = "감성형" | "정보형" | "요약형";
+export type TripStyle = 'default' | "감성형" | "정보형" | "요약형";
 
 // 여행 동행자 타입
 export type TripCompanion =
@@ -21,7 +21,7 @@ export type TripPurpose =
   | "체험 액티비티"
   | "SNS 핫플레이스"
   | "자연과 함께"
-  | "유명 관광지 필수"
+  | "유명 관광지는 필수"
   | "여유롭게 힐링"
   | "문화 예술 역사"
   | "여행지 느낌 물씬"
