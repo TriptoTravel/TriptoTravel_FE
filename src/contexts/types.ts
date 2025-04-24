@@ -4,7 +4,7 @@
  */
 
 // 여행기 문체 스타일 타입
-export type TripStyle = "감성형" | "정보형" | "요약형";
+export type TripStyle = 'default' | "감성형" | "정보형" | "요약형";
 
 // 여행 동행자 타입
 export type TripCompanion =

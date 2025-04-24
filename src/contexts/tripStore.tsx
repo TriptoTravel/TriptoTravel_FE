@@ -18,7 +18,7 @@ import type {
 // 전역 상태로 관리할 변수들과 각 setter 함수 타입 정의
 type TripContextType = {
   // 문체 스타일
-  style: TripStyle | null 
+  style: TripStyle 
   setStyle: (style: TripStyle) => void
 
   // WHO
@@ -52,7 +52,7 @@ const TripContext = createContext<TripContextType | undefined>(undefined)
 // TripProvider: 전역 상태를 관리하며 하위 컴포넌트에 context 값을 공급하는 Provider
 export function TripProvider({ children }: { children: React.ReactNode }) {
   // 각 항복에 대한 상태 선언
-  const [style, setStyle] = useState<TripStyle | null>(null)
+  const [style, setStyle] = useState<TripStyle>('default')
   const [who, setWho] = useState<TripCompanion | null>(null)
   const [why, setWhy] = useState<TripPurpose[]>([])
   const [photoCount, setPhotoCount] = useState<number | null>(null)
