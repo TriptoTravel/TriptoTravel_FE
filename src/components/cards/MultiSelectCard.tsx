@@ -30,7 +30,7 @@ export default function MultiSelectCard({ images, selectedIndices, onToggle }: M
   };
 
   return (
-    <div className="w-[360px] inline-block bg-white rounded-[40px] shadow-[0px_1px_4px_rgba(0,0,0,0.25)] p-5">
+    <div className="w-[360px] inline-block bg-white rounded-[40px] shadow-[0px_1px_4px_rgba(0,0,0,0.25)] mb-[30px] p-5">
       <div className="grid grid-cols-3 gap-[10px] justify-center">
         {images.map((src, idx) => {
           const isSelected = selectedIndices.includes(idx);
