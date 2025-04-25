@@ -2,14 +2,12 @@ import React from "react";
 import { cn } from "@/utils/cn";
 
 type MultiPhotoCardProps = {
-  num: number;
+  images: string[];
 };
 
-export default function MultiPhotoCard({ num }: MultiPhotoCardProps) {
-  const photos = Array.from({ length: num });
-
+export default function MultiPhotoCard({ images }: MultiPhotoCardProps) {
   const getRadiusClass = (index: number) => {
-    const rowCount = Math.ceil(num / 3);
+    const rowCount = Math.ceil(images.length / 3);
     const row = Math.floor(index / 3);
     const col = index % 3;
 
@@ -29,10 +27,15 @@ export default function MultiPhotoCard({ num }: MultiPhotoCardProps) {
   return (
     <div className="w-[360px] inline-block bg-white rounded-[40px] shadow-[0px_1px_4px_rgba(0,0,0,0.25)] p-5">
       <div className="grid grid-cols-3 gap-[10px] justify-center">
-        {photos.map((_, idx) => (
-          <div
+        {images.map((src, idx) => (
+          <img
             key={idx}
-            className={cn("w-[100px] h-[100px] bg-zinc-300", getRadiusClass(idx))}
+            src={src}
+            alt={`photo-${idx}`}
+            className={cn(
+              "w-[100px] h-[100px] object-cover",
+              getRadiusClass(idx)
+            )}
           />
         ))}
       </div>
