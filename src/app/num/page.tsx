@@ -2,20 +2,25 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTrip } from "@/contexts/tripStore";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 import TextField from "@/components/common/TextField";
 import SingleSelectButton from "@/components/buttons/SingleSelectButton";
 import CTAButton from "@/components/buttons/CTAButton";
 
+const numOptions = [5, 10, 15, 20];
+
 export default function NumPage() {
   const router = useRouter();
-  const [selected, setSelected] = useState<string | null>(null);
-
-  const options = ["1 ~ 5", "6 ~ 10", "11 ~ 15", "16 ~ 20"];
+  const [selected, setSelected] = useState<number | null>(null);
+  const { setPhotoCount } = useTrip();
 
   const handleNext = () => {
-    router.push("/sort");
+    if (selected !== null) {
+      setPhotoCount(selected);
+      router.push("/sort");
+    }
   };
 
   return (
@@ -29,12 +34,12 @@ export default function NumPage() {
         />
 
         <div className="flex gap-2 w-full items-start mt-[60px] mb-[314px]">
-          {options.map((option) => (
+          {numOptions.map((num) => (
             <SingleSelectButton
-              key={option}
-              label={option}
-              isSelected={selected === option}
-              onClick={() => setSelected(option === selected ? null : option)}
+              key={num}
+              label={`${num - 4} ~ ${num}`}
+              isSelected={selected === num}
+              onClick={() => setSelected((prev) => (prev === num ? null : num))}
             />
           ))}
         </div>
