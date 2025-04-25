@@ -12,7 +12,7 @@ export default function UploadIconButton({ onUpload }: UploadIconButtonProps) {
   }
 
   return (
-    <div className="relative">
+    <div className="flex flex-col items-center justify-center gap-5">
       <input
         type="file"
         id="upload"
@@ -28,6 +28,7 @@ export default function UploadIconButton({ onUpload }: UploadIconButtonProps) {
       >
         업로드 아이콘
       </label>
+      <p className="text-[18px] font-semibold text-center w-full">아이콘을 클릭해<br/>사진을 업로드하세요</p>
     </div>
   )
 }
