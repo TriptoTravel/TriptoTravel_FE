@@ -13,8 +13,8 @@ const numOptions = [5, 10, 15, 20];
 
 export default function NumPage() {
   const router = useRouter();
-  const [selected, setSelected] = useState<number | null>(null);
-  const { setPhotoCount } = useTrip();
+  const { photoCount, setPhotoCount } = useTrip();
+  const [selected, setSelected] = useState<number | null>(photoCount);
 
   const handleNext = () => {
     if (selected !== null) {
