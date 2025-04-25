@@ -5,16 +5,11 @@ import { cn } from "@/utils/cn";
 
 type MultiSelectCardProps = {
   images: string[];
+  selectedIndices: number[];
+  onToggle: (index: number) => void;
 };
 
-export default function MultiSelectCard({ images }: MultiSelectCardProps) {
-  const [selectedIndices, setSelectedIndices] = useState<number[]>([]);
-
-  const toggleSelection = (index: number) => {
-    setSelectedIndices((prev) =>
-      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
-    );
-  };
+export default function MultiSelectCard({ images, selectedIndices, onToggle }: MultiSelectCardProps) {
 
   const getRadiusClass = (index: number) => {
     const rowCount = Math.ceil(images.length / 3);
@@ -43,11 +38,11 @@ export default function MultiSelectCard({ images }: MultiSelectCardProps) {
             <div
               key={idx}
               className={cn(
-                "w-[100px] h-[100px] overflow-hidden",
+                'w-[100px] h-[100px] overflow-hidden',
                 getRadiusClass(idx),
-                isSelected && "border border-black"
+                isSelected && 'border border-black'
               )}
-              onClick={() => toggleSelection(idx)}
+              onClick={() => onToggle(idx)}
             >
               <img
                 src={src}
