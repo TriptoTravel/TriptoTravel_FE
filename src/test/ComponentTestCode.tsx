@@ -5,7 +5,6 @@ import Footer from "@/components/common/Footer";
 import CTAButton from "@/components/buttons/CTAButton";
 import ActionButton from "@/components/buttons/ActionButton";
 import TextField from "@/components/common/TextField";
-import MultiPhotoCard from "@/components/cards/MultiPhotoCard";
 import TextCard from "@/components/cards/TextCard";
 import EXIFCard from "@/components/cards/EXIFCard";
 import { eXIFCardMock } from "@/test/EXIFCardMock";
@@ -47,9 +46,6 @@ export default function Home() {
           />
         </div>
         <br />
-        <div>
-          <MultiPhotoCard num={13} />
-        </div>
         <div>
           <TextCard
             title="여행의 시작"
