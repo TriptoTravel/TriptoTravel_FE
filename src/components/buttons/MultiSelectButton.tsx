@@ -32,7 +32,7 @@ export default function MultiSelectButton({
     <button
       onClick={variation === "unable" ? undefined : onClick}
       className={cn(
-        "h-7 px-4 rounded-[40px] shadow-[0px_1px_4px_rgba(0,0,0,0.25)] flex items-center justify-center text-[12px] font-semibold font-pretendard",
+        "h-7 px-3 rounded-[40px] shadow-[0px_1px_4px_rgba(0,0,0,0.25)] flex items-center justify-center text-[12px] font-semibold font-pretendard",
         current.bg,
         current.text,
         variation === "unable" && "cursor-not-allowed opacity-50"
