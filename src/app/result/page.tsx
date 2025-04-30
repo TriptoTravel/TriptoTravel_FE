@@ -1,13 +1,38 @@
-export default function Home() {
-    return (
-      <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-        <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-          <div className="flex gap-4 items-center flex-col sm:flex-row">
-            <p>triptotravel</p>
-          </div>
-        </main>
-        <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        </footer>
-      </div>
-    );
-  }
+"use client";
+
+import { useRouter } from "next/navigation";
+import Header from "@/components/common/Header";
+import Footer from "@/components/common/Footer";
+import TextField from "@/components/common/TextField";
+import LogEditCard from "@/components/cards/LogEditCard";
+import CTAButton from "@/components/buttons/CTAButton";
+
+export default function ResultPage() {
+  const router = useRouter();
+
+  const handleNext = () => {
+    router.push("/result");
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col justify-between bg-white">
+      <Header variation="type-back" />
+
+      <main className="flex flex-col items-center justify-center my-[60px] gap-[60px]">
+        <TextField
+          type="instruction"
+          text="여행기 생성이 완료되었습니다! 내용을 확인하고 자유롭게 수정하세요."
+        />
+        <section className="w-full flex flex-col gap-[30px] items-center">
+          <LogEditCard
+            imageUrl="/images/testimage.jpg"
+            content="친한 친구들과 함께 다녀왔어요. 일정도 같이 짜고 되게 신났어요."
+          />
+        </section>
+        <CTAButton variation="black" label="다음 단계" onClick={handleNext} />
+      </main>
+
+      <Footer />
+    </div>
+  );
+}
