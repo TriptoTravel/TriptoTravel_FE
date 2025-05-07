@@ -1,6 +1,6 @@
 // GET, POST 응답으로 받을 타입
 
-export type UploadImageResponse = {
+export type PostImageResponse = {
   image_id: number;
   travelogue_image_id: number;
   file_name: string;
@@ -11,7 +11,7 @@ export type UploadImageResponse = {
   is_in_travelogue: boolean;
 };
 
-export type UploadWhoWhyResponse = {
+export type PostWhoWhyResponse = {
   purpose_list: {
     purpose_id: number;
     travelogue_id: number;

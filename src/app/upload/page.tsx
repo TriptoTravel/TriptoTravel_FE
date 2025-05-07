@@ -7,7 +7,7 @@ import Footer from "@/components/common/Footer";
 import UploadIconButton from "@/components/buttons/UploadIconButton";
 import MultiPhotoCard from "@/components/cards/MultiPhotoCard";
 import CTAButton from "@/components/buttons/CTAButton";
-import { uploadImages } from "@/api/travelogue";
+import { postImages } from "@/api/travelogue";
 import { useTrip } from "@/contexts/tripStore";
 
 export default function UploadPage() {
@@ -19,7 +19,7 @@ export default function UploadPage() {
     if (!travelogueId) return alert("여행기가 없습니다");
 
     try {
-      await uploadImages(travelogueId, images);
+      await postImages(travelogueId, images);
       router.push("/num");
     } catch (err) {
       alert("이미지 업로드에 실패했습니다");

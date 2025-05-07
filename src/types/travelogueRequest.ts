@@ -4,7 +4,7 @@ export type createTravelogueRequest = {
   style_category: number;
 };
 
-export type UploadWhoWhyRequest = {
+export type PostWhoWhyRequest = {
   who: number[];
   purpose_category: number[];
 };

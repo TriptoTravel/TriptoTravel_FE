@@ -4,7 +4,7 @@ import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 import CTAButton from "@/components/buttons/CTAButton";
 import { useRouter } from "next/navigation";
-import { createTravelogue } from "@/api/travelogue";
+import { postTravelogue } from "@/api/travelogue";
 import { useTrip } from "@/contexts/tripStore";
 
 export default function HomePage() {
@@ -13,7 +13,7 @@ export default function HomePage() {
 
   const handleStart = async () => {
     try {
-      const response = await createTravelogue();
+      const response = await postTravelogue();
       console.log("생성된 여행기:", response);
       setTravelogueId(response.travelogue_id);
       router.push("/style");
