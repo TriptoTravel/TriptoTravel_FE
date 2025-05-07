@@ -3,6 +3,9 @@
  * 필요한 enum이나 유틸 타입도 여기 포함
  */
 
+// 여행기 튜플 아이디 타입
+export type TravelogueId = number | null;
+
 // 여행기 문체 스타일 타입
 export type TripStyle = 'default' | "감성형" | "정보형" | "요약형";
 
