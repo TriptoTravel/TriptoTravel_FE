@@ -1,9 +1,11 @@
 import axios from "axios";
 
-export const instance = axios.create({
-  baseURL: "http://hzeuoicgfl.us14.qoddiapp.com",
+const axiosInstance = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
   withCredentials: true,
 });
+
+export default axiosInstance;
