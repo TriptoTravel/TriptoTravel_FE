@@ -1,15 +1,15 @@
 import axiosInstance from "./axiosInstance";
-import type { UploadImageResponse } from "@/types/travelogue";
+import type { UploadImageResponse } from "@/types/travelogueResponse";
+import type { UploadWhoWhyRequest } from "@/types/travelogueRequest";
+import type { UploadWhoWhyResponse } from "@/types/travelogueResponse";
 
 // 여행기 생성 POST /api/travelogue
-
 export async function createTravelogue() {
   const response = await axiosInstance.post("/api/travelogue");
   return response.data;
 }
 
 // 여행기 수정 PATCH /api/travelogue/{travelogue_id}
-
 export async function updateTravelogueStyle(
   travelogueId: number,
   styleCategory: number
@@ -52,15 +52,13 @@ export async function uploadImages(
   return res.json();
 }
 
-type WhoWhyPayload = {
-  who: number[];
-  purpose_category: number[];
-};
-
-export async function uploadWhoWhy(travelogueId: number, data: WhoWhyPayload) {
-  const response = await axiosInstance.post(
-    `/api/travelogue/${travelogueId}/info`,
+export const uploadWhoWhy = async (
+  travelogueId: number,
+  data: UploadWhoWhyRequest
+): Promise<UploadWhoWhyResponse> => {
+  const response = await axiosInstance.post<UploadWhoWhyResponse>(
+    `/api/travelogue/${travelogueId}/question`,
     data
   );
   return response.data;
-}
+};

@@ -1,0 +1,25 @@
+// GET, POST 응답으로 받을 타입
+
+export type UploadImageResponse = {
+  image_id: number;
+  travelogue_image_id: number;
+  file_name: string;
+  uri: string;
+  caption: string;
+  draft: boolean;
+  final: boolean;
+  is_in_travelogue: boolean;
+};
+
+export type UploadWhoWhyResponse = {
+  purpose_list: {
+    purpose_id: number;
+    travelogue_id: number;
+    purpose_category: number;
+  }[];
+  travel_question_response_list: {
+    image_question_response_id: number;
+    travelogue_id: number;
+    who: string[];
+  }[];
+};
