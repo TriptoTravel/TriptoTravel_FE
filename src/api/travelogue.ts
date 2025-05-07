@@ -1,3 +1,5 @@
+import type { UploadImageResponse } from "@/types/travelogue";
+
 // 여행기 생성 POST /api/travelogue
 export async function createTravelogue() {
   try {
@@ -76,4 +78,25 @@ export async function getTravelogueById(travelogue_id: number) {
     console.error("Error fetching travelogue:", error);
     throw error;
   }
+}
+
+// 이미지 업로드 POST /api/image/upload
+export async function uploadImages(
+  travelogueId: number,
+  files: File[]
+): Promise<UploadImageResponse[]> {
+  const formData = new FormData();
+  formData.append("travelogue_id", travelogueId.toString());
+  files.forEach((file) => formData.append("files", file));
+
+  const res = await fetch("/api/image/upload", {
+    method: "POST",
+    body: formData,
+  });
+
+  if (!res.ok) {
+    throw new Error("이미지 업로드 실패");
+  }
+
+  return res.json();
 }
