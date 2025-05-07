@@ -9,19 +9,37 @@ import StyleCard from "@/components/cards/StyleCard";
 import SingleSelectButton from "@/components/buttons/SingleSelectButton";
 import CTAButton from "@/components/buttons/CTAButton";
 import type { TripStyle } from "@/contexts/types";
+import { updateTravelogueStyle } from "@/api/travelogue";
 
-const styleOptions: Exclude<TripStyle, 'default'>[] = ['정보형', '요약형', '감성형']
+const styleOptions: Exclude<TripStyle, "default">[] = [
+  "정보형",
+  "요약형",
+  "감성형",
+];
+
+const styleIndexMap: Record<Exclude<TripStyle, "default">, number> = {
+  정보형: 1,
+  요약형: 2,
+  감성형: 3,
+};
 
 export default function StylePage() {
-  const { style, setStyle } = useTrip();
+  const { style, setStyle, travelogueId } = useTrip();
   const router = useRouter();
 
   const handleSelect = (option: TripStyle) => {
-    setStyle(style === option ? 'default' : option)
-  }
+    setStyle(style === option ? "default" : option);
+  };
 
-  const handleNext = () => {
-    router.push("/info");
+  const handleNext = async () => {
+    if (style === "default" || !travelogueId) return;
+
+    try {
+      await updateTravelogueStyle(travelogueId, styleIndexMap[style]);
+      router.push("/info");
+    } catch (err) {
+      console.error("여행기 스타일 업데이트 실패:", err);
+    }
   };
 
   return (
@@ -41,14 +59,14 @@ export default function StylePage() {
                 key={option}
                 label={option}
                 isSelected={style === option}
-                onClick={() => handleSelect(option)}                
+                onClick={() => handleSelect(option)}
               />
             ))}
           </div>
         </div>
 
         <CTAButton
-          variation={style !== 'default' ? 'black' : 'disabled'}
+          variation={style !== "default" ? "black" : "disabled"}
           label="다음 단계"
           onClick={handleNext}
         />
