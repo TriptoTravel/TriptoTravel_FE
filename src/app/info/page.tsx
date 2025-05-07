@@ -16,21 +16,9 @@ const companionOptions: TripCompanion[] = [
   "배우자와",
   "아이와",
   "부모님과",
-  "기타",
 ];
 
-const purposeOptions: TripPurpose[] = [
-  "체험 액티비티",
-  "SNS 핫플레이스",
-  "자연과 함께",
-  "유명 관광지는 필수",
-  "여유롭게 힐링",
-  "문화 예술 역사",
-  "여행지 느낌 물씬",
-  "쇼핑은 열정적으로",
-  "관광보다 먹방",
-  "기타",
-];
+const purposeOptions: TripPurpose[] = ["음식", "자연", "역사", "액티비티"];
 
 export default function InfoPage() {
   const { who, setWho, why, setWhy } = useTrip();
