@@ -9,7 +9,7 @@ import StyleCard from "@/components/cards/StyleCard";
 import SingleSelectButton from "@/components/buttons/SingleSelectButton";
 import CTAButton from "@/components/buttons/CTAButton";
 import type { TripStyle } from "@/contexts/types";
-import { updateTravelogueStyle } from "@/api/travelogue";
+import { patchTravelogueStyle } from "@/api/travelogue";
 
 const styleOptions: Exclude<TripStyle, "default">[] = [
   "정보형",
@@ -35,7 +35,7 @@ export default function StylePage() {
     if (style === "default" || !travelogueId) return;
 
     try {
-      await updateTravelogueStyle(travelogueId, styleIndexMap[style]);
+      await patchTravelogueStyle(travelogueId, styleIndexMap[style]);
       router.push("/info");
     } catch (err) {
       console.error("여행기 스타일 업데이트 실패:", err);
