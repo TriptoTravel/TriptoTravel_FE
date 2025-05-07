@@ -5,15 +5,17 @@ import Footer from "@/components/common/Footer";
 import CTAButton from "@/components/buttons/CTAButton";
 import { useRouter } from "next/navigation";
 import { createTravelogue } from "@/api/travelogue";
+import { useTrip } from "@/contexts/tripStore";
 
 export default function HomePage() {
   const router = useRouter();
+  const { setTravelogueId } = useTrip();
 
   const handleStart = async () => {
     try {
       const response = await createTravelogue();
       console.log("생성된 여행기:", response);
-
+      setTravelogueId(response.travelogue_id);
       router.push("/style");
     } catch (error) {
       alert("여행기 생성에 실패했습니다. 다시 시도해주세요.");
