@@ -1,16 +1,16 @@
 import axiosInstance from "./axiosInstance";
-import type { UploadImageResponse } from "@/types/travelogueResponse";
-import type { UploadWhoWhyRequest } from "@/types/travelogueRequest";
-import type { UploadWhoWhyResponse } from "@/types/travelogueResponse";
+import type { PostImageResponse } from "@/types/travelogueResponse";
+import type { PostWhoWhyRequest } from "@/types/travelogueRequest";
+import type { PostWhoWhyResponse } from "@/types/travelogueResponse";
 
 // 여행기 생성 POST /api/travelogue
-export async function createTravelogue() {
+export async function postTravelogue() {
   const response = await axiosInstance.post("/api/travelogue");
   return response.data;
 }
 
 // 여행기 수정 PATCH /api/travelogue/{travelogue_id}
-export async function updateTravelogueStyle(
+export async function patchTravelogueStyle(
   travelogueId: number,
   styleCategory: number
 ) {
@@ -32,10 +32,10 @@ export async function getTravelogueById(travelogueId: number) {
 }
 
 // 이미지 업로드 POST /api/image/upload
-export async function uploadImages(
+export async function postImages(
   travelogueId: number,
   files: File[]
-): Promise<UploadImageResponse[]> {
+): Promise<PostImageResponse[]> {
   const formData = new FormData();
   formData.append("travelogue_id", travelogueId.toString());
   files.forEach((file) => formData.append("files", file));
@@ -52,11 +52,12 @@ export async function uploadImages(
   return res.json();
 }
 
-export const uploadWhoWhy = async (
+// WHO WHY 업로드 POST /api/travelogue/${travelogueId}/question
+export const postWhoWhy = async (
   travelogueId: number,
-  data: UploadWhoWhyRequest
-): Promise<UploadWhoWhyResponse> => {
-  const response = await axiosInstance.post<UploadWhoWhyResponse>(
+  data: PostWhoWhyRequest
+): Promise<PostWhoWhyResponse> => {
+  const response = await axiosInstance.post<PostWhoWhyResponse>(
     `/api/travelogue/${travelogueId}/question`,
     data
   );
