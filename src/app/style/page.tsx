@@ -25,6 +25,7 @@ const styleIndexMap: Record<Exclude<TripStyle, "default">, number> = {
 
 export default function StylePage() {
   const { style, setStyle, travelogueId } = useTrip();
+  console.log("로그번호:", travelogueId);
   const router = useRouter();
 
   const handleSelect = (option: TripStyle) => {
@@ -36,6 +37,7 @@ export default function StylePage() {
 
     try {
       await patchTravelogueStyle(travelogueId, styleIndexMap[style]);
+      console.log("스타일번호:", styleIndexMap[style]);
       router.push("/info");
     } catch (err) {
       console.error("여행기 스타일 업데이트 실패:", err);
