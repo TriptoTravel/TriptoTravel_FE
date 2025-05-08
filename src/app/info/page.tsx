@@ -39,18 +39,19 @@ export default function InfoPage() {
   };
 
   const handleNext = async () => {
-    if (!who || why.length === 0) return
+    if (!who || why.length === 0) return;
     try {
       const body: PostWhoWhyRequest = {
         who: [companionOptions.indexOf(who) + 1],
         purpose_category: why.map((p) => purposeOptions.indexOf(p) + 1),
-      }
-      await postWhoWhy(travelogueId!, body)
-      router.push("/num")
+      };
+      await postWhoWhy(travelogueId!, body);
+      console.log("WHO WHY 번호:", body);
+      router.push("/upload");
     } catch (error) {
-      console.error("postWhoWhy failed", error)
+      console.error("여행기 정보 업로드 실패:", error);
     }
-  }
+  };
 
   return (
     <div className="min-h-screen flex flex-col justify-between bg-white">

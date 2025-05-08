@@ -37,15 +37,27 @@ export async function postImages(
   files: File[]
 ): Promise<PostImageResponse[]> {
   const formData = new FormData();
-  formData.append("travelogue_id", travelogueId.toString());
-  files.forEach((file) => formData.append("files", file));
-
-  const res = await fetch("/api/image/upload", {
-    method: "POST",
-    body: formData,
+  formData.append("travelogue_id", String(travelogueId));
+  files.forEach((file) => {
+    console.log("uploading file: ", file.name, file.type);
+    formData.append("images", file);
   });
 
+  for (const [key, value] of formData.entries()) {
+    console.log("FormData:", key, value);
+  }
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}api/image/upload`,
+    {
+      method: "POST",
+      body: formData,
+    }
+  );
+
   if (!res.ok) {
+    const errorBody = await res.text();
+    console.error("Upload failed:", errorBody);
     throw new Error("이미지 업로드 실패");
   }
 
@@ -58,7 +70,7 @@ export const postWhoWhy = async (
   data: PostWhoWhyRequest
 ): Promise<PostWhoWhyResponse> => {
   const response = await axiosInstance.post<PostWhoWhyResponse>(
-    `/api/travelogue/${travelogueId}/question`,
+    `/api/travelogue/${travelogueId}/question/total`,
     data
   );
   return response.data;
