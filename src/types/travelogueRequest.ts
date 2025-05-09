@@ -16,3 +16,8 @@ export type PatchImageSelectionRequest = {
 export type PostImageSelectionSecondRequest = {
   image_ids: number[];
 };
+
+export type PatchImageMetadataRequest = {
+  created_at: string;
+  location: string;
+};
