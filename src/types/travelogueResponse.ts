@@ -32,3 +32,7 @@ export type SelectedImage = {
 export type PatchImageSelectionResponse = {
   selected_images: SelectedImage[];
 };
+
+export type PostImageSelectionSecondResponse = {
+  caption_list: string[]; // 확정 아님
+};

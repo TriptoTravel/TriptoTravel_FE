@@ -12,3 +12,7 @@ export type PostWhoWhyRequest = {
 export type PatchImageSelectionRequest = {
   image_num: number;
 };
+
+export type PostImageSelectionSecondRequest = {
+  image_ids: number[];
+};
