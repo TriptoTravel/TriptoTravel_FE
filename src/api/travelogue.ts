@@ -1,9 +1,15 @@
 import axiosInstance from "./axiosInstance";
-import type { PostImageResponse } from "@/types/travelogueResponse";
-import type { PostWhoWhyRequest } from "@/types/travelogueRequest";
-import type { PostWhoWhyResponse } from "@/types/travelogueResponse";
-import type { PatchImageSelectionResponse } from "@/types/travelogueResponse";
-import type { PatchImageSelectionRequest } from "@/types/travelogueRequest";
+import type {
+  PostWhoWhyRequest,
+  PatchImageSelectionRequest,
+  PostImageSelectionSecondRequest,
+} from "@/types/travelogueRequest";
+import type {
+  PostImageResponse,
+  PostWhoWhyResponse,
+  PatchImageSelectionResponse,
+  PostImageSelectionSecondResponse,
+} from "@/types/travelogueResponse";
 
 // 여행기 생성 POST /api/travelogue
 export async function postTravelogue() {
@@ -78,7 +84,6 @@ export const postWhoWhy = async (
   return response.data;
 };
 
-
 // 이미지 1차 선별 PATCH /api/image/{travelogue_id}/selection/first
 export async function patchImageSelectionFirst(
   travelogueId: number,
@@ -86,6 +91,19 @@ export async function patchImageSelectionFirst(
 ): Promise<PatchImageSelectionResponse> {
   const res = await axiosInstance.patch(
     `/api/image/${travelogueId}/selection/first`,
+    data
+  );
+
+  return res.data;
+}
+
+// 이미지 2차 선별 POST /api/image/${travelogueId}/selection/second
+export async function postImageSelectionSecond(
+  travelogueId: number,
+  data: PostImageSelectionSecondRequest
+): Promise<PostImageSelectionSecondResponse> {
+  const res = await axiosInstance.post(
+    `/api/image/${travelogueId}/selection/second`,
     data
   );
 
