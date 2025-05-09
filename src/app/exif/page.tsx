@@ -1,17 +1,35 @@
 "use client";
 
+import { use, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 import TextField from "@/components/common/TextField";
-import EXIFCardList from "@/components/cards/EXIFCardList";
+import EXIFCardList, {
+  EXIFCardListHandle,
+} from "@/components/cards/EXIFCardList";
 import CTAButton from "@/components/buttons/CTAButton";
+import { patchImageMetadata } from "@/api/travelogue";
 
 export default function EXIFPage() {
   const router = useRouter();
+  const cardListRef = useRef<EXIFCardListHandle>(null);
 
-  const handleNext = () => {
-    router.push("/qna");
+  const handleNext = async () => {
+    const dataMap = cardListRef.current?.getAllMetadata();
+    if (!dataMap) return;
+
+    try {
+      await Promise.all(
+        Object.entries(dataMap).map(([imageId, data]) =>
+          patchImageMetadata(Number(imageId), data)
+        )
+      );
+      router.push("/qna");
+    } catch (err) {
+      console.error("메타데이터 수정 실패", err);
+      alert("사진 정보를 수정하는 데 실패했습니다");
+    }
   };
 
   return (
