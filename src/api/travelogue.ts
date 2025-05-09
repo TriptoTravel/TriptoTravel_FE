@@ -3,6 +3,7 @@ import type {
   PostWhoWhyRequest,
   PatchImageSelectionRequest,
   PostImageSelectionSecondRequest,
+  PatchImageMetadataRequest,
 } from "@/types/travelogueRequest";
 import type {
   PostImageResponse,
@@ -120,4 +121,12 @@ export async function getImagesWithoutMetadata(
   );
 
   return res.data;
+}
+
+// 이미지 메타데이터 수정 PATCH /api/image/${imageId}/metadata
+export async function patchImageMetadata(
+  imageId: number,
+  data: PatchImageMetadataRequest
+): Promise<void> {
+  await axiosInstance.patch(`/api/image/${imageId}/metadata`, data);
 }
