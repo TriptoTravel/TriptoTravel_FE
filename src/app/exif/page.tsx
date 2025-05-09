@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 import TextField from "@/components/common/TextField";
-import EXIFCardTest from "@/test/EXIFCardTest";
+import EXIFCardList from "@/components/cards/EXIFCardList";
 import CTAButton from "@/components/buttons/CTAButton";
 
 export default function EXIFPage() {
@@ -23,7 +23,7 @@ export default function EXIFPage() {
           type="instruction"
           text="사진이 찍힌 시간과 장소를 분석했어요! 비어 있는 시간과 장소를 추가해 주세요"
         />
-        <EXIFCardTest />
+        <EXIFCardList />
         <CTAButton variation="black" label="다음 단계" onClick={handleNext} />
       </main>
 

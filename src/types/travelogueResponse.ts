@@ -38,7 +38,6 @@ export type PostImageSelectionSecondResponse = {
 };
 
 export type ImageMetadataItem = {
-  id: number;
   image_id: number;
   created_at: string;
   location: string;
