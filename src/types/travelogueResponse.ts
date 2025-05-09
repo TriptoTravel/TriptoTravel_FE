@@ -46,3 +46,15 @@ export type ImageMetadataItem = {
 export type GetImageMetadataNoneResponse = {
   image_metadata_list: ImageMetadataItem[];
 };
+
+export type EmotionItem = {
+  id: number;
+  question_response_id: number;
+  emotion_category: number;
+};
+
+export type PatchImageQnaResponse = {
+  image_id: number;
+  how: string;
+  emotion_list: EmotionItem[];
+};

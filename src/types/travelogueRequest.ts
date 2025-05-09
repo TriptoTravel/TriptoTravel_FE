@@ -21,3 +21,8 @@ export type PatchImageMetadataRequest = {
   created_at: string;
   location: string;
 };
+
+export type PatchImageQnaRequest = {
+  how: string;
+  emotion: number[];
+};
