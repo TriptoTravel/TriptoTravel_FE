@@ -18,10 +18,7 @@ export default function NumPage() {
   const [selected, setSelected] = useState<number | null>(photoCount);
 
   const handleNext = async () => {
-    if (selected === null || !travelogueId) {
-      alert("사진 개수나 여행기 정보가 없습니다");
-      return;
-    }
+    if (selected === null || !travelogueId) return;
 
     try {
       setPhotoCount(selected);
