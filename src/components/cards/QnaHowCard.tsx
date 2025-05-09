@@ -72,7 +72,7 @@ export default function QnaHowCard({
           여기에 답변을 작성해 주세요.
         </div>
       )}
-      
+
       {/* 이미지 모달 */}
       {imageUrl && (
         <ImageModal

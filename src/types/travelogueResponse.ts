@@ -4,7 +4,7 @@ export type PostImageResponse = {
   image_id: number;
   travelogue_image_id: number;
   file_name: string;
-  url: string;
+  uri: string;
   caption: string;
   draft: boolean;
   final: boolean;
