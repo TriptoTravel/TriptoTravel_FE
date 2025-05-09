@@ -21,10 +21,16 @@ export type TripCompanion =
 // 여행 목적 타입
 export type TripPurpose = "음식" | "역사" | "자연" | "액티비티";
 
-// 사진 1장에 대한 데이터
+// 선별된 사진 1장에 대한 데이터
 export type SelectedImage = {
-  imageId: string;
-  uri: string;
+  image_id: number;
+  image_url: string;
+};
+
+// 확정된 사진 1장에 대한 데이터
+export type ConfirmedImage = {
+  image_id: number;
+  image_url: string;
 };
 
 // 사진별 EXIF 정보

@@ -9,21 +9,9 @@ import TextField from "@/components/common/TextField";
 import MultiSelectCard from "@/components/cards/MultiSelectCard";
 import CTAButton from "@/components/buttons/CTAButton";
 
-const mockImages = [
-  "/images/testimage.jpg",
-  "/images/testimage.jpg",
-  "/images/testimage.jpg",
-  "/images/testimage.jpg",
-  "/images/testimage.jpg",
-  "/images/testimage.jpg",
-  "/images/testimage.jpg",
-  "/images/testimage.jpg",
-  "/images/testimage.jpg",
-];
-
 export default function SortPage() {
   const router = useRouter();
-  const { photoCount } = useTrip();
+  const { photoCount, selectedImages } = useTrip();
   const [selectedIndices, setSelectedIndices] = useState<number[]>([]);
 
   const toggleSelection = (index: number) => {
@@ -36,6 +24,8 @@ export default function SortPage() {
     router.push("/exif");
   };
 
+  const imageUrls = selectedImages.map((img) => img.image_url);
+
   return (
     <div className="min-h-screen flex flex-col justify-between items-center bg-white">
       <Header variation="type-back" />
@@ -46,7 +36,7 @@ export default function SortPage() {
           text="여행기에 어울리는 사진을 선별했어요! 마음에 드는 사진을 선택해 주세요"
         />
         <MultiSelectCard
-          images={mockImages}
+          images={imageUrls}
           selectedIndices={selectedIndices}
           onToggle={toggleSelection}
         />
