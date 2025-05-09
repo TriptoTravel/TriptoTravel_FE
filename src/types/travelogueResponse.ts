@@ -36,3 +36,13 @@ export type PatchImageSelectionResponse = {
 export type PostImageSelectionSecondResponse = {
   caption_list: string[]; // 확정 아님
 };
+
+export type ImageMetadataItem = {
+  image_id: number;
+  created_at: string;
+  location: string;
+};
+
+export type GetImageMetadataNoneResponse = {
+  image_metadata_list: ImageMetadataItem[];
+};

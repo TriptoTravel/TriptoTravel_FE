@@ -9,6 +9,7 @@ import type {
   PostWhoWhyResponse,
   PatchImageSelectionResponse,
   PostImageSelectionSecondResponse,
+  GetImageMetadataNoneResponse,
 } from "@/types/travelogueResponse";
 
 // 여행기 생성 POST /api/travelogue
@@ -105,6 +106,17 @@ export async function postImageSelectionSecond(
   const res = await axiosInstance.post(
     `/api/image/${travelogueId}/selection/second`,
     data
+  );
+
+  return res.data;
+}
+
+// 메타데이터가 없는 이미지 조회 GET /api/image/${travelogueId}/none/metadata
+export async function getImagesWithoutMetadata(
+  travelogueId: number
+): Promise<GetImageMetadataNoneResponse> {
+  const res = await axiosInstance.get(
+    `/api/image/${travelogueId}/none/metadata`
   );
 
   return res.data;

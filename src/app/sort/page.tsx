@@ -12,7 +12,8 @@ import { postImageSelectionSecond } from "@/api/travelogue";
 
 export default function SortPage() {
   const router = useRouter();
-  const { travelogueId, photoCount, selectedImages, setConfirmedImages } = useTrip();
+  const { travelogueId, photoCount, selectedImages, setConfirmedImages } =
+    useTrip();
   const [selectedIndices, setSelectedIndices] = useState<number[]>([]);
 
   const toggleSelection = (index: number) => {
@@ -22,14 +23,20 @@ export default function SortPage() {
   };
 
   const handleNext = async () => {
-    const selected = selectedIndices.map((i) => selectedImages[i]); // ← 선택된 객체들
-    setConfirmedImages(selected);
-  
     if (!travelogueId) return;
-  
+
+    const selected = selectedIndices.map((i) => selectedImages[i]);
+    setConfirmedImages(selected);
+
+    // 선택되지 않은 이미지 ID 추출
+    const unselectedImageIds = selectedImages
+      .filter((_, index) => !selectedIndices.includes(index))
+      .map((img) => img.image_id);
+
     try {
-      const image_ids = selected.map((img) => img.image_id);
-      const res = await postImageSelectionSecond(travelogueId, { image_ids });
+      const res = await postImageSelectionSecond(travelogueId, {
+        image_ids: unselectedImageIds, // 선택하지 않은 이미지들 전송
+      });
       console.log("캡션 리스트:", res.caption_list);
       router.push("/exif");
     } catch (err) {
