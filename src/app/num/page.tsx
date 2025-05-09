@@ -8,18 +8,24 @@ import Footer from "@/components/common/Footer";
 import TextField from "@/components/common/TextField";
 import SingleSelectButton from "@/components/buttons/SingleSelectButton";
 import CTAButton from "@/components/buttons/CTAButton";
+import { patchImageSelectionFirst } from "@/api/travelogue";
 
 const numOptions = [5, 10, 15, 20];
 
 export default function NumPage() {
   const router = useRouter();
-  const { photoCount, setPhotoCount } = useTrip();
+  const { travelogueId, photoCount, setPhotoCount } = useTrip();
   const [selected, setSelected] = useState<number | null>(photoCount);
 
-  const handleNext = () => {
-    if (selected !== null) {
+  const handleNext = async () => {
+    if (selected === null || !travelogueId) return;
+
+    try {
       setPhotoCount(selected);
+      await patchImageSelectionFirst(travelogueId, { image_num: selected });
       router.push("/sort");
+    } catch (err) {
+      alert("사진 1차 선별에 실패했습니다");
     }
   };
 

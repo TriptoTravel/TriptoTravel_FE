@@ -8,3 +8,7 @@ export type PostWhoWhyRequest = {
   who: number[];
   purpose_category: number[];
 };
+
+export type PatchImageSelectionRequest = {
+  image_num: number;
+};
