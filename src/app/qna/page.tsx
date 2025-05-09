@@ -7,15 +7,31 @@ import Footer from "@/components/common/Footer";
 import TextField from "@/components/common/TextField";
 import QnaCardList, { QnaCardListHandle } from "@/components/cards/QnaCardList";
 import CTAButton from "@/components/buttons/CTAButton";
+import { EMOTION_MAP } from "@/constants/emotion";
+import { postImageQna } from "@/api/travelogue";
 
 export default function QnaPage() {
   const router = useRouter();
   const cardListRef = useRef<QnaCardListHandle>(null);
 
-  const handleNext = () => {
+  const handleNext = async () => {
     const qnaData = cardListRef.current?.getQnaData();
-    console.log("QnA 결과:", qnaData); // TODO: POST로 전송 예정
-    router.push("/result");
+    if (!qnaData) return;
+
+    try {
+      await Promise.all(
+        qnaData.map((item) =>
+          postImageQna(item.image_id, {
+            how: item.how,
+            emotion: item.emotion.map((e) => EMOTION_MAP[e]),
+          })
+        )
+      );
+      router.push("/result");
+    } catch (err) {
+      console.error("QnA 저장 실패", err);
+      alert("질문 응답 저장에 실패했습니다");
+    }
   };
 
   return (
