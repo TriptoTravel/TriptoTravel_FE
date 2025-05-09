@@ -4,7 +4,7 @@ export type PostImageResponse = {
   image_id: number;
   travelogue_image_id: number;
   file_name: string;
-  uri: string;
+  url: string;
   caption: string;
   draft: boolean;
   final: boolean;
@@ -22,4 +22,13 @@ export type PostWhoWhyResponse = {
     travelogue_id: number;
     who: string[];
   }[];
+};
+
+export type SelectedImage = {
+  image_id: number;
+  image_url: string;
+};
+
+export type PatchImageSelectionResponse = {
+  selected_images: SelectedImage[];
 };
