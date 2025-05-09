@@ -4,6 +4,7 @@ import type {
   PatchImageSelectionRequest,
   PostImageSelectionSecondRequest,
   PatchImageMetadataRequest,
+  PatchImageQnaRequest,
 } from "@/types/travelogueRequest";
 import type {
   PostImageResponse,
@@ -11,6 +12,7 @@ import type {
   PatchImageSelectionResponse,
   PostImageSelectionSecondResponse,
   GetImageMetadataNoneResponse,
+  PatchImageQnaResponse,
 } from "@/types/travelogueResponse";
 
 // 여행기 생성 POST /api/travelogue
@@ -129,4 +131,13 @@ export async function patchImageMetadata(
   data: PatchImageMetadataRequest
 ): Promise<void> {
   await axiosInstance.patch(`/api/image/${imageId}/metadata`, data);
+}
+
+// 감정, 상황 데이터 업로드 POST /api/image/${imageId}/question
+export async function postImageQna(
+  imageId: number,
+  data: PatchImageQnaRequest
+): Promise<PatchImageQnaResponse> {
+  const res = await axiosInstance.post(`/api/image/${imageId}/question`, data);
+  return res.data;
 }
