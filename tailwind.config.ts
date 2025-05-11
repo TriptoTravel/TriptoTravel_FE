@@ -36,7 +36,6 @@ const config: Config = {
       transform: ["hover", "focus"],
     },
   },
-  plugins: [require("flowbite/plugin")],
 };
 
 export default config;
