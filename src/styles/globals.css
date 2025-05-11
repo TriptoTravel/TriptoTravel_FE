@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "flowbite";
+@import "flowbite/src/themes/default";
+
 /* 커스텀 전역 스타일 */
 body {
   @apply bg-white text-gray-900;

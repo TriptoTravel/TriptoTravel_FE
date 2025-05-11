@@ -3,7 +3,9 @@ import type { Config } from 'tailwindcss'
 const config: Config = {
   content: [
     './src/app/**/*.{js,ts,jsx,tsx}',
-    './src/components/**/*.{js,ts,jsx,tsx}'
+    './src/components/**/*.{js,ts,jsx,tsx}',
+    "./node_modules/flowbite/**/*.js"
+
   ],
   theme: {
     extend: {
@@ -36,7 +38,9 @@ const config: Config = {
       transform: ['hover', 'focus'],
     }
   },
-  plugins: []
+  plugins: [
+    require('flowbite/plugin')
+  ]
 }
 
 export default config
