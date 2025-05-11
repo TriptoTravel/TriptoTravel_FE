@@ -23,13 +23,13 @@ export default function EXIFTimePickerModal({
           <Dialog.Title className="text-lg font-semibold font-pretendard">
             날짜 시간 선택
           </Dialog.Title>
-          <div className="mt-4">
+          <div className="mt-4 flex justify-center">
             <DatePicker
               selected={selectedDate}
               onChange={(date) => setSelectedDate(date)}
               showTimeSelect
               dateFormat="yyyy-MM-dd h:mm aa"
-              className="border px-4 py-2 rounded-md font-pretendard"
+              className="border px-4 py-2 w-[330px] rounded-md font-pretendard"
             />
           </div>
           <div className="mt-4 flex justify-end gap-2">
