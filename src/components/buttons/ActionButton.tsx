@@ -30,7 +30,7 @@ export default function ActionButton({ variation, onClick }: ActionButtonProps) 
     <button
       onClick={onClick}
       className={cn(
-        'w-14 h-7 rounded-[40px] shadow-[0px_1px_4px_rgba(0,0,0,0.25)] flex items-center justify-center text-base font-semibold font-pretendard leading-[9.6px]',
+        'w-14 h-7 rounded-[40px] shadow-[0px_1px_4px_rgba(0,0,0,0.25)] flex items-center justify-center text-base font-semibold font-pretendard',
         bg,
         text
       )}
