@@ -43,6 +43,7 @@ export default function EXIFCardMeta({
           <input
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
+            placeholder='정확한 정보를 입력해주세요.'
             className="w-64 h-7 bg-zinc-300 rounded-[10px] px-2 text-sm"
           />
           <ActionButton variation="save" onClick={() => onSave?.(inputValue)} />

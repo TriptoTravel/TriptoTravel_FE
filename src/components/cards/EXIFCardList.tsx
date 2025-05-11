@@ -5,25 +5,42 @@ import { useTrip } from "@/contexts/tripStore";
 import { getImagesWithoutMetadata } from "@/api/travelogue";
 import type { ImageMetadataItem } from "@/types/travelogueResponse";
 import EXIFCard from "@/components/cards/EXIFCard";
+import { formatDateKorean } from "@/utils/dateFormatter";
 
-export type ImageMetaMap = {
+type ImageMetaMap = {
   [image_id: number]: {
     created_at: string;
     location: string;
+    created_at_state: "default" | "error" | "edit";
+    location_state: "default" | "error" | "edit";
   };
 };
 
 export type EXIFCardListHandle = {
-  getAllMetadata: () => ImageMetaMap;
+  getAllMetadata: () => {
+    [image_id: number]: { created_at: string; location: string };
+  };
 };
 
 const EXIFCardList = forwardRef<EXIFCardListHandle>((_, ref) => {
-  const { travelogueId } = useTrip();
+  // const { travelogueId } = useTrip();
+  const travelogueId = 30;
   const [items, setItems] = useState<ImageMetadataItem[]>([]);
   const [metaMap, setMetaMap] = useState<ImageMetaMap>({});
 
   useImperativeHandle(ref, () => ({
-    getAllMetadata: () => metaMap,
+    getAllMetadata: () => {
+      const result: {
+        [image_id: number]: { created_at: string; location: string };
+      } = {};
+      Object.entries(metaMap).forEach(([id, meta]) => {
+        result[Number(id)] = {
+          created_at: meta.created_at,
+          location: meta.location,
+        };
+      });
+      return result;
+    },
   }));
 
   useEffect(() => {
@@ -34,8 +51,10 @@ const EXIFCardList = forwardRef<EXIFCardListHandle>((_, ref) => {
         const initialMap: ImageMetaMap = {};
         res.image_metadata_list.forEach((item) => {
           initialMap[item.image_id] = {
-            created_at: item.created_at,
-            location: item.location || "",
+            created_at: item.created_at ?? "",
+            location: item.location ?? "",
+            created_at_state: item.created_at ? "default" : "error",
+            location_state: item.location ? "default" : "error",
           };
         });
         setMetaMap(initialMap);
@@ -45,6 +64,16 @@ const EXIFCardList = forwardRef<EXIFCardListHandle>((_, ref) => {
         alert("데이터를 불러오는 데 실패했습니다");
       });
   }, [travelogueId]);
+
+  const handleEdit = (imageId: number, field: "created_at" | "location") => {
+    setMetaMap((prev) => ({
+      ...prev,
+      [imageId]: {
+        ...prev[imageId],
+        [`${field}_state`]: "edit",
+      },
+    }));
+  };
 
   const handleUpdate = (
     imageId: number,
@@ -56,28 +85,35 @@ const EXIFCardList = forwardRef<EXIFCardListHandle>((_, ref) => {
       [imageId]: {
         ...prev[imageId],
         [field]: value,
+        [`${field}_state`]: value ? "default" : "error",
       },
     }));
   };
 
   return (
     <div className="flex flex-col items-center gap-[30px]">
-      {items.map((item) => (
-        <EXIFCard
-          key={item.image_id}
-          imageUrl={`https://storage.googleapis.com/trip_to_travel_bucket/${item.image_id}.jpg`}
-          timeMeta={{
-            value: metaMap[item.image_id]?.created_at || "",
-            state: "edit",
-            onSave: (value) => handleUpdate(item.image_id, "created_at", value),
-          }}
-          locationMeta={{
-            value: metaMap[item.image_id]?.location || "",
-            state: "edit",
-            onSave: (value) => handleUpdate(item.image_id, "location", value),
-          }}
-        />
-      ))}
+      {items.map((item) => {
+        const meta = metaMap[item.image_id];
+        return (
+          <EXIFCard
+            key={item.image_id}
+            imageUrl={`https://storage.googleapis.com/trip_to_travel_bucket/${item.image_id}.jpg`}
+            timeMeta={{
+              value: formatDateKorean(meta?.created_at ?? ""),
+              state: meta?.created_at_state ?? "error",
+              onEdit: () => handleEdit(item.image_id, "created_at"),
+              onSave: (value) =>
+                handleUpdate(item.image_id, "created_at", value),
+            }}
+            locationMeta={{
+              value: meta?.location ?? "",
+              state: meta?.location_state ?? "error",
+              onEdit: () => handleEdit(item.image_id, "location"),
+              onSave: (value) => handleUpdate(item.image_id, "location", value),
+            }}
+          />
+        );
+      })}
     </div>
   );
 });

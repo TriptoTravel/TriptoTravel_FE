@@ -5,7 +5,7 @@ export type createTravelogueRequest = {
 };
 
 export type PostWhoWhyRequest = {
-  who: number[];
+  who_category: number[];
   purpose_category: number[];
 };
 
