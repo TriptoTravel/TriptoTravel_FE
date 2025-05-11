@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 import TextField from "@/components/common/TextField";
@@ -13,6 +13,7 @@ import { postImageQna } from "@/api/travelogue";
 export default function QnaPage() {
   const router = useRouter();
   const cardListRef = useRef<QnaCardListHandle>(null);
+  const [isComplete, setIsComplete] = useState(false);
 
   const handleNext = async () => {
     const qnaData = cardListRef.current?.getQnaData();
@@ -44,9 +45,16 @@ export default function QnaPage() {
           text="여행기 생성을 위한 질문에 답변해주세요! 답변은 정확한 여행기 생성에 도움이 됩니다."
         />
         <section className="w-full flex flex-col gap-[30px] items-center">
-          <QnaCardList ref={cardListRef} />
+          <QnaCardList
+            ref={cardListRef}
+            onChange={(completed) => setIsComplete(completed)}
+          />
         </section>
-        <CTAButton variation="black" label="다음 단계" onClick={handleNext} />
+        <CTAButton
+          variation={isComplete ? "black" : "disabled"}
+          label="다음 단계"
+          onClick={handleNext}
+        />
       </main>
 
       <Footer />
