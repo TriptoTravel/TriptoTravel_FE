@@ -24,7 +24,8 @@ export type EXIFCardListHandle = {
 
 const EXIFCardList = forwardRef<EXIFCardListHandle>((_, ref) => {
   // const { travelogueId } = useTrip();
-  const travelogueId = 30;
+  const travelogueId = 30; // 테스트 끝나면 제거
+  const { confirmedImages } = useTrip();
   const [items, setItems] = useState<ImageMetadataItem[]>([]);
   const [metaMap, setMetaMap] = useState<ImageMetaMap>({});
 
@@ -94,10 +95,18 @@ const EXIFCardList = forwardRef<EXIFCardListHandle>((_, ref) => {
     <div className="flex flex-col items-center gap-[30px]">
       {items.map((item) => {
         const meta = metaMap[item.image_id];
+        const matched = confirmedImages.find(
+          (img) => img.image_id === item.image_id
+        );
+
+        const imageUrl = matched
+          ? matched.image_url
+          : "/images/loadingimage.png";
+          
         return (
           <EXIFCard
             key={item.image_id}
-            imageUrl={`https://storage.googleapis.com/trip_to_travel_bucket/${item.image_id}.jpg`}
+            imageUrl={imageUrl}
             timeMeta={{
               value: formatDateKorean(meta?.created_at ?? ""),
               state: meta?.created_at_state ?? "error",
