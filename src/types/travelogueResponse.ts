@@ -13,14 +13,14 @@ export type PostImageResponse = {
 
 export type PostWhoWhyResponse = {
   purpose_list: {
-    purpose_id: number;
+    id: number;
     travelogue_id: number;
-    purpose_category: number;
+    purpose_category: number[];
   }[];
   travel_question_response_list: {
-    image_question_response_id: number;
+    id: number;
     travelogue_id: number;
-    who: string[];
+    who_category: number[];
   }[];
 };
 

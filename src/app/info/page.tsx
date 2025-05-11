@@ -8,19 +8,15 @@ import TextField from "@/components/common/TextField";
 import MultiSelectButton from "@/components/buttons/MultiSelectButton";
 import CTAButton from "@/components/buttons/CTAButton";
 import { postWhoWhy } from "@/api/travelogue";
-import type { TripCompanion, TripPurpose } from "@/contexts/types";
 import type { PostWhoWhyRequest } from "@/types/travelogueRequest";
-
-const companionOptions: TripCompanion[] = [
-  "혼자",
-  "친구와",
-  "연인과",
-  "배우자와",
-  "아이와",
-  "부모님과",
-];
-
-const purposeOptions: TripPurpose[] = ["음식", "자연", "역사", "액티비티"];
+import {
+  companionMap,
+  purposeMap,
+  companionOptions,
+  purposeOptions,
+  TripCompanion,
+  TripPurpose,
+} from "@/constants/whowhy";
 
 export default function InfoPage() {
   const { travelogueId, who, setWho, why, setWhy } = useTrip();
@@ -41,9 +37,9 @@ export default function InfoPage() {
   const handleNext = async () => {
     if (!who || why.length === 0) return;
     try {
-      const body: PostWhoWhyRequest = {
-        who: [companionOptions.indexOf(who) + 1],
-        purpose_category: why.map((p) => purposeOptions.indexOf(p) + 1),
+      const body = {
+        who_category: [companionMap[who]],
+        purpose_category: why.map((p) => purposeMap[p]),
       };
       await postWhoWhy(travelogueId!, body);
       console.log("WHO WHY 번호:", body);
