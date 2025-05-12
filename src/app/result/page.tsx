@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 import TextField from "@/components/common/TextField";
-import LogEditCard from "@/components/cards/LogEditCard";
+import DraftCard from "@/components/cards/DraftCard";
 import CTAButton from "@/components/buttons/CTAButton";
 
 export default function ResultPage() {
@@ -24,7 +24,7 @@ export default function ResultPage() {
           text="여행기 생성이 완료되었습니다! 내용을 확인하고 자유롭게 수정하세요."
         />
         <section className="w-full flex flex-col gap-[30px] items-center">
-          <LogEditCard
+          <DraftCard
             imageUrl="/images/testimage.jpg"
             content="친한 친구들과 함께 다녀왔어요. 일정도 같이 짜고 되게 신났어요."
           />

@@ -3,12 +3,12 @@
 import { useState } from 'react'
 import ImageModal from './parts/ImageModal'
 
-type LogEditCardProps = {
+type DraftCardProps = {
   imageUrl: string
   content: string
 }
 
-export default function LogEditCard({ imageUrl, content }: LogEditCardProps) {
+export default function DraftCard({ imageUrl, content }: DraftCardProps) {
   const [isEditing, setIsEditing] = useState(false)
   const [text, setText] = useState(content)
   const [isModalOpen, setIsModalOpen] = useState(false)

@@ -144,7 +144,7 @@ export async function postImageQna(
 }
 
 // 여행기 초안 반환 GET /api/travelogue/{travelogue_id}/draft
-export async function getLogueDraft(
+export async function getDraftList(
   travelogueId: number
 ): Promise<GetDraftListResponse> {
   const res = await axiosInstance.get(`/api/travelogue/${travelogueId}/draft`);
