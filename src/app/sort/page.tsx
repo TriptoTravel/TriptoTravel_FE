@@ -12,8 +12,13 @@ import { getActivatedImages, postImageSelectionSecond } from "@/api/travelogue";
 
 export default function SortPage() {
   const router = useRouter();
-  const { travelogueId, photoCount, selectedImages, setSelectedImages, setConfirmedImages } =
-    useTrip();
+  const {
+    travelogueId,
+    photoCount,
+    selectedImages,
+    setSelectedImages,
+    setConfirmedImages,
+  } = useTrip();
   const [selectedIndices, setSelectedIndices] = useState<number[]>([]);
 
   useEffect(() => {
@@ -24,6 +29,7 @@ export default function SortPage() {
         setSelectedImages(imageList);
       } catch (err) {
         console.error("1차 선별 이미지 조회 실패", err);
+        router.push("/fail?stage=사진 분석");
       }
     };
 
