@@ -13,6 +13,7 @@ import type {
   PostImageSelectionSecondResponse,
   GetImageMetadataNoneResponse,
   PatchImageQnaResponse,
+  GetDraftListResponse,
 } from "@/types/travelogueResponse";
 
 // 여행기 생성 POST /api/travelogue
@@ -139,5 +140,13 @@ export async function postImageQna(
   data: PatchImageQnaRequest
 ): Promise<PatchImageQnaResponse> {
   const res = await axiosInstance.post(`/api/image/${imageId}/question`, data);
+  return res.data;
+}
+
+// 여행기 초안 반환 GET /api/travelogue/{travelogue_id}/draft
+export async function getLogueDraft(
+  travelogueId: number
+): Promise<GetDraftListResponse> {
+  const res = await axiosInstance.get(`/api/travelogue/${travelogueId}/draft`);
   return res.data;
 }

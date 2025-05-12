@@ -58,3 +58,10 @@ export type PatchImageQnaResponse = {
   how: string;
   emotion_list: EmotionItem[];
 };
+
+export type GetDraftListResponse = {
+  draft_list: {
+    image_id: number;
+    draft: string;
+  }[];
+};
