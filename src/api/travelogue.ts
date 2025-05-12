@@ -89,7 +89,7 @@ export const postWhoWhy = async (
   return response.data;
 };
 
-// 이미지 1차 선별 PATCH /api/image/{travelogue_id}/selection/first
+// 이미지 1차 선별 개수 PATCH /api/image/{travelogue_id}/selection/first
 export async function patchImageSelectionFirst(
   travelogueId: number,
   data: PatchImageSelectionRequest
@@ -100,6 +100,12 @@ export async function patchImageSelectionFirst(
   );
 
   return res.data;
+}
+
+// 이미지 1차 선별 조회 GET /api/image/{travelogue_id}/activated
+export async function getActivatedImages(travelogueId: number) {
+  const res = await axiosInstance.get(`/api/image/${travelogueId}/activated`);
+  return res.data.image_list;
 }
 
 // 이미지 2차 선별 POST /api/image/${travelogueId}/selection/second

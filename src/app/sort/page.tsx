@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useTrip } from "@/contexts/tripStore";
 import Header from "@/components/common/Header";
@@ -8,13 +8,27 @@ import Footer from "@/components/common/Footer";
 import TextField from "@/components/common/TextField";
 import MultiSelectCard from "@/components/cards/MultiSelectCard";
 import CTAButton from "@/components/buttons/CTAButton";
-import { postImageSelectionSecond } from "@/api/travelogue";
+import { getActivatedImages, postImageSelectionSecond } from "@/api/travelogue";
 
 export default function SortPage() {
   const router = useRouter();
-  const { travelogueId, photoCount, selectedImages, setConfirmedImages } =
+  const { travelogueId, photoCount, selectedImages, setSelectedImages, setConfirmedImages } =
     useTrip();
   const [selectedIndices, setSelectedIndices] = useState<number[]>([]);
+
+  useEffect(() => {
+    const fetchActivatedImages = async () => {
+      if (!travelogueId) return;
+      try {
+        const imageList = await getActivatedImages(travelogueId);
+        setSelectedImages(imageList);
+      } catch (err) {
+        console.error("1차 선별 이미지 조회 실패", err);
+      }
+    };
+
+    fetchActivatedImages();
+  }, [travelogueId, setSelectedImages]);
 
   const toggleSelection = (index: number) => {
     setSelectedIndices((prev) =>
@@ -25,23 +39,27 @@ export default function SortPage() {
   const handleNext = async () => {
     if (!travelogueId) return;
 
-    const selected = selectedIndices.map((i) => selectedImages[i]);
-    setConfirmedImages(selected);
-
-    // 선택되지 않은 이미지 ID 추출
-    const unselectedImageIds = selectedImages
+    // 1. 확정하지 않은 이미지 ID 추출
+    const unconfirmedImageIds = selectedImages
       .filter((_, index) => !selectedIndices.includes(index))
       .map((img) => img.image_id);
 
+    // 2. 확정한 이미지 리스트 생성
+    const confirmedImages = selectedImages.filter((_, index) =>
+      selectedIndices.includes(index)
+    );
+
     try {
-      const res = await postImageSelectionSecond(travelogueId, {
-        image_ids: unselectedImageIds, // 선택하지 않은 이미지들 전송
+      // 3. 확정하지 않은 이미지 전송
+      await postImageSelectionSecond(travelogueId, {
+        image_ids: unconfirmedImageIds,
       });
-      console.log("캡션 리스트:", res.caption_list);
+      // 4. context에 confirmedImages 저장
+      setConfirmedImages(confirmedImages);
       router.push("/exif");
     } catch (err) {
       console.error("2차 선별 실패", err);
-      alert("이미지 처리에 실패했습니다");
+      alert("이미지 확정에 실패했습니다");
     }
   };
 
