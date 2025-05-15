@@ -61,3 +61,8 @@ export type GetDraftListResponse = {
     draft: string;
   }[];
 };
+
+export type GetExportResponse = {
+  file_path: string;
+  export_url: string;
+};
