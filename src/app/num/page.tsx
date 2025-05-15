@@ -30,7 +30,7 @@ export default function NumPage() {
       });
       router.push("/sort");
     } catch (err) {
-      router.push("/fail");
+      router.push("/fail?stage=사진 선별");
     } finally {
       setIsLoading(false);
     }
