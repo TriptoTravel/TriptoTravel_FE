@@ -18,21 +18,10 @@ type QnaCardListProps = {
   onChange?: (completed: boolean) => void;
 };
 
-// 테스트용 mock 데이터 (172~188)
-const testImages = Array.from({ length: 2 }, (_, i) => ({
-  image_id: i + 1,
-  image_url: '/images/loadingimage.png',
-}));
-
 const QnaCardList = forwardRef<QnaCardListHandle, QnaCardListProps>(
   ({ onChange }, ref) => {
-    // 원래 context
     const { confirmedImages } = useTrip();
-
-    // 테스트용으로 confirmedImages 대신 testImages 사용
-    const images = testImages;
-    // const images = confirmedImages;   // 테스트 끝나면 이 줄로 원복
-
+    const images = confirmedImages;
     const [qnaMap, setQnaMap] = useState<
       Record<number, { how: string; emotion: string[] }>
     >({});

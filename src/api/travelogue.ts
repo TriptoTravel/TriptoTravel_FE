@@ -148,10 +148,17 @@ export async function postImageQna(
   return res.data;
 }
 
-// 여행기 초안 반환 GET /api/travelogue/{travelogue_id}/draft
+// 여행기 초안 조회 GET /api/travelogue/{travelogue_id}/draft
 export async function getDraftList(
   travelogueId: number
 ): Promise<GetDraftListResponse> {
   const res = await axiosInstance.get(`/api/travelogue/${travelogueId}/draft`);
   return res.data;
+}
+
+// 여행기 초안 수정 PATCH /api/image/${imageId}/correction
+export async function patchImageCorrection(imageId: number, finalText: string): Promise<void> {
+  await axiosInstance.patch(`/api/image/${imageId}/correction`, {
+    final: finalText,
+  });
 }

@@ -2,7 +2,7 @@
 
 import DraftCard from "@/components/cards/DraftCard";
 import { getImageUrlById } from "@/utils/imageMapping";
-import { useTrip } from "@/contexts/tripStore";
+import type { ConfirmedImage } from "@/contexts/types";
 
 type DraftItem = {
   image_id: number;
@@ -11,23 +11,26 @@ type DraftItem = {
 
 type DraftCardListProps = {
   drafts: DraftItem[];
+  confirmedImages: ConfirmedImage[];
+  onChange: (imageId: number, newText: string) => void;
 };
 
-export default function DraftCardList({ drafts }: DraftCardListProps) {
-  const { confirmedImages } = useTrip();
+export default function DraftCardList({
+  drafts,
+  confirmedImages,
+  onChange,
+}: DraftCardListProps) {
   return (
     <div className="flex flex-col gap-6 items-center">
-      {drafts.map((item) => {
-        const imageUrl = getImageUrlById(confirmedImages, item.image_id);
-
-        return (
-          <DraftCard
-            key={item.image_id}
-            imageUrl={imageUrl ?? ""}
-            content={item.draft}
-          />
-        );
-      })}
+      {drafts.map((item) => (
+        <DraftCard
+          key={item.image_id}
+          imageId={item.image_id}
+          imageUrl={getImageUrlById(confirmedImages, item.image_id)}
+          content={item.draft}
+          onChange={onChange}
+        />
+      ))}
     </div>
   );
 }
