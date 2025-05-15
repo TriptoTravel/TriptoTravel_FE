@@ -67,7 +67,7 @@ export default function SortPage() {
       setConfirmedImages(confirmedImages);
       router.push("/exif");
     } catch (err) {
-      router.push("/fail");
+      router.push("/fail?stage=사진 분석");
     } finally {
       setIsLoading(false);
     }
@@ -77,6 +77,7 @@ export default function SortPage() {
 
   return (
     <div className="min-h-screen flex flex-col justify-between items-center bg-white">
+      {isLoading && <LoadingOverlay />}
       <Header variation="type-back" />
 
       <main className="flex flex-col items-center justify-center my-[60px] gap-[30px]">
