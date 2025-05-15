@@ -44,7 +44,7 @@ type TripContextType = {
   setSelectedImages: (images: SelectedImage[]) => void;
 
   // 최종 선택 사진
-  confirmedImages: SelectedImage[];
+  confirmedImages: ConfirmedImage[];
   setConfirmedImages: (images: ConfirmedImage[]) => void;
 
   // 사진별 EXIF(WHEN, WHERE)
