@@ -9,7 +9,6 @@ import type {
 import type {
   PostImageResponse,
   PostWhoWhyResponse,
-  PatchImageSelectionResponse,
   PostImageSelectionSecondResponse,
   GetImageMetadataNoneResponse,
   PatchImageQnaResponse,
@@ -93,7 +92,7 @@ export const postWhoWhy = async (
 export async function patchImageSelectionFirst(
   travelogueId: number,
   data: PatchImageSelectionRequest
-): Promise<PatchImageSelectionResponse> {
+): Promise<void> {
   const res = await axiosInstance.patch(
     `/api/image/${travelogueId}/selection/first`,
     data
