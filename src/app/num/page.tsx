@@ -30,7 +30,6 @@ export default function NumPage() {
       });
       router.push("/sort");
     } catch (err) {
-      alert("사진 1차 선별에 실패했습니다");
       router.push("/fail");
     } finally {
       setIsLoading(false);

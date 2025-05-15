@@ -8,6 +8,7 @@ import Footer from "@/components/common/Footer";
 import TextField from "@/components/common/TextField";
 import MultiSelectCard from "@/components/cards/MultiSelectCard";
 import CTAButton from "@/components/buttons/CTAButton";
+import LoadingOverlay from "@/components/common/LoadingOverlay";
 import { getActivatedImages, postImageSelectionSecond } from "@/api/travelogue";
 
 export default function SortPage() {
@@ -20,6 +21,7 @@ export default function SortPage() {
     setConfirmedImages,
   } = useTrip();
   const [selectedIndices, setSelectedIndices] = useState<number[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchActivatedImages = async () => {
@@ -55,6 +57,7 @@ export default function SortPage() {
       selectedIndices.includes(index)
     );
 
+    setIsLoading(true);
     try {
       // 3. 확정하지 않은 이미지 전송
       await postImageSelectionSecond(travelogueId, {
@@ -64,8 +67,9 @@ export default function SortPage() {
       setConfirmedImages(confirmedImages);
       router.push("/exif");
     } catch (err) {
-      console.error("2차 선별 실패", err);
-      alert("이미지 확정에 실패했습니다");
+      router.push("/fail");
+    } finally {
+      setIsLoading(false);
     }
   };
 
