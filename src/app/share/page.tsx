@@ -1,13 +1,27 @@
-export default function Home() {
-    return (
-      <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-        <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-          <div className="flex gap-4 items-center flex-col sm:flex-row">
-            <p>triptotravel</p>
-          </div>
-        </main>
-        <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        </footer>
-      </div>
-    );
-  }
+import { useRouter } from "next/router";
+import Header from "@/components/common/Header";
+import CTAButton from "@/components/buttons/CTAButton";
+import Footer from "@/components/common/Footer";
+
+export default function SharePage() {
+  const router = useRouter();
+
+  return (
+    <div className="min-h-screen flex flex-col justify-between bg-white">
+      <Header variation="type-back" />
+
+      <main className="flex flex-col items-center justify-center my-[60px] gap-[60px]">
+        <CTAButton variation="default" label="저장하기" onClick={} />
+        <CTAButton variation="default" label="공유하기" onClick={} />
+
+        <CTAButton
+          variation="black"
+          label="처음부터 다시하기"
+          onClick={() => router.push("/")}
+        />
+      </main>
+
+      <Footer />
+    </div>
+  );
+}
