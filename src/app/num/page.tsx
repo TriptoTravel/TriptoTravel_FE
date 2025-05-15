@@ -9,17 +9,20 @@ import TextField from "@/components/common/TextField";
 import SingleSelectButton from "@/components/buttons/SingleSelectButton";
 import CTAButton from "@/components/buttons/CTAButton";
 import { patchImageSelectionFirst } from "@/api/travelogue";
+import LoadingOverlay from "@/components/common/LoadingOverlay";
 
 const numOptions = [5, 10, 15, 20];
 
 export default function NumPage() {
   const router = useRouter();
-  const { travelogueId, photoCount, setPhotoCount } =
-    useTrip();
+  const { travelogueId, photoCount, setPhotoCount } = useTrip();
   const [selected, setSelected] = useState<number | null>(photoCount);
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleNext = async () => {
     if (selected === null || !travelogueId) return;
 
+    setIsLoading(true);
     try {
       setPhotoCount(selected);
       await patchImageSelectionFirst(travelogueId, {
@@ -29,11 +32,14 @@ export default function NumPage() {
     } catch (err) {
       alert("사진 1차 선별에 실패했습니다");
       router.push("/fail");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <div className="min-h-screen flex flex-col justify-between items-center bg-white">
+      {isLoading && <LoadingOverlay />}
       <Header variation="type-back" />
 
       <main className="flex flex-col items-center justify-center my-[60px]">
