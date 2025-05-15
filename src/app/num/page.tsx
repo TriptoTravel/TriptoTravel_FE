@@ -14,7 +14,7 @@ const numOptions = [5, 10, 15, 20];
 
 export default function NumPage() {
   const router = useRouter();
-  const { travelogueId, photoCount, setPhotoCount, setSelectedImages } =
+  const { travelogueId, photoCount, setPhotoCount } =
     useTrip();
   const [selected, setSelected] = useState<number | null>(photoCount);
   const handleNext = async () => {
@@ -22,14 +22,13 @@ export default function NumPage() {
 
     try {
       setPhotoCount(selected);
-      const res = await patchImageSelectionFirst(travelogueId, {
+      await patchImageSelectionFirst(travelogueId, {
         image_num: selected,
       });
-      setSelectedImages(res.selected_images);
       router.push("/sort");
     } catch (err) {
       alert("사진 1차 선별에 실패했습니다");
-      router.push("/sort");
+      router.push("/fail");
     }
   };
 

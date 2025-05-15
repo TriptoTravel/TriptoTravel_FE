@@ -29,10 +29,6 @@ export type SelectedImage = {
   image_url: string;
 };
 
-export type PatchImageSelectionResponse = {
-  selected_images: SelectedImage[];
-};
-
 export type PostImageSelectionSecondResponse = {
   caption_list: string[]; // 확정 아님
 };
@@ -57,4 +53,16 @@ export type PatchImageQnaResponse = {
   image_id: number;
   how: string;
   emotion_list: EmotionItem[];
+};
+
+export type GetDraftListResponse = {
+  draft_list: {
+    image_id: number;
+    draft: string;
+  }[];
+};
+
+export type GetExportResponse = {
+  file_path: string;
+  export_url: string;
 };

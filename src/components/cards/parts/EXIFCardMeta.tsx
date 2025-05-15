@@ -39,13 +39,24 @@ export default function EXIFCardMeta({
             <p className="text-[16px] font-medium text-red-500">
               정보를 찾을 수 없습니다
             </p>
-            <ActionButton variation="edit" onClick={() => setIsModalOpen(true)} />
+            <ActionButton
+              variation="edit"
+              onClick={() => {
+                if (label === "시간") {
+                  setIsModalOpen(true);
+                } else {
+                  onEdit?.();
+                }
+              }}
+            />
           </div>
-          <EXIFTimePickerModal
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-            onSave={(isoString) => onSave?.(isoString)}
-          />
+          {label === "시간" && (
+            <EXIFTimePickerModal
+              isOpen={isModalOpen}
+              onClose={() => setIsModalOpen(false)}
+              onSave={(isoString) => onSave?.(isoString)}
+            />
+          )}
         </>
       )}
 
