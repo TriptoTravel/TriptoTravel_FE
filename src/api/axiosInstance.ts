@@ -7,6 +7,5 @@ const axiosInstance = axios.create({
   },
   withCredentials: true,
 });
-console.log("✅ API Base URL:", process.env.NEXT_PUBLIC_API_BASE_URL);
 
 export default axiosInstance;

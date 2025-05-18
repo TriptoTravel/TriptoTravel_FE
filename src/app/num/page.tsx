@@ -8,14 +8,15 @@ import Footer from "@/components/common/Footer";
 import TextField from "@/components/common/TextField";
 import SingleSelectButton from "@/components/buttons/SingleSelectButton";
 import CTAButton from "@/components/buttons/CTAButton";
-import { patchImageSelectionFirst } from "@/api/travelogue";
+import { patchTravelogueStyle, postWhoWhy, patchImageSelectionFirst } from "@/api/travelogue";
 import SortingOverlay from "@/components/common/SortingOverlay";
 
 const numOptions = [5, 10, 15, 20];
 
 export default function NumPage() {
   const router = useRouter();
-  const { travelogueId, photoCount, setPhotoCount } = useTrip();
+  const { travelogueId, style, who, why, photoCount, setPhotoCount } =
+    useTrip();
   const [selected, setSelected] = useState<number | null>(photoCount);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -24,6 +25,9 @@ export default function NumPage() {
 
     setIsLoading(true);
     try {
+      await patchTravelogueStyle(travelogueId, styleIndexMap[style]);
+      await postWhoWhy(travelogueId, { who, why });
+
       setPhotoCount(selected);
       await patchImageSelectionFirst(travelogueId, selected + 4);
       router.push("/sort");

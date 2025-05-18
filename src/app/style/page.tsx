@@ -9,7 +9,6 @@ import StyleCard from "@/components/cards/StyleCard";
 import SingleSelectButton from "@/components/buttons/SingleSelectButton";
 import CTAButton from "@/components/buttons/CTAButton";
 import type { TripStyle } from "@/contexts/types";
-import { patchTravelogueStyle } from "@/api/travelogue";
 
 const styleOptions: Exclude<TripStyle, "default">[] = [
   "정보형",
@@ -17,14 +16,8 @@ const styleOptions: Exclude<TripStyle, "default">[] = [
   "감성형",
 ];
 
-const styleIndexMap: Record<Exclude<TripStyle, "default">, number> = {
-  정보형: 1,
-  요약형: 2,
-  감성형: 3,
-};
-
 export default function StylePage() {
-  const { style, setStyle, travelogueId } = useTrip();
+  const { style, setStyle } = useTrip();
   const router = useRouter();
 
   const handleSelect = (option: TripStyle) => {
@@ -32,14 +25,8 @@ export default function StylePage() {
   };
 
   const handleNext = async () => {
-    if (style === "default" || !travelogueId) return;
-
-    try {
-      await patchTravelogueStyle(travelogueId, styleIndexMap[style]);
-      router.push("/info");
-    } catch (err) {
-      router.push("/fail");
-    }
+    if (style === "default") return;
+    router.push("/info");
   };
 
   return (
