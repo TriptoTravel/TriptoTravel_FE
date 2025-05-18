@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import clsx from "clsx";
 
 const images = [
   "/images/landing1.svg",
@@ -12,43 +11,53 @@ const images = [
   "/images/landing6.svg",
 ];
 
-// 각 이미지별로 보여줄 시간 (ms)
-const durations = [1000, 1500, 2000, 2000, 1500, 4000];
+const durations = [1000, 1800, 2000, 2000, 1800, 4000];
 
 export default function LandingAnimation() {
   const [index, setIndex] = useState(0);
-  const [fade, setFade] = useState(true);
+  const [opacityLevel, setOpacityLevel] = useState(1);
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
+    let transitionTimer: NodeJS.Timeout;
 
-    const isFadeTransition =
-      index === 2 || index === images.length - 1; // 3→4 or 6→1
-
-    if (isFadeTransition) {
-      setFade(false);
-
+    if (index === 2) {
+      // ✅ 3 → 4: opacity 0.5
       timer = setTimeout(() => {
-        setIndex((prev) => (prev + 1) % images.length);
-        setFade(true);
-      }, durations[index]);
+        setOpacityLevel(0.5);
+        transitionTimer = setTimeout(() => {
+          setIndex(3);
+          setOpacityLevel(1);
+        }, 300);
+      }, durations[2]);
+    } else if (index === 5) {
+      // ✅ 6 → 1: opacity 0 (완전 fade-out)
+      timer = setTimeout(() => {
+        setOpacityLevel(0);
+        transitionTimer = setTimeout(() => {
+          setIndex(0);
+          setOpacityLevel(1);
+        }, 300);
+      }, durations[5]);
     } else {
+      // ✅ 그 외: 그냥 전환
       timer = setTimeout(() => {
         setIndex((prev) => (prev + 1) % images.length);
       }, durations[index]);
     }
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(transitionTimer);
+    };
   }, [index]);
 
   return (
     <img
       src={images[index]}
       alt={`Landing ${index + 1}`}
-      className={clsx(
-        "w-[400px] h-auto object-contain mx-auto transition-opacity duration-500",
-        (index === 3 || index === 0) ? (fade ? "opacity-100" : "opacity-0") : "opacity-100"
-      )}
+      style={{ opacity: opacityLevel }}
+      className="w-[400px] h-auto object-contain mx-auto transition-opacity duration-300"
     />
   );
 }
