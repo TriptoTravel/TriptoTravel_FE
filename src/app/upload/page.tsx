@@ -27,7 +27,6 @@ export default function UploadPage() {
     } catch (err) {
       alert("이미지 업로드에 실패했습니다");
     } finally {
-      setIsLoading(false);
     }
   };
 

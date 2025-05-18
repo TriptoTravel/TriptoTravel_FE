@@ -1,11 +1,11 @@
 "use client";
 
-import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 import CTAButton from "@/components/buttons/CTAButton";
 import { useRouter } from "next/navigation";
 import { postTravelogue } from "@/api/travelogue";
 import { useTrip } from "@/contexts/tripStore";
+import LandingAnimation from "@/components/common/LandingAnimation";
 
 export default function HomePage() {
   const router = useRouter();
@@ -14,7 +14,6 @@ export default function HomePage() {
   const handleStart = async () => {
     try {
       const response = await postTravelogue();
-      console.log("생성된 여행기:", response);
       setTravelogueId(response.id);
       router.push("/style");
     } catch (error) {
@@ -23,17 +22,15 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-between items-center bg-white">
-      <Header variation="type" />
-
-      <main className="flex flex-col items-center justify-center flex-1 gap-10">
+    <div className="min-h-screen flex flex-col justify-between items-center bg-[url('/images/background.svg')] bg-cover bg-center">
+      <main className="flex flex-col items-center justify-center flex-1 gap-[140px] mt-20">
+        <LandingAnimation />
         <CTAButton
           variation="black"
           label="여행기 만들기"
           onClick={handleStart}
         />
       </main>
-
       <Footer />
     </div>
   );
