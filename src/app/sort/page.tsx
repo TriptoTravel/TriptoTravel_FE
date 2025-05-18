@@ -30,7 +30,6 @@ export default function SortPage() {
         const imageList = await getActivatedImages(travelogueId);
         setSelectedImages(imageList);
       } catch (err) {
-        console.error("1차 선별 이미지 조회 실패", err);
         router.push("/fail?stage=사진 분석");
       }
     };
@@ -79,7 +78,7 @@ export default function SortPage() {
       {isLoading && <AnalyzingOverlay />}
       <Header variation="type-back" />
 
-      <main className="flex flex-col items-center justify-center my-[60px] gap-[30px]">
+      <main className="flex flex-col items-center justify-center my-[60px] gap-[30px] animate-fade-slide-up">
         <TextField
           type="instruction"
           text="여행기에 어울리는 사진을 선별했어요! 마음에 드는 사진을 선택해 주세요"

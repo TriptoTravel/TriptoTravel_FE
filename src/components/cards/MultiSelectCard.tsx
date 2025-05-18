@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { cn } from "@/utils/cn";
 
 type MultiSelectCardProps = {
@@ -40,7 +40,7 @@ export default function MultiSelectCard({ images, selectedIndices, onToggle }: M
               className={cn(
                 'w-[100px] h-[100px] overflow-hidden',
                 getRadiusClass(idx),
-                isSelected && 'border border-black'
+                isSelected && 'border border-black shadow-sm'
               )}
               onClick={() => onToggle(idx)}
             >
