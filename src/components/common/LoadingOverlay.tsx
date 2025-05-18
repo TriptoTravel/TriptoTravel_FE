@@ -2,7 +2,7 @@
 
 export default function LoadingOverlay() {
   return (
-    <div className="fixed inset-0 bg-[url('/images/background.svg')] bg-cover bg-center flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-white flex items-center justify-center z-50">
       <div className="flex flex-col items-center gap-4">
         <img
           src="/images/trip.gif"

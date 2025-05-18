@@ -7,7 +7,7 @@ import Footer from "@/components/common/Footer";
 import UploadIconButton from "@/components/buttons/UploadIconButton";
 import MultiPhotoCard from "@/components/cards/MultiPhotoCard";
 import CTAButton from "@/components/buttons/CTAButton";
-import LoadingOverlay from "@/components/common/LoadingOverlay";
+import UploadingOverlay from "@/components/common/UploadingOverlay";
 import { postImages } from "@/api/travelogue";
 import { useTrip } from "@/contexts/tripStore";
 
@@ -32,7 +32,7 @@ export default function UploadPage() {
 
   return (
     <div className="min-h-screen flex flex-col justify-between bg-white">
-      {isLoading && <LoadingOverlay />}
+      {isLoading && <UploadingOverlay />}
       <Header variation="type-back" />
 
       <main className="flex flex-col items-center justify-center my-[60px] gap-[60px]">

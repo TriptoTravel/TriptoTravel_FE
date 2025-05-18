@@ -7,11 +7,9 @@ const images = [
   "/images/landing2.svg",
   "/images/landing3.svg",
   "/images/landing4.svg",
-  "/images/landing5.svg",
-  "/images/landing6.svg",
 ];
 
-const durations = [1000, 1800, 2000, 2000, 1800, 4000];
+const durations = [1000, 2000, 2000, 4000];
 
 export default function LandingAnimation() {
   const [index, setIndex] = useState(0);
@@ -21,22 +19,24 @@ export default function LandingAnimation() {
     let timer: NodeJS.Timeout;
     let transitionTimer: NodeJS.Timeout;
 
-    if (index === 2) {
+    if (index === 1) {
       timer = setTimeout(() => {
-        setOpacityLevel(0.5);
+        setOpacityLevel(0.4);
         transitionTimer = setTimeout(() => {
-          setIndex(3);
+          setIndex(2);
           setOpacityLevel(1);
-        }, 300);
-      }, durations[2]);
-    } else if (index === 5) {
+        }, 500);
+      }, durations[1]);
+    } 
+    
+    else if (index === 3) {
       timer = setTimeout(() => {
         setOpacityLevel(0);
         transitionTimer = setTimeout(() => {
           setIndex(0);
           setOpacityLevel(1);
         }, 300);
-      }, durations[5]);
+      }, durations[3]);
     } else {
       // ✅ 그 외: 그냥 전환
       timer = setTimeout(() => {
