@@ -1,5 +1,4 @@
-import UploadingOverlay from "@/components/common/UploadingOverlay";
-
+import SortingOverlay from "@/components/common/SortingOverlay";
 export default function TestUploadPage() {
-  return <UploadingOverlay />;
+  return <SortingOverlay />;
 }

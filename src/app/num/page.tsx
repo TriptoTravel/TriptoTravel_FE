@@ -9,7 +9,7 @@ import TextField from "@/components/common/TextField";
 import SingleSelectButton from "@/components/buttons/SingleSelectButton";
 import CTAButton from "@/components/buttons/CTAButton";
 import { patchImageSelectionFirst } from "@/api/travelogue";
-import LoadingOverlay from "@/components/common/LoadingOverlay";
+import SortingOverlay from "@/components/common/SortingOverlay";
 
 const numOptions = [5, 10, 15, 20];
 
@@ -32,13 +32,12 @@ export default function NumPage() {
     } catch (err) {
       router.push("/fail?stage=사진 선별");
     } finally {
-      setIsLoading(false);
     }
   };
 
   return (
     <div className="min-h-screen flex flex-col justify-between items-center bg-white">
-      {isLoading && <LoadingOverlay />}
+      {isLoading && <SortingOverlay />}
       <Header variation="type-back" />
 
       <main className="flex flex-col items-center justify-center my-[60px]">
