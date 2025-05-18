@@ -7,10 +7,7 @@ import Footer from "@/components/common/Footer";
 import TextField from "@/components/common/TextField";
 import MultiSelectButton from "@/components/buttons/MultiSelectButton";
 import CTAButton from "@/components/buttons/CTAButton";
-import { postWhoWhy } from "@/api/travelogue";
 import {
-  companionMap,
-  purposeMap,
   companionOptions,
   purposeOptions,
   TripCompanion,
@@ -18,7 +15,7 @@ import {
 } from "@/constants/whowhy";
 
 export default function InfoPage() {
-  const { travelogueId, who, setWho, why, setWhy } = useTrip();
+  const { who, setWho, why, setWhy } = useTrip();
   const router = useRouter();
 
   const handleWhoClick = (option: TripCompanion) => {
@@ -35,17 +32,7 @@ export default function InfoPage() {
 
   const handleNext = async () => {
     if (!who || why.length === 0) return;
-    try {
-      const body = {
-        who_category: [companionMap[who]],
-        purpose_category: why.map((p) => purposeMap[p]),
-      };
-      await postWhoWhy(travelogueId!, body);
-      console.log("WHO WHY 번호:", body);
-      router.push("/upload");
-    } catch (error) {
-      console.error("여행기 정보 업로드 실패:", error);
-    }
+    router.push("/upload");
   };
 
   return (

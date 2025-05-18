@@ -8,10 +8,22 @@ import Footer from "@/components/common/Footer";
 import TextField from "@/components/common/TextField";
 import SingleSelectButton from "@/components/buttons/SingleSelectButton";
 import CTAButton from "@/components/buttons/CTAButton";
-import { patchTravelogueStyle, postWhoWhy, patchImageSelectionFirst } from "@/api/travelogue";
+import {
+  patchTravelogueStyle,
+  postWhoWhy,
+  patchImageSelectionFirst,
+} from "@/api/travelogue";
 import SortingOverlay from "@/components/common/SortingOverlay";
+import type { TripStyle } from "@/contexts/types";
+import { companionMap, purposeMap } from "@/constants/whowhy";
 
 const numOptions = [5, 10, 15, 20];
+
+const styleIndexMap: Record<Exclude<TripStyle, "default">, number> = {
+  감성형: 3,
+  정보형: 1,
+  요약형: 2,
+};
 
 export default function NumPage() {
   const router = useRouter();
@@ -21,19 +33,45 @@ export default function NumPage() {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleNext = async () => {
-    if (selected === null || !travelogueId) return;
-
+    if (
+      selected === null ||
+      !travelogueId ||
+      style === "default" ||
+      !who ||
+      why.length === 0
+    )
+      return;
     setIsLoading(true);
     try {
-      await patchTravelogueStyle(travelogueId, styleIndexMap[style]);
-      await postWhoWhy(travelogueId, { who, why });
+      try {
+        await patchTravelogueStyle(travelogueId, styleIndexMap[style]);
+      } catch (err) {
+        router.push("/fail?stage=문체 선택 전송");
+        return;
+      }
 
-      setPhotoCount(selected);
-      await patchImageSelectionFirst(travelogueId, selected + 4);
+      try {
+        const body = {
+          who_category: [companionMap[who]],
+          purpose_category: why.map((p) => purposeMap[p]),
+        };
+        await postWhoWhy(travelogueId, body);
+      } catch (err) {
+        router.push("/fail?stage=여행 정보 전송");
+        return;
+      }
+
+      try {
+        setPhotoCount(selected);
+        await patchImageSelectionFirst(travelogueId, selected + 4);
+      } catch (err) {
+        router.push("/fail?stage=사진 개수 선택 전송");
+        return;
+      }
+
       router.push("/sort");
     } catch (err) {
       router.push("/fail?stage=사진 선별");
-    } finally {
     }
   };
 
