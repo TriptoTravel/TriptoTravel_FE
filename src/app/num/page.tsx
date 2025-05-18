@@ -20,9 +20,9 @@ import { companionMap, purposeMap } from "@/constants/whowhy";
 const numOptions = [5, 10, 15, 20];
 
 const styleIndexMap: Record<Exclude<TripStyle, "default">, number> = {
-  감성형: 3,
   정보형: 1,
   요약형: 2,
+  감성형: 3,
 };
 
 export default function NumPage() {
