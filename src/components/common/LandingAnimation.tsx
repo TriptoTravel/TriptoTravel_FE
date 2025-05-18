@@ -22,7 +22,6 @@ export default function LandingAnimation() {
     let transitionTimer: NodeJS.Timeout;
 
     if (index === 2) {
-      // ✅ 3 → 4: opacity 0.5
       timer = setTimeout(() => {
         setOpacityLevel(0.5);
         transitionTimer = setTimeout(() => {
@@ -31,7 +30,6 @@ export default function LandingAnimation() {
         }, 300);
       }, durations[2]);
     } else if (index === 5) {
-      // ✅ 6 → 1: opacity 0 (완전 fade-out)
       timer = setTimeout(() => {
         setOpacityLevel(0);
         transitionTimer = setTimeout(() => {

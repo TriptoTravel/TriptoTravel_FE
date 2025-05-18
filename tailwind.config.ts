@@ -35,6 +35,15 @@ const config: Config = {
       },
       transform: ["hover", "focus"],
     },
+    animation: {
+      fadein: "fadeIn 0.8s ease-out forwards",
+    },
+    keyframes: {
+      fadeIn: {
+        "0%": { opacity: "0" },
+        "100%": { opacity: "1" },
+      },
+    },
   },
 };
 
