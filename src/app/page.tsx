@@ -37,7 +37,7 @@ export default function HomePage() {
         <LandingAnimation />
 
         {showButton ? (
-          <div className="animate-fadein">
+          <div className="animate-fade-slide-up">
             <CTAButton
               variation="black"
               label="여행기 만들기"

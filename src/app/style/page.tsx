@@ -49,29 +49,31 @@ export default function StylePage() {
       <Header variation="type-back" />
 
       <main className="flex flex-col items-center justify-center my-[60px]">
-        <TextField
-          type="question"
-          text="선호하는 여행기 문체를 선택해주세요."
-        />
-        <div className="flex flex-col items-center justify-center mt-[30px] mb-[60px] gap-[30px]">
-          <StyleCard style={style ?? "default"} />
-          <div className="flex w-full justify-start gap-[10px]">
-            {styleOptions.map((option) => (
-              <SingleSelectButton
-                key={option}
-                label={option}
-                isSelected={style === option}
-                onClick={() => handleSelect(option)}
-              />
-            ))}
+        <div className="animate-fade-slide-up">
+          <TextField
+            type="question"
+            text="선호하는 여행기 문체를 선택해주세요."
+          />
+          <div className="flex flex-col items-center justify-center mt-[30px] mb-[60px] gap-[30px]">
+            <StyleCard style={style ?? "default"} />
+            <div className="flex w-full justify-start gap-[10px]">
+              {styleOptions.map((option) => (
+                <SingleSelectButton
+                  key={option}
+                  label={option}
+                  isSelected={style === option}
+                  onClick={() => handleSelect(option)}
+                />
+              ))}
+            </div>
           </div>
-        </div>
 
-        <CTAButton
-          variation={style !== "default" ? "black" : "disabled"}
-          label="다음 단계"
-          onClick={handleNext}
-        />
+          <CTAButton
+            variation={style !== "default" ? "black" : "disabled"}
+            label="다음 단계"
+            onClick={handleNext}
+          />
+        </div>
       </main>
 
       <Footer />
