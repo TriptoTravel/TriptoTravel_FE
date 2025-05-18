@@ -8,7 +8,6 @@ import TextField from "@/components/common/TextField";
 import MultiSelectButton from "@/components/buttons/MultiSelectButton";
 import CTAButton from "@/components/buttons/CTAButton";
 import { postWhoWhy } from "@/api/travelogue";
-import type { PostWhoWhyRequest } from "@/types/travelogueRequest";
 import {
   companionMap,
   purposeMap,

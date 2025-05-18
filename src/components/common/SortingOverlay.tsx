@@ -7,7 +7,7 @@ export default function SortingOverlay() {
         <div className="w-40 h-40">
           <video
             key="sortimage"
-            src="/videos/sortimage.webm"
+            src="/videos/sort.webm"
             autoPlay
             muted
             playsInline

@@ -7,7 +7,7 @@ export default function AnalyzingOverlay() {
         <div className="w-40 h-40">
           <video
             key="analyzeimage"
-            src="/videos/analyzeimage.webm"
+            src="/videos/analyze.webm"
             autoPlay
             muted
             playsInline

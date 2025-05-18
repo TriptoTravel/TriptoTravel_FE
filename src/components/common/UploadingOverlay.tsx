@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react";
 
 const steps = [
-  { type: "video", src: "/videos/uploadimage1.webm", key: "video1" },
+  { type: "video", src: "/videos/uploadin.webm", key: "video1" },
   { type: "image", src: "/images/imageicon.svg", key: "imageicon" },
-  { type: "video", src: "/videos/uploadimage2.webm", key: "video2" },
+  { type: "video", src: "/videos/uploadout.webm", key: "video2" },
 ];
 
 export default function UploadingOverlay() {

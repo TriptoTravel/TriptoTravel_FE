@@ -7,7 +7,7 @@ export default function GeneratingOverlay() {
         <div className="w-40 h-40">
           <video
             key="generateimage"
-            src="/videos/generateimage.webm"
+            src="/videos/generate.webm"
             autoPlay
             muted
             playsInline
