@@ -39,27 +39,31 @@ export default function NumPage() {
       <Header variation="type-back" />
 
       <main className="flex flex-col items-center justify-center my-[60px]">
-        <TextField
-          type="question"
-          text="여행기를 몇 장의 사진으로 구성할까요?"
-        />
+        <div className="animate-fade-slide-up">
+          <TextField
+            type="question"
+            text="여행기를 몇 장의 사진으로 구성할까요?"
+          />
 
-        <div className="flex gap-2 w-full items-start mt-[60px] mb-[314px]">
-          {numOptions.map((num) => (
-            <SingleSelectButton
-              key={num}
-              label={`${num - 4} ~ ${num}`}
-              isSelected={selected === num}
-              onClick={() => setSelected((prev) => (prev === num ? null : num))}
-            />
-          ))}
+          <div className="flex gap-2 w-full items-start mt-[60px] mb-[314px]">
+            {numOptions.map((num) => (
+              <SingleSelectButton
+                key={num}
+                label={`${num - 4} ~ ${num}`}
+                isSelected={selected === num}
+                onClick={() =>
+                  setSelected((prev) => (prev === num ? null : num))
+                }
+              />
+            ))}
+          </div>
+
+          <CTAButton
+            variation={selected ? "black" : "disabled"}
+            label="다음 단계"
+            onClick={handleNext}
+          />
         </div>
-
-        <CTAButton
-          variation={selected ? "black" : "disabled"}
-          label="다음 단계"
-          onClick={handleNext}
-        />
       </main>
       <Footer />
     </div>

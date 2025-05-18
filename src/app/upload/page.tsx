@@ -36,27 +36,29 @@ export default function UploadPage() {
       <Header variation="type-back" />
 
       <main className="flex flex-col items-center justify-center my-[60px] gap-[60px]">
-        {images.length === 0 && (
-          <UploadIconButton
-            onUpload={(files) => {
-              const fileArray = Array.from(files);
-              setImages((prev) => [...prev, ...fileArray]);
-            }}
-          />
-        )}
+        <div className="animate-fade-slide-up">
+          {images.length === 0 && (
+            <UploadIconButton
+              onUpload={(files) => {
+                const fileArray = Array.from(files);
+                setImages((prev) => [...prev, ...fileArray]);
+              }}
+            />
+          )}
 
-        {images.length > 0 && (
-          <>
-            <MultiPhotoCard
-              images={images.map((file) => URL.createObjectURL(file))}
-            />
-            <CTAButton
-              variation="black"
-              label="다음 단계"
-              onClick={handleNext}
-            />
-          </>
-        )}
+          {images.length > 0 && (
+            <>
+              <MultiPhotoCard
+                images={images.map((file) => URL.createObjectURL(file))}
+              />
+              <CTAButton
+                variation="black"
+                label="다음 단계"
+                onClick={handleNext}
+              />
+            </>
+          )}
+        </div>
       </main>
 
       <Footer />

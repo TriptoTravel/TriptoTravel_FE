@@ -54,39 +54,41 @@ export default function InfoPage() {
       <Header variation="type-back" />
 
       <main className="flex flex-col items-center justify-center my-[60px] gap-[60px]">
-        <section className="flex flex-col items-start gap-[30px]">
-          <TextField type="question" text="누구와 함께 한 여행인가요?" />
-          <div className="flex flex-wrap gap-[10px] max-w-[300px]">
-            {companionOptions.map((option) => (
-              <MultiSelectButton
-                key={option}
-                label={option}
-                variation={who === option ? "selected" : "default"}
-                onClick={() => handleWhoClick(option)}
-              />
-            ))}
-          </div>
-        </section>
+        <div className="animate-fade-slide-up">
+          <section className="flex flex-col items-start gap-[30px]">
+            <TextField type="question" text="누구와 함께 한 여행인가요?" />
+            <div className="flex flex-wrap gap-[10px] max-w-[300px]">
+              {companionOptions.map((option) => (
+                <MultiSelectButton
+                  key={option}
+                  label={option}
+                  variation={who === option ? "selected" : "default"}
+                  onClick={() => handleWhoClick(option)}
+                />
+              ))}
+            </div>
+          </section>
 
-        <section className="flex flex-col items-start gap-[30px]">
-          <TextField type="question" text="왜 이 여행을 떠나게 되었나요?" />
-          <div className="flex flex-wrap gap-[10px] max-w-[360px]">
-            {purposeOptions.map((option) => (
-              <MultiSelectButton
-                key={option}
-                label={option}
-                variation={why.includes(option) ? "selected" : "default"}
-                onClick={() => handleWhyClick(option)}
-              />
-            ))}
-          </div>
-        </section>
+          <section className="flex flex-col items-start gap-[30px]">
+            <TextField type="question" text="왜 이 여행을 떠나게 되었나요?" />
+            <div className="flex flex-wrap gap-[10px] max-w-[360px]">
+              {purposeOptions.map((option) => (
+                <MultiSelectButton
+                  key={option}
+                  label={option}
+                  variation={why.includes(option) ? "selected" : "default"}
+                  onClick={() => handleWhyClick(option)}
+                />
+              ))}
+            </div>
+          </section>
 
-        <CTAButton
-          variation={who && why.length > 0 ? "black" : "disabled"}
-          label="다음 단계"
-          onClick={handleNext}
-        />
+          <CTAButton
+            variation={who && why.length > 0 ? "black" : "disabled"}
+            label="다음 단계"
+            onClick={handleNext}
+          />
+        </div>
       </main>
 
       <Footer />
