@@ -15,7 +15,7 @@ export default function UploadPage() {
   const [images, setImages] = useState<File[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const { travelogueId } = useTrip();
+  const { travelogueId, setUploadnum } = useTrip();
 
   const handleNext = async () => {
     if (!travelogueId) return router.push("fail?stage=여행기 ID 조회");
@@ -23,9 +23,10 @@ export default function UploadPage() {
     setIsLoading(true);
     try {
       await postImages(travelogueId, images);
+      setUploadnum(images.length);
       router.push("/num");
     } catch (err) {
-        router.push("/fail?stage=이미지 업로드");
+      router.push("/fail?stage=이미지 업로드");
     } finally {
     }
   };
@@ -52,7 +53,7 @@ export default function UploadPage() {
             />
             <CTAButton
               variation="black"
-              label="다음 단계"
+              label="업로드하기"
               onClick={handleNext}
             />
           </>

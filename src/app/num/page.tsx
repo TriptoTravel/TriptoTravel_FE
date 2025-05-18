@@ -27,10 +27,22 @@ const styleIndexMap: Record<Exclude<TripStyle, "default">, number> = {
 
 export default function NumPage() {
   const router = useRouter();
-  const { travelogueId, style, who, why, photoCount, setPhotoCount } =
-    useTrip();
+  const {
+    travelogueId,
+    style,
+    who,
+    why,
+    uploadnum,
+    photoCount,
+    setPhotoCount,
+  } = useTrip();
   const [selected, setSelected] = useState<number | null>(photoCount);
   const [isLoading, setIsLoading] = useState(false);
+
+  if (uploadnum == null) {
+    router.push("/upload");
+    return null;
+  }
 
   const handleNext = async () => {
     if (
@@ -88,16 +100,18 @@ export default function NumPage() {
           />
 
           <div className="flex gap-2 w-full items-start mt-[60px] mb-[314px]">
-            {numOptions.map((num) => (
-              <SingleSelectButton
-                key={num}
-                label={`${num - 4} ~ ${num}`}
-                isSelected={selected === num}
-                onClick={() =>
-                  setSelected((prev) => (prev === num ? null : num))
-                }
-              />
-            ))}
+            {numOptions
+              .filter((num) => num <= uploadnum)
+              .map((num) => (
+                <SingleSelectButton
+                  key={num}
+                  label={`${num - 4} ~ ${num}`}
+                  isSelected={selected === num}
+                  onClick={() =>
+                    setSelected((prev) => (prev === num ? null : num))
+                  }
+                />
+              ))}
           </div>
 
           <CTAButton

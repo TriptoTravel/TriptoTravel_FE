@@ -35,7 +35,11 @@ type TripContextType = {
   why: TripPurpose[];
   setWhy: React.Dispatch<React.SetStateAction<TripPurpose[]>>;
 
-  // 사진 개수
+  // 업로드 사진 개수
+  uploadnum: number | null;
+  setUploadnum: (value: number) => void;
+
+  // 여행기 사진 개수
   photoCount: number | null;
   setPhotoCount: (count: number) => void;
 
@@ -66,6 +70,7 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
   const [style, setStyle] = useState<TripStyle>("default");
   const [who, setWho] = useState<TripCompanion | null>(null);
   const [why, setWhy] = useState<TripPurpose[]>([]);
+  const [uploadnum, setUploadnum] = useState<number | null>(null);
   const [photoCount, setPhotoCount] = useState<number | null>(null);
   const [selectedImages, setSelectedImages] = useState<SelectedImage[]>([]);
   const [confirmedImages, setConfirmedImages] = useState<ConfirmedImage[]>([]);
@@ -83,6 +88,8 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
         setWho,
         why,
         setWhy,
+        uploadnum,
+        setUploadnum,
         photoCount,
         setPhotoCount,
         selectedImages,
