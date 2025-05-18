@@ -8,7 +8,7 @@ import Footer from "@/components/common/Footer";
 import TextField from "@/components/common/TextField";
 import MultiSelectCard from "@/components/cards/MultiSelectCard";
 import CTAButton from "@/components/buttons/CTAButton";
-import LoadingOverlay from "@/components/common/LoadingOverlay";
+import AnalyzingOverlay from "@/components/common/AnalyzingOverlay";
 import { getActivatedImages, postImageSelectionSecond } from "@/api/travelogue";
 
 export default function SortPage() {
@@ -69,7 +69,6 @@ export default function SortPage() {
     } catch (err) {
       router.push("/fail?stage=사진 분석");
     } finally {
-      setIsLoading(false);
     }
   };
 
@@ -77,7 +76,7 @@ export default function SortPage() {
 
   return (
     <div className="min-h-screen flex flex-col justify-between items-center bg-white">
-      {isLoading && <LoadingOverlay />}
+      {isLoading && <AnalyzingOverlay />}
       <Header variation="type-back" />
 
       <main className="flex flex-col items-center justify-center my-[60px] gap-[30px]">

@@ -7,7 +7,7 @@ import Footer from "@/components/common/Footer";
 import TextField from "@/components/common/TextField";
 import QnaCardList, { QnaCardListHandle } from "@/components/cards/QnaCardList";
 import CTAButton from "@/components/buttons/CTAButton";
-import LoadingOverlay from "@/components/common/LoadingOverlay";
+import GeneratingOverlay from "@/components/common/GeneratingOverlay";
 import { EMOTION_MAP } from "@/constants/emotion";
 import { postImageQna } from "@/api/travelogue";
 
@@ -41,7 +41,7 @@ export default function QnaPage() {
 
   return (
     <div className="min-h-screen flex flex-col justify-between bg-white">
-      {isLoading && <LoadingOverlay />}
+      {isLoading && <GeneratingOverlay />}
 
       <Header variation="type-back" />
 

@@ -27,7 +27,7 @@ export default function HomePage() {
       setTravelogueId(response.id);
       router.push("/style");
     } catch (error) {
-      alert("여행기 생성에 실패했습니다. 다시 시도해주세요.");
+      router.push("/fail?stage=여행기 생성");
     }
   };
 
