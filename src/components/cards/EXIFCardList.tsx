@@ -48,7 +48,7 @@ const EXIFCardList = forwardRef<EXIFCardListHandle, EXIFCardListProps>(
     }));
 
     useEffect(() => {
-      onMetaChange(metaMap); // ✅ metaMap 바뀔 때마다 부모에게 전달
+      onMetaChange(metaMap); // metaMap 바뀔 때마다 부모에게 전달
     }, [metaMap, onMetaChange]);
 
     useEffect(() => {

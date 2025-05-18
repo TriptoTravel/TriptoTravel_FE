@@ -47,7 +47,7 @@ export default function EXIFPage() {
 
   return (
     <div className="min-h-screen flex flex-col justify-between bg-white">
-      <Header variation="type-back" />
+      <Header variation="type" />
 
       <main className="flex flex-col items-center justify-start my-[60px] gap-[60px] animate-fade-slide-up">
         <TextField

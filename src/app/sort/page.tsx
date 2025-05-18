@@ -10,11 +10,13 @@ import MultiSelectCard from "@/components/cards/MultiSelectCard";
 import CTAButton from "@/components/buttons/CTAButton";
 import AnalyzingOverlay from "@/components/common/AnalyzingOverlay";
 import { getActivatedImages, postImageSelectionSecond } from "@/api/travelogue";
+import { getActivatedImageCount } from "@/utils/selection";
 
 export default function SortPage() {
   const router = useRouter();
   const {
     travelogueId,
+    uploadnum,
     photoCount,
     selectedImages,
     setSelectedImages,
@@ -22,6 +24,8 @@ export default function SortPage() {
   } = useTrip();
   const [selectedIndices, setSelectedIndices] = useState<number[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const skeletonCount =
+    photoCount !== null ? getActivatedImageCount(photoCount, uploadnum) : 0;
 
   useEffect(() => {
     const fetchActivatedImages = async () => {
@@ -87,6 +91,7 @@ export default function SortPage() {
           images={imageUrls}
           selectedIndices={selectedIndices}
           onToggle={toggleSelection}
+          skeletonCount={skeletonCount}
         />
         <CTAButton
           variation={
