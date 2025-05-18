@@ -8,6 +8,7 @@ import Footer from "@/components/common/Footer";
 import TextField from "@/components/common/TextField";
 import MultiSelectCard from "@/components/cards/MultiSelectCard";
 import CTAButton from "@/components/buttons/CTAButton";
+import AnalyzingOverlay from "@/components/common/AnalyzingOverlay";
 import { getActivatedImages, postImageSelectionSecond } from "@/api/travelogue";
 
 export default function SortPage() {
@@ -20,6 +21,7 @@ export default function SortPage() {
     setConfirmedImages,
   } = useTrip();
   const [selectedIndices, setSelectedIndices] = useState<number[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchActivatedImages = async () => {
@@ -55,6 +57,7 @@ export default function SortPage() {
       selectedIndices.includes(index)
     );
 
+    setIsLoading(true);
     try {
       // 3. 확정하지 않은 이미지 전송
       await postImageSelectionSecond(travelogueId, {
@@ -64,8 +67,8 @@ export default function SortPage() {
       setConfirmedImages(confirmedImages);
       router.push("/exif");
     } catch (err) {
-      console.error("2차 선별 실패", err);
-      alert("이미지 확정에 실패했습니다");
+      router.push("/fail?stage=사진 분석");
+    } finally {
     }
   };
 
@@ -73,6 +76,7 @@ export default function SortPage() {
 
   return (
     <div className="min-h-screen flex flex-col justify-between items-center bg-white">
+      {isLoading && <AnalyzingOverlay />}
       <Header variation="type-back" />
 
       <main className="flex flex-col items-center justify-center my-[60px] gap-[30px]">

@@ -16,13 +16,23 @@ export default function FailPageContent() {
 
   return (
     <div className="min-h-screen flex flex-col justify-between bg-white">
-      <Header variation="type-back" />
+      <Header variation="type" />
 
       <main className="flex flex-col items-center justify-center my-[60px] gap-[60px]">
         <div className="flex flex-col items-center justify-center gap-[20px]">
-          <div className="w-[120px] h-[120px] rounded-[14px] bg-zinc-300 flex items-center justify-center shadow-md" />
+          <div className="w-40 h-40 flex items-center justify-center overflow-hidden">
+            <video
+              key="failimage"
+              src="/images/failimage.webm"
+              autoPlay
+              muted
+              playsInline
+              loop
+              className="w-full h-full object-contain"
+            />
+          </div>
           <p className="font-pretendard text-[18px] font-semibold">
-            {stage}에 실패했습니다.
+            {stage}에 실패했습니다!
           </p>
         </div>
         <CTAButton

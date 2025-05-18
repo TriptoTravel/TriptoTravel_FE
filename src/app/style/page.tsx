@@ -25,7 +25,6 @@ const styleIndexMap: Record<Exclude<TripStyle, "default">, number> = {
 
 export default function StylePage() {
   const { style, setStyle, travelogueId } = useTrip();
-  console.log("로그번호:", travelogueId);
   const router = useRouter();
 
   const handleSelect = (option: TripStyle) => {
@@ -37,41 +36,42 @@ export default function StylePage() {
 
     try {
       await patchTravelogueStyle(travelogueId, styleIndexMap[style]);
-      console.log("스타일번호:", styleIndexMap[style]);
       router.push("/info");
     } catch (err) {
-      console.error("여행기 스타일 업데이트 실패:", err);
+      router.push("/fail");
     }
   };
 
   return (
     <div className="min-h-screen flex flex-col justify-between bg-white">
-      <Header variation="type-back" />
+      <Header variation="type" />
 
       <main className="flex flex-col items-center justify-center my-[60px]">
-        <TextField
-          type="question"
-          text="선호하는 여행기 문체를 선택해주세요."
-        />
-        <div className="flex flex-col items-center justify-center mt-[30px] mb-[60px] gap-[30px]">
-          <StyleCard style={style ?? "default"} />
-          <div className="flex w-full justify-start gap-[10px]">
-            {styleOptions.map((option) => (
-              <SingleSelectButton
-                key={option}
-                label={option}
-                isSelected={style === option}
-                onClick={() => handleSelect(option)}
-              />
-            ))}
+        <div className="animate-fade-slide-up">
+          <TextField
+            type="question"
+            text="선호하는 여행기 문체를 선택해주세요."
+          />
+          <div className="flex flex-col items-center justify-center mt-[30px] mb-[60px] gap-[30px]">
+            <StyleCard style={style ?? "default"} />
+            <div className="flex w-full justify-start gap-[10px]">
+              {styleOptions.map((option) => (
+                <SingleSelectButton
+                  key={option}
+                  label={option}
+                  isSelected={style === option}
+                  onClick={() => handleSelect(option)}
+                />
+              ))}
+            </div>
           </div>
-        </div>
 
-        <CTAButton
-          variation={style !== "default" ? "black" : "disabled"}
-          label="다음 단계"
-          onClick={handleNext}
-        />
+          <CTAButton
+            variation={style !== "default" ? "black" : "disabled"}
+            label="다음 단계"
+            onClick={handleNext}
+          />
+        </div>
       </main>
 
       <Footer />

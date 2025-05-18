@@ -7,51 +7,58 @@ import Footer from "@/components/common/Footer";
 import UploadIconButton from "@/components/buttons/UploadIconButton";
 import MultiPhotoCard from "@/components/cards/MultiPhotoCard";
 import CTAButton from "@/components/buttons/CTAButton";
+import UploadingOverlay from "@/components/common/UploadingOverlay";
 import { postImages } from "@/api/travelogue";
 import { useTrip } from "@/contexts/tripStore";
 
 export default function UploadPage() {
   const [images, setImages] = useState<File[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { travelogueId } = useTrip();
 
   const handleNext = async () => {
     if (!travelogueId) return alert("여행기가 없습니다");
 
+    setIsLoading(true);
     try {
       await postImages(travelogueId, images);
       router.push("/num");
     } catch (err) {
       alert("이미지 업로드에 실패했습니다");
+    } finally {
     }
   };
 
   return (
     <div className="min-h-screen flex flex-col justify-between bg-white">
+      {isLoading && <UploadingOverlay />}
       <Header variation="type-back" />
 
       <main className="flex flex-col items-center justify-center my-[60px] gap-[60px]">
-        {images.length === 0 && (
-          <UploadIconButton
-            onUpload={(files) => {
-              const fileArray = Array.from(files);
-              setImages((prev) => [...prev, ...fileArray]);
-            }}
-          />
-        )}
+        <div className="animate-fade-slide-up">
+          {images.length === 0 && (
+            <UploadIconButton
+              onUpload={(files) => {
+                const fileArray = Array.from(files);
+                setImages((prev) => [...prev, ...fileArray]);
+              }}
+            />
+          )}
 
-        {images.length > 0 && (
-          <>
-            <MultiPhotoCard
-              images={images.map((file) => URL.createObjectURL(file))}
-            />
-            <CTAButton
-              variation="black"
-              label="다음 단계"
-              onClick={handleNext}
-            />
-          </>
-        )}
+          {images.length > 0 && (
+            <>
+              <MultiPhotoCard
+                images={images.map((file) => URL.createObjectURL(file))}
+              />
+              <CTAButton
+                variation="black"
+                label="다음 단계"
+                onClick={handleNext}
+              />
+            </>
+          )}
+        </div>
       </main>
 
       <Footer />

@@ -92,11 +92,10 @@ export const postWhoWhy = async (
 // 이미지 1차 선별 개수 PATCH /api/image/{travelogue_id}/selection/first
 export async function patchImageSelectionFirst(
   travelogueId: number,
-  data: PatchImageSelectionRequest
+  imageNum: number
 ): Promise<void> {
   const res = await axiosInstance.patch(
-    `/api/image/${travelogueId}/selection/first`,
-    data
+    `/api/image/${travelogueId}/selection/first?image_num=${imageNum}`
   );
 
   return res.data;
