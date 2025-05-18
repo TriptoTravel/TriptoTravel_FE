@@ -49,7 +49,7 @@ export default function EXIFPage() {
     <div className="min-h-screen flex flex-col justify-between bg-white">
       <Header variation="type" />
 
-      <main className="flex flex-col items-center justify-start my-[60px] gap-[60px] animate-fade-slide-up">
+      <main className="flex flex-col items-center justify-start mt-[60px] gap-[60px] animate-fade-slide-up">
         <TextField
           type="instruction"
           text="사진이 찍힌 시간과 장소를 분석했어요! 비어 있는 시간과 장소를 추가해 주세요"
