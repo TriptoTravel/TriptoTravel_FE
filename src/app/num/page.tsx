@@ -25,9 +25,7 @@ export default function NumPage() {
     setIsLoading(true);
     try {
       setPhotoCount(selected);
-      await patchImageSelectionFirst(travelogueId, {
-        image_num: selected,
-      });
+      await patchImageSelectionFirst(travelogueId, selected + 4);
       router.push("/sort");
     } catch (err) {
       router.push("/fail?stage=사진 선별");
