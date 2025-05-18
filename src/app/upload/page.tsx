@@ -7,27 +7,33 @@ import Footer from "@/components/common/Footer";
 import UploadIconButton from "@/components/buttons/UploadIconButton";
 import MultiPhotoCard from "@/components/cards/MultiPhotoCard";
 import CTAButton from "@/components/buttons/CTAButton";
+import LoadingOverlay from "@/components/common/LoadingOverlay";
 import { postImages } from "@/api/travelogue";
 import { useTrip } from "@/contexts/tripStore";
 
 export default function UploadPage() {
   const [images, setImages] = useState<File[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { travelogueId } = useTrip();
 
   const handleNext = async () => {
     if (!travelogueId) return alert("여행기가 없습니다");
 
+    setIsLoading(true);
     try {
       await postImages(travelogueId, images);
       router.push("/num");
     } catch (err) {
       alert("이미지 업로드에 실패했습니다");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <div className="min-h-screen flex flex-col justify-between bg-white">
+      {isLoading && <LoadingOverlay />}
       <Header variation="type-back" />
 
       <main className="flex flex-col items-center justify-center my-[60px] gap-[60px]">
