@@ -10,13 +10,11 @@ import { getExportUrl } from "@/api/travelogue";
 
 export default function SharePage() {
   const router = useRouter();
-  // 원래
-  // const { travelogueId } = useTrip();
-
-  // 테스트용으로 임시 고정
-  const travelogueId = 30;
-  const { confirmedImages } = useTrip();
-  const firstImageUrl = confirmedImages.length > 0 ? confirmedImages[0].image_url : "/images/loadingImage.png";
+  const { travelogueId, confirmedImages } = useTrip();
+  const firstImageUrl =
+    confirmedImages.length > 0
+      ? confirmedImages[0].image_url
+      : "/images/imageicon.svg";
 
   const handleSave = async () => {
     if (!travelogueId) return;
@@ -24,8 +22,7 @@ export default function SharePage() {
       const res = await getExportUrl(travelogueId);
       window.open(res.file_path, "_blank"); // 저장하기: file_path 새 창
     } catch (err) {
-      console.error("여행기 저장 실패", err);
-      alert("여행기 저장에 실패했습니다");
+      router.push("/fail?stage=여행기 저장");
     }
   };
 
@@ -35,13 +32,12 @@ export default function SharePage() {
       const res = await getExportUrl(travelogueId);
       window.open(res.export_url, "_blank"); // 공유하기: export_url 새 창
     } catch (err) {
-      console.error("여행기 공유 실패", err);
-      alert("여행기 공유에 실패했습니다");
+      router.push("/fail?stage=여행기 공유");
     }
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-between bg-white">
+    <div className="min-h-screen flex flex-col justify-between bg-[url('/images/background.svg')] bg-cover bg-center">
       <Header variation="type-back" />
 
       <main className="flex flex-col items-center justify-center my-[60px] gap-[60px]">
