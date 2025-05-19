@@ -18,12 +18,8 @@ type DraftItem = {
 
 export default function ResultPage() {
   const router = useRouter();
-  // 원래
-  // const { travelogueId } = useTrip();
 
-  // 테스트용으로 임시 고정
-  const travelogueId = 30;
-  const { confirmedImages } = useTrip();
+  const { travelogueId, confirmedImages } = useTrip();
   const [drafts, setDrafts] = useState<DraftItem[]>([]);
 
   useEffect(() => {
@@ -33,7 +29,7 @@ export default function ResultPage() {
         const res = await getDraftList(travelogueId);
         setDrafts(res.draft_list);
       } catch (err) {
-        console.error("초안 불러오기 실패", err);
+        router.push("/fail?stage=여행기 초안 조회");
       }
     };
 
@@ -53,19 +49,17 @@ export default function ResultPage() {
       await Promise.all(
         drafts.map((item) => patchImageCorrection(item.image_id, item.draft))
       );
-      alert("모든 여행기 초안이 저장되었습니다");
       router.push("/share");
     } catch (err) {
-      console.error("전체 저장 실패", err);
-      alert("저장에 실패했습니다");
+      router.push("/fail?stage=여행기 최종본 저장");
     }
   };
 
   return (
     <div className="min-h-screen flex flex-col justify-between bg-white">
-      <Header variation="type-back" />
+      <Header variation="type" />
 
-      <main className="flex flex-col items-center justify-center my-[60px] gap-[60px]">
+      <main className="flex flex-col items-center justify-start mt-[60px] mb-auto gap-[60px] animate-fade-slide-up">
         <TextField
           type="instruction"
           text="여행기 생성이 완료되었습니다! 내용을 확인하고 자유롭게 수정하세요."
@@ -77,9 +71,14 @@ export default function ResultPage() {
             onChange={handleDraftChange}
           />
         </section>
-        <CTAButton variation="black" label="다음 단계" onClick={handleSaveAll} />
       </main>
-
+      <div className="flex justify-center mb-[60px] animate-fade-slide-up">
+        <CTAButton
+          variation="black"
+          label="저장하기"
+          onClick={handleSaveAll}
+        />
+      </div>
       <Footer />
     </div>
   );

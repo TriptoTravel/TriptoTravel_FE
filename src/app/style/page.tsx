@@ -9,7 +9,6 @@ import StyleCard from "@/components/cards/StyleCard";
 import SingleSelectButton from "@/components/buttons/SingleSelectButton";
 import CTAButton from "@/components/buttons/CTAButton";
 import type { TripStyle } from "@/contexts/types";
-import { patchTravelogueStyle } from "@/api/travelogue";
 
 const styleOptions: Exclude<TripStyle, "default">[] = [
   "정보형",
@@ -17,15 +16,8 @@ const styleOptions: Exclude<TripStyle, "default">[] = [
   "감성형",
 ];
 
-const styleIndexMap: Record<Exclude<TripStyle, "default">, number> = {
-  정보형: 1,
-  요약형: 2,
-  감성형: 3,
-};
-
 export default function StylePage() {
-  const { style, setStyle, travelogueId } = useTrip();
-  console.log("로그번호:", travelogueId);
+  const { style, setStyle } = useTrip();
   const router = useRouter();
 
   const handleSelect = (option: TripStyle) => {
@@ -33,22 +25,15 @@ export default function StylePage() {
   };
 
   const handleNext = async () => {
-    if (style === "default" || !travelogueId) return;
-
-    try {
-      await patchTravelogueStyle(travelogueId, styleIndexMap[style]);
-      console.log("스타일번호:", styleIndexMap[style]);
-      router.push("/info");
-    } catch (err) {
-      console.error("여행기 스타일 업데이트 실패:", err);
-    }
+    if (style === "default") return;
+    router.push("/info");
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-between bg-white">
-      <Header variation="type-back" />
+    <div className="min-h-screen flex flex-col bg-white">
+      <Header variation="type" />
 
-      <main className="flex flex-col items-center justify-center my-[60px]">
+      <main className="flex flex-col items-center justify-center mt-[60px] mb-auto animate-fade-slide-up">
         <TextField
           type="question"
           text="선호하는 여행기 문체를 선택해주세요."
@@ -66,14 +51,14 @@ export default function StylePage() {
             ))}
           </div>
         </div>
-
+      </main>
+      <div className="flex justify-center mb-[60px] animate-fade-slide-up">
         <CTAButton
           variation={style !== "default" ? "black" : "disabled"}
           label="다음 단계"
           onClick={handleNext}
         />
-      </main>
-
+      </div>
       <Footer />
     </div>
   );

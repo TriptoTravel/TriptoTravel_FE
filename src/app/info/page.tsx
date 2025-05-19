@@ -7,11 +7,7 @@ import Footer from "@/components/common/Footer";
 import TextField from "@/components/common/TextField";
 import MultiSelectButton from "@/components/buttons/MultiSelectButton";
 import CTAButton from "@/components/buttons/CTAButton";
-import { postWhoWhy } from "@/api/travelogue";
-import type { PostWhoWhyRequest } from "@/types/travelogueRequest";
 import {
-  companionMap,
-  purposeMap,
   companionOptions,
   purposeOptions,
   TripCompanion,
@@ -19,7 +15,7 @@ import {
 } from "@/constants/whowhy";
 
 export default function InfoPage() {
-  const { travelogueId, who, setWho, why, setWhy } = useTrip();
+  const { who, setWho, why, setWhy } = useTrip();
   const router = useRouter();
 
   const handleWhoClick = (option: TripCompanion) => {
@@ -36,24 +32,14 @@ export default function InfoPage() {
 
   const handleNext = async () => {
     if (!who || why.length === 0) return;
-    try {
-      const body = {
-        who_category: [companionMap[who]],
-        purpose_category: why.map((p) => purposeMap[p]),
-      };
-      await postWhoWhy(travelogueId!, body);
-      console.log("WHO WHY 번호:", body);
-      router.push("/upload");
-    } catch (error) {
-      console.error("여행기 정보 업로드 실패:", error);
-    }
+    router.push("/upload");
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-between bg-white">
+    <div className="min-h-screen flex flex-col bg-white">
       <Header variation="type-back" />
 
-      <main className="flex flex-col items-center justify-center my-[60px] gap-[60px]">
+      <main className="flex flex-col items-center justify-start mt-[60px] mb-auto gap-[60px] animate-fade-slide-up">
         <section className="flex flex-col items-start gap-[30px]">
           <TextField type="question" text="누구와 함께 한 여행인가요?" />
           <div className="flex flex-wrap gap-[10px] max-w-[300px]">
@@ -81,14 +67,14 @@ export default function InfoPage() {
             ))}
           </div>
         </section>
-
+      </main>
+      <div className="flex justify-center mb-[60px] animate-fade-slide-up">
         <CTAButton
           variation={who && why.length > 0 ? "black" : "disabled"}
           label="다음 단계"
           onClick={handleNext}
         />
-      </main>
-
+      </div>
       <Footer />
     </div>
   );

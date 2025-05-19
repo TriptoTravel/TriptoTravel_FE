@@ -28,9 +28,7 @@ type EXIFCardListProps = {
 
 const EXIFCardList = forwardRef<EXIFCardListHandle, EXIFCardListProps>(
   ({ onMetaChange }, ref) => {
-    // const { travelogueId } = useTrip();
-    const travelogueId = 30; // 테스트 끝나면 제거
-    const { confirmedImages } = useTrip();
+    const { travelogueId, confirmedImages } = useTrip();
     const [items, setItems] = useState<ImageMetadataItem[]>([]);
     const [metaMap, setMetaMap] = useState<ImageMetaMap>({});
 
@@ -50,7 +48,7 @@ const EXIFCardList = forwardRef<EXIFCardListHandle, EXIFCardListProps>(
     }));
 
     useEffect(() => {
-      onMetaChange(metaMap); // ✅ metaMap 바뀔 때마다 부모에게 전달
+      onMetaChange(metaMap); // metaMap 바뀔 때마다 부모에게 전달
     }, [metaMap, onMetaChange]);
 
     useEffect(() => {

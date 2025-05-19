@@ -8,18 +8,24 @@ import Footer from "@/components/common/Footer";
 import TextField from "@/components/common/TextField";
 import MultiSelectCard from "@/components/cards/MultiSelectCard";
 import CTAButton from "@/components/buttons/CTAButton";
+import AnalyzingOverlay from "@/components/common/AnalyzingOverlay";
 import { getActivatedImages, postImageSelectionSecond } from "@/api/travelogue";
+import { getActivatedImageCount } from "@/utils/selection";
 
 export default function SortPage() {
   const router = useRouter();
   const {
     travelogueId,
+    uploadnum,
     photoCount,
     selectedImages,
     setSelectedImages,
     setConfirmedImages,
   } = useTrip();
   const [selectedIndices, setSelectedIndices] = useState<number[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const skeletonCount =
+    photoCount !== null ? getActivatedImageCount(photoCount, uploadnum) : 0;
 
   useEffect(() => {
     const fetchActivatedImages = async () => {
@@ -28,7 +34,6 @@ export default function SortPage() {
         const imageList = await getActivatedImages(travelogueId);
         setSelectedImages(imageList);
       } catch (err) {
-        console.error("1차 선별 이미지 조회 실패", err);
         router.push("/fail?stage=사진 분석");
       }
     };
@@ -55,6 +60,7 @@ export default function SortPage() {
       selectedIndices.includes(index)
     );
 
+    setIsLoading(true);
     try {
       // 3. 확정하지 않은 이미지 전송
       await postImageSelectionSecond(travelogueId, {
@@ -64,18 +70,19 @@ export default function SortPage() {
       setConfirmedImages(confirmedImages);
       router.push("/exif");
     } catch (err) {
-      console.error("2차 선별 실패", err);
-      alert("이미지 확정에 실패했습니다");
+      router.push("/fail?stage=사진 분석");
+    } finally {
     }
   };
 
   const imageUrls = selectedImages.map((img) => img.image_url);
 
   return (
-    <div className="min-h-screen flex flex-col justify-between items-center bg-white">
-      <Header variation="type-back" />
+    <div className="min-h-screen flex flex-col bg-white">
+      {isLoading && <AnalyzingOverlay />}
+      <Header variation="type" />
 
-      <main className="flex flex-col items-center justify-center my-[60px] gap-[30px]">
+      <main className="flex flex-col items-center justify-start mt-[60px] mb-auto gap-[30px] animate-fade-slide-up">
         <TextField
           type="instruction"
           text="여행기에 어울리는 사진을 선별했어요! 마음에 드는 사진을 선택해 주세요"
@@ -84,7 +91,10 @@ export default function SortPage() {
           images={imageUrls}
           selectedIndices={selectedIndices}
           onToggle={toggleSelection}
+          skeletonCount={skeletonCount}
         />
+      </main>
+      <div className="flex justify-center mb-[60px] animate-fade-slide-up">
         <CTAButton
           variation={
             photoCount !== null &&
@@ -96,7 +106,7 @@ export default function SortPage() {
           label="다음 단계"
           onClick={handleNext}
         />
-      </main>
+      </div>
       <Footer />
     </div>
   );
