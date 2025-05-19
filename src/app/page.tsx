@@ -7,11 +7,17 @@ import { useRouter } from "next/navigation";
 import { postTravelogue } from "@/api/travelogue";
 import { useTrip } from "@/contexts/tripStore";
 import LandingAnimation from "@/components/common/LandingAnimation";
+import { cn } from "@/utils/cn";
 
 export default function HomePage() {
   const router = useRouter();
   const { setTravelogueId } = useTrip();
   const [showButton, setShowButton] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
+
+  const backgroundImage = isHovering
+    ? "bg-[url('/images/background2.svg')]"
+    : "bg-[url('/images/background.svg')]";
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -32,12 +38,21 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-between items-center bg-[url('/images/background.svg')] bg-cover bg-center">
+    <div
+      className={cn(
+        "min-h-screen flex flex-col justify-between items-center bg-cover bg-center transition-[background-image] duration-700 ease-in-out",
+        backgroundImage
+      )}
+    >
       <main className="flex flex-col items-center justify-center flex-1 gap-[140px] mt-20">
         <LandingAnimation />
 
         {showButton ? (
-          <div className="animate-fade-slide-up">
+          <div
+            className="animate-fade-slide-up"
+            onMouseEnter={() => setIsHovering(true)}
+            onMouseLeave={() => setIsHovering(false)}
+          >
             <CTAButton
               variation="black"
               label="나만의 여행기 만들기"
