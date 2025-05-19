@@ -1,5 +1,7 @@
-import GeneratingOverlay from "@/components/common/GeneratingOverlay";
-
 export default function TestUploadPage() {
-  return <GeneratingOverlay />;
+  return (
+    <div className="min-h-screen flex flex-col justify-center items-center bg-[url('/images/background2.svg')] bg-cover bg-center">
+      <img src="/images/text.svg" alt="" />
+    </div>
+  );
 }
