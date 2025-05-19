@@ -11,11 +11,13 @@ import EXIFCardList, {
 } from "@/components/cards/EXIFCardList";
 import CTAButton from "@/components/buttons/CTAButton";
 import { patchImageMetadata } from "@/api/travelogue";
+import LoadingOverlay from "@/components/common/LoadingOverlay";
 
 export default function EXIFPage() {
   const router = useRouter();
   const cardListRef = useRef<EXIFCardListHandle>(null);
   const [metaMap, setMetaMap] = useState<ImageMetaMap>({});
+  const [isLoading, setIsLoading] = useState(false);
 
   // 실시간 상태 검사
   const allComplete =
@@ -32,6 +34,7 @@ export default function EXIFPage() {
       alert("모든 시간과 위치를 입력해주세요");
       return;
     }
+    setIsLoading(true);
 
     try {
       await Promise.all(
@@ -47,6 +50,8 @@ export default function EXIFPage() {
 
   return (
     <div className="min-h-screen flex flex-col justify-between bg-white">
+      {isLoading && <LoadingOverlay />}
+
       <Header variation="type" />
 
       <main className="flex flex-col items-center justify-start mt-[60px] gap-[60px] animate-fade-slide-up">
