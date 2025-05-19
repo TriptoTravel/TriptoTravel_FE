@@ -78,11 +78,11 @@ export default function SortPage() {
   const imageUrls = selectedImages.map((img) => img.image_url);
 
   return (
-    <div className="min-h-screen flex flex-col justify-between items-center bg-white">
+    <div className="min-h-screen flex flex-col bg-white">
       {isLoading && <AnalyzingOverlay />}
-      <Header variation="type-back" />
+      <Header variation="type" />
 
-      <main className="flex flex-col items-center justify-center my-[60px] gap-[30px] animate-fade-slide-up">
+      <main className="flex flex-col items-center justify-start mt-[60px] mb-auto gap-[30px] animate-fade-slide-up">
         <TextField
           type="instruction"
           text="여행기에 어울리는 사진을 선별했어요! 마음에 드는 사진을 선택해 주세요"
@@ -93,6 +93,8 @@ export default function SortPage() {
           onToggle={toggleSelection}
           skeletonCount={skeletonCount}
         />
+      </main>
+      <div className="flex justify-center mb-[60px] animate-fade-slide-up">
         <CTAButton
           variation={
             photoCount !== null &&
@@ -104,7 +106,7 @@ export default function SortPage() {
           label="다음 단계"
           onClick={handleNext}
         />
-      </main>
+      </div>
       <Footer />
     </div>
   );
