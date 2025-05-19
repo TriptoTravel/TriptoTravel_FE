@@ -8,12 +8,14 @@ import { postTravelogue } from "@/api/travelogue";
 import { useTrip } from "@/contexts/tripStore";
 import LandingAnimation from "@/components/common/LandingAnimation";
 import { cn } from "@/utils/cn";
+import LoadingOverlay from "@/components/common/LoadingOverlay";
 
 export default function HomePage() {
   const router = useRouter();
   const { setTravelogueId } = useTrip();
   const [showButton, setShowButton] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const backgroundImage = isHovering
     ? "bg-[url('/images/background2.svg')]"
@@ -28,6 +30,7 @@ export default function HomePage() {
   }, []);
 
   const handleStart = async () => {
+    setIsLoading(true);
     try {
       const response = await postTravelogue();
       setTravelogueId(response.id);
@@ -44,6 +47,8 @@ export default function HomePage() {
         backgroundImage
       )}
     >
+      {isLoading && <LoadingOverlay />}
+
       <main className="flex flex-col items-center justify-center flex-1 gap-[140px] mt-20">
         <LandingAnimation />
 
