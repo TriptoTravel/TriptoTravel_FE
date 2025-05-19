@@ -37,7 +37,7 @@ type TripContextType = {
 
   // 업로드 사진 개수
   uploadnum: number;
-  setUploadnum: (value: number) => void;
+  setUploadnum: (count: number) => void;
 
   // 여행기 사진 개수
   photoCount: number | null;
@@ -71,7 +71,7 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
   const [who, setWho] = useState<TripCompanion | null>(null);
   const [why, setWhy] = useState<TripPurpose[]>([]);
   const [uploadnum, setUploadnum] = useState<number>(0);
-  const [photoCount, setPhotoCount] = useState<number | null>(null);
+  const [photoCount, setPhotoCount] = useState<number>(0);
   const [selectedImages, setSelectedImages] = useState<SelectedImage[]>([]);
   const [confirmedImages, setConfirmedImages] = useState<ConfirmedImage[]>([]);
   const [exifData, setExifData] = useState<ExifData>({});

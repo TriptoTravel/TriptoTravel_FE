@@ -35,7 +35,6 @@ export default function QnaPage() {
     } catch (err) {
       router.push("/fail?stage=여행기 생성");
     } finally {
-      setIsLoading(false);
     }
   };
 
@@ -45,7 +44,7 @@ export default function QnaPage() {
 
       <Header variation="type-back" />
 
-      <main className="flex flex-col items-center justify-center my-[60px] gap-[60px]">
+      <main className="flex flex-col items-center justify-start mt-[60px] gap-[60px] animate-fade-slide-up">
         <TextField
           type="instruction"
           text="여행기 생성을 위한 질문에 답변해주세요! 답변은 정확한 여행기 생성에 도움이 됩니다."
@@ -56,13 +55,14 @@ export default function QnaPage() {
             onChange={(completed) => setIsComplete(completed)}
           />
         </section>
+      </main>
+      <div className="flex justify-center mb-[60px] animate-fade-slide-up">
         <CTAButton
           variation={isComplete ? "black" : "disabled"}
           label="다음 단계"
           onClick={handleNext}
         />
-      </main>
-
+      </div>
       <Footer />
     </div>
   );

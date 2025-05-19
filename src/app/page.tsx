@@ -40,7 +40,7 @@ export default function HomePage() {
           <div className="animate-fade-slide-up">
             <CTAButton
               variation="black"
-              label="여행기 만들기"
+              label="나만의 여행기 만들기"
               onClick={handleStart}
             />
           </div>
