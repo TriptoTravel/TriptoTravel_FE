@@ -10,6 +10,7 @@ import CTAButton from "@/components/buttons/CTAButton";
 import { getDraftList, patchImageCorrection } from "@/api/travelogue";
 import { useTrip } from "@/contexts/tripStore";
 import type { ConfirmedImage } from "@/contexts/types";
+import LoadingOverlay from "@/components/common/LoadingOverlay";
 
 type DraftItem = {
   image_id: number;
@@ -18,9 +19,9 @@ type DraftItem = {
 
 export default function ResultPage() {
   const router = useRouter();
-
   const { travelogueId, confirmedImages } = useTrip();
   const [drafts, setDrafts] = useState<DraftItem[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchDrafts = async () => {
@@ -45,6 +46,7 @@ export default function ResultPage() {
   };
 
   const handleSaveAll = async () => {
+    setIsLoading(true);
     try {
       await Promise.all(
         drafts.map((item) => patchImageCorrection(item.image_id, item.draft))
@@ -57,6 +59,8 @@ export default function ResultPage() {
 
   return (
     <div className="min-h-screen flex flex-col justify-between bg-white">
+      {isLoading && <LoadingOverlay />}
+
       <Header variation="type" />
 
       <main className="flex flex-col items-center justify-start mt-[60px] mb-auto gap-[60px] animate-fade-slide-up">
@@ -73,11 +77,7 @@ export default function ResultPage() {
         </section>
       </main>
       <div className="flex justify-center mb-[60px] animate-fade-slide-up">
-        <CTAButton
-          variation="black"
-          label="저장하기"
-          onClick={handleSaveAll}
-        />
+        <CTAButton variation="black" label="저장하기" onClick={handleSaveAll} />
       </div>
       <Footer />
     </div>
