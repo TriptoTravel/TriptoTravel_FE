@@ -30,10 +30,10 @@ export default function StylePage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-between bg-white">
+    <div className="min-h-screen flex flex-col bg-white">
       <Header variation="type" />
 
-      <main className="flex flex-col items-center justify-center my-[60px] animate-fade-slide-up">
+      <main className="flex flex-col items-center justify-center mt-[60px] mb-auto animate-fade-slide-up">
         <TextField
           type="question"
           text="선호하는 여행기 문체를 선택해주세요."
