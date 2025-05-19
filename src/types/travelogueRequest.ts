@@ -5,6 +5,24 @@ export type createTravelogueRequest = {
 };
 
 export type PostWhoWhyRequest = {
-  who: number[];
+  who_category: number[];
   purpose_category: number[];
+};
+
+export type PatchImageSelectionRequest = {
+  image_num: number;
+};
+
+export type PostImageSelectionSecondRequest = {
+  image_ids: number[];
+};
+
+export type PatchImageMetadataRequest = {
+  created_at: string;
+  location: string;
+};
+
+export type PatchImageQnaRequest = {
+  how: string;
+  emotion: number[];
 };

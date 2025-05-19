@@ -1,7 +1,20 @@
 import axiosInstance from "./axiosInstance";
-import type { PostImageResponse } from "@/types/travelogueResponse";
-import type { PostWhoWhyRequest } from "@/types/travelogueRequest";
-import type { PostWhoWhyResponse } from "@/types/travelogueResponse";
+import type {
+  PostWhoWhyRequest,
+  PatchImageSelectionRequest,
+  PostImageSelectionSecondRequest,
+  PatchImageMetadataRequest,
+  PatchImageQnaRequest,
+} from "@/types/travelogueRequest";
+import type {
+  PostImageResponse,
+  PostWhoWhyResponse,
+  PostImageSelectionSecondResponse,
+  GetImageMetadataNoneResponse,
+  PatchImageQnaResponse,
+  GetDraftListResponse,
+  GetExportResponse,
+} from "@/types/travelogueResponse";
 
 // 여행기 생성 POST /api/travelogue
 export async function postTravelogue() {
@@ -75,3 +88,88 @@ export const postWhoWhy = async (
   );
   return response.data;
 };
+
+// 이미지 1차 선별 개수 PATCH /api/image/{travelogue_id}/selection/first
+export async function patchImageSelectionFirst(
+  travelogueId: number,
+  imageNum: number
+): Promise<void> {
+  const res = await axiosInstance.patch(
+    `/api/image/${travelogueId}/selection/first?image_num=${imageNum}`
+  );
+
+  return res.data;
+}
+
+// 이미지 1차 선별 조회 GET /api/image/{travelogue_id}/activated
+export async function getActivatedImages(travelogueId: number) {
+  const res = await axiosInstance.get(`/api/image/${travelogueId}/activated`);
+  return res.data.image_list;
+}
+
+// 이미지 2차 선별 POST /api/image/${travelogueId}/selection/second
+export async function postImageSelectionSecond(
+  travelogueId: number,
+  data: PostImageSelectionSecondRequest
+): Promise<PostImageSelectionSecondResponse> {
+  const res = await axiosInstance.post(
+    `/api/image/${travelogueId}/selection/second`,
+    data
+  );
+
+  return res.data;
+}
+
+// 메타데이터가 없는 이미지 조회 GET /api/image/${travelogueId}/none/metadata
+export async function getImagesWithoutMetadata(
+  travelogueId: number
+): Promise<GetImageMetadataNoneResponse> {
+  const res = await axiosInstance.get(
+    `/api/image/${travelogueId}/none/metadata`
+  );
+
+  return res.data;
+}
+
+// 이미지 메타데이터 수정 PATCH /api/image/${imageId}/metadata
+export async function patchImageMetadata(
+  imageId: number,
+  data: PatchImageMetadataRequest
+): Promise<void> {
+  await axiosInstance.patch(`/api/image/${imageId}/metadata`, data);
+}
+
+// 감정, 상황 데이터 업로드 POST /api/image/${imageId}/question
+export async function postImageQna(
+  imageId: number,
+  data: PatchImageQnaRequest
+): Promise<PatchImageQnaResponse> {
+  const res = await axiosInstance.post(`/api/image/${imageId}/question`, data);
+  return res.data;
+}
+
+// 여행기 초안 조회 GET /api/travelogue/{travelogue_id}/draft
+export async function getDraftList(
+  travelogueId: number
+): Promise<GetDraftListResponse> {
+  const res = await axiosInstance.get(`/api/travelogue/${travelogueId}/draft`);
+  return res.data;
+}
+
+// 여행기 초안 수정 PATCH /api/image/${imageId}/correction
+export async function patchImageCorrection(
+  imageId: number,
+  finalText: string
+): Promise<void> {
+  await axiosInstance.patch(`/api/image/${imageId}/correction`, {
+    final: finalText,
+  });
+}
+
+// 여행기 최종안 추출 GET /api/travelogue/${travelogueId}/export
+export async function getExportUrl(
+  travelogueId: number
+): Promise<GetExportResponse> {
+  const res = await axiosInstance.get(`/api/travelogue/${travelogueId}/export`);
+  return res.data;
+}

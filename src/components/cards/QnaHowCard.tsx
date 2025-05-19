@@ -45,7 +45,7 @@ export default function QnaHowCard({
             className="w-full h-20 p-4 resize-none rounded-[20px] bg-zinc-300 text-black text-base font-medium focus:outline-none"
             value={draft}
             onChange={(e) => setDraft(e.target.value)}
-            placeholder="예시 답안 제공할건가요?"
+            placeholder="자세한 답변은 정확한 여행기 생성을 도와줍니다."
           />
           <div className="relative flex justify-end">
             <ActionButton
@@ -68,11 +68,9 @@ export default function QnaHowCard({
         <div
           className="w-full h-20 p-4 rounded-[20px] bg-zinc-300 flex px-4 text-black text-base font-medium cursor-pointer"
           onClick={() => setIsEditing(true)}
-        >
-          여기에 답변을 작성해 주세요.
-        </div>
+        />
       )}
-      
+
       {/* 이미지 모달 */}
       {imageUrl && (
         <ImageModal

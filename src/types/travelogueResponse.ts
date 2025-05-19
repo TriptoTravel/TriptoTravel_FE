@@ -13,13 +13,56 @@ export type PostImageResponse = {
 
 export type PostWhoWhyResponse = {
   purpose_list: {
-    purpose_id: number;
+    id: number;
     travelogue_id: number;
-    purpose_category: number;
+    purpose_category: number[];
   }[];
   travel_question_response_list: {
-    image_question_response_id: number;
+    id: number;
     travelogue_id: number;
-    who: string[];
+    who_category: number[];
   }[];
+};
+
+export type SelectedImage = {
+  image_id: number;
+  image_url: string;
+};
+
+export type PostImageSelectionSecondResponse = {
+  caption_list: string[]; // 확정 아님
+};
+
+export type ImageMetadataItem = {
+  image_id: number;
+  created_at: string;
+  location: string;
+};
+
+export type GetImageMetadataNoneResponse = {
+  image_metadata_list: ImageMetadataItem[];
+};
+
+export type EmotionItem = {
+  id: number;
+  question_response_id: number;
+  emotion_category: number;
+};
+
+export type PatchImageQnaResponse = {
+  image_id: number;
+  how: string;
+  emotion_list: EmotionItem[];
+};
+
+export type GetDraftListResponse = {
+  draft_list: {
+    image_id: number;
+    draft: string;
+  }[];
+};
+
+export type GetExportResponse = {
+  file_path: string;
+  export_url: string;
 };

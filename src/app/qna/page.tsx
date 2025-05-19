@@ -1,47 +1,68 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 import TextField from "@/components/common/TextField";
-import QnaHowCard from "@/components/cards/QnaHowCard";
-import { qnaHowCardMock } from "@/test/QnaHowCardMock";
-import QnaEmotionCard from "@/components/cards/QnaEmotionCard";
+import QnaCardList, { QnaCardListHandle } from "@/components/cards/QnaCardList";
 import CTAButton from "@/components/buttons/CTAButton";
+import GeneratingOverlay from "@/components/common/GeneratingOverlay";
+import { EMOTION_MAP } from "@/constants/emotion";
+import { postImageQna } from "@/api/travelogue";
 
 export default function QnaPage() {
   const router = useRouter();
-  const [answer, setAnswer] = useState<string>(qnaHowCardMock.answer);
+  const cardListRef = useRef<QnaCardListHandle>(null);
+  const [isComplete, setIsComplete] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleNext = () => {
-    router.push("/result");
+  const handleNext = async () => {
+    const qnaData = cardListRef.current?.getQnaData();
+    if (!qnaData) return;
+
+    setIsLoading(true);
+    try {
+      await Promise.all(
+        qnaData.map((item) =>
+          postImageQna(item.image_id, {
+            how: item.how,
+            emotion: item.emotion.map((e) => EMOTION_MAP[e]),
+          })
+        )
+      );
+      router.push("/result");
+    } catch (err) {
+      router.push("/fail?stage=여행기 생성");
+    } finally {
+    }
   };
 
   return (
     <div className="min-h-screen flex flex-col justify-between bg-white">
+      {isLoading && <GeneratingOverlay />}
+
       <Header variation="type-back" />
 
-      <main className="flex flex-col items-center justify-center my-[60px] gap-[60px]">
+      <main className="flex flex-col items-center justify-start mt-[60px] gap-[60px] animate-fade-slide-up">
         <TextField
           type="instruction"
           text="여행기 생성을 위한 질문에 답변해주세요! 답변은 정확한 여행기 생성에 도움이 됩니다."
         />
         <section className="w-full flex flex-col gap-[30px] items-center">
-          <QnaHowCard
-            imageUrl={qnaHowCardMock.imageUrl}
-            question={qnaHowCardMock.question}
-            answer={answer}
-            onSave={(newAnswer) => {
-              setAnswer(newAnswer);
-              qnaHowCardMock.onSave(newAnswer);
-            }}
+          <QnaCardList
+            ref={cardListRef}
+            onChange={(completed) => setIsComplete(completed)}
           />
-          <QnaEmotionCard imageUrl="/images/testimage.jpg" />
         </section>
-        <CTAButton variation="black" label="다음 단계" onClick={handleNext} />
       </main>
-
+      <div className="flex justify-center mb-[60px] animate-fade-slide-up">
+        <CTAButton
+          variation={isComplete ? "black" : "disabled"}
+          label="다음 단계"
+          onClick={handleNext}
+        />
+      </div>
       <Footer />
     </div>
   );

@@ -12,6 +12,7 @@ import type {
   TripCompanion,
   TripPurpose,
   SelectedImage,
+  ConfirmedImage,
   ExifData,
   QnaData,
 } from "./types";
@@ -34,13 +35,21 @@ type TripContextType = {
   why: TripPurpose[];
   setWhy: React.Dispatch<React.SetStateAction<TripPurpose[]>>;
 
-  // 사진 개수
+  // 업로드 사진 개수
+  uploadnum: number;
+  setUploadnum: (count: number) => void;
+
+  // 여행기 사진 개수
   photoCount: number | null;
   setPhotoCount: (count: number) => void;
 
-  // 최종 선택 사진
+  // AI 선별 사진
   selectedImages: SelectedImage[];
   setSelectedImages: (images: SelectedImage[]) => void;
+
+  // 최종 선택 사진
+  confirmedImages: ConfirmedImage[];
+  setConfirmedImages: (images: ConfirmedImage[]) => void;
 
   // 사진별 EXIF(WHEN, WHERE)
   exifData: ExifData;
@@ -61,9 +70,10 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
   const [style, setStyle] = useState<TripStyle>("default");
   const [who, setWho] = useState<TripCompanion | null>(null);
   const [why, setWhy] = useState<TripPurpose[]>([]);
-  const [photoCount, setPhotoCount] = useState<number | null>(null);
-
+  const [uploadnum, setUploadnum] = useState<number>(0);
+  const [photoCount, setPhotoCount] = useState<number>(0);
   const [selectedImages, setSelectedImages] = useState<SelectedImage[]>([]);
+  const [confirmedImages, setConfirmedImages] = useState<ConfirmedImage[]>([]);
   const [exifData, setExifData] = useState<ExifData>({});
   const [qnaData, setQnaData] = useState<QnaData>({});
 
@@ -78,10 +88,14 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
         setWho,
         why,
         setWhy,
+        uploadnum,
+        setUploadnum,
         photoCount,
         setPhotoCount,
         selectedImages,
         setSelectedImages,
+        confirmedImages,
+        setConfirmedImages,
         exifData,
         setExifData,
         qnaData,
