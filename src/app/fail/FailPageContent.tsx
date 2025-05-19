@@ -23,7 +23,7 @@ export default function FailPageContent() {
           <div className="w-40 h-40 flex items-center justify-center overflow-hidden">
             <video
               key="failimage"
-              src="/images/failimage.webm"
+              src="/videos/fail.webm"
               autoPlay
               muted
               playsInline
