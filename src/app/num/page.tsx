@@ -95,7 +95,7 @@ export default function NumPage() {
 
         <div className="flex gap-2 w-full items-start mt-[60px] mb-[314px]">
           {numOptions
-            .filter((num) => num <= uploadnum)
+            .filter((num) => num <= uploadnum + 4)
             .map((num) => (
               <SingleSelectButton
                 key={num}
