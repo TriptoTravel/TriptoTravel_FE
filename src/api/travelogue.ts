@@ -189,7 +189,7 @@ export async function getShareUrl(
 ): Promise<GetExportResponse> {
   return retry(() =>
     axiosInstance
-      .get(`/api/travelogue/${travelogueId}/export`)
+      .get(`/api/travelogue/${travelogueId}/share`)
       .then((res) => res.data)
   );
 }
