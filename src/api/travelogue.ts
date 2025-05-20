@@ -177,7 +177,7 @@ export async function patchImageCorrection(
 }
 
 // 여행기 최종안 추출 GET /api/travelogue/${travelogueId}/export
-export async function getExportUrl(
+export async function getShareUrl(
   travelogueId: number
 ): Promise<GetExportResponse> {
   return retry(() =>
@@ -212,3 +212,4 @@ export async function downloadPdf(travelogueId: number) {
     console.log("여행기 저장 실패");
   }
 }
+ 
