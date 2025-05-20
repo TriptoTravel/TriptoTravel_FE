@@ -6,11 +6,14 @@ import LogThumbnail from "@/components/common/LogThumbnail";
 import CTAButton from "@/components/buttons/CTAButton";
 import Footer from "@/components/common/Footer";
 import { useTrip } from "@/contexts/tripStore";
-import { getExportUrl } from "@/api/travelogue";
+import { downloadPdf, getExportUrl } from "@/api/travelogue";
 
 export default function SharePage() {
   const router = useRouter();
-  const { travelogueId, confirmedImages } = useTrip();
+  // const { travelogueId, confirmedImages } = useTrip()
+  const { confirmedImages } = useTrip();
+  const travelogueId = 30;
+  
   const firstImageUrl =
     confirmedImages.length > 0
       ? confirmedImages[0].image_url
@@ -19,8 +22,7 @@ export default function SharePage() {
   const handleSave = async () => {
     if (!travelogueId) return;
     try {
-      const res = await getExportUrl(travelogueId);
-      window.open(res.file_path, "_blank"); // 저장하기: file_path 새 창
+      await downloadPdf(travelogueId);
     } catch (err) {
       router.push("/fail?stage=여행기 저장");
     }
@@ -30,7 +32,7 @@ export default function SharePage() {
     if (!travelogueId) return;
     try {
       const res = await getExportUrl(travelogueId);
-      window.open(res.export_url, "_blank"); // 공유하기: export_url 새 창
+      window.open(res.export_url, "_blank");
     } catch (err) {
       router.push("/fail?stage=여행기 공유");
     }
