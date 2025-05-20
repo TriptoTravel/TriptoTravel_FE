@@ -2,7 +2,6 @@ import axiosInstance from "./axiosInstance";
 import { retry } from "@/utils/retry";
 import type {
   PostWhoWhyRequest,
-  PatchImageSelectionRequest,
   PostImageSelectionSecondRequest,
   PatchImageMetadataRequest,
   PatchImageQnaRequest,
@@ -178,7 +177,7 @@ export async function patchImageCorrection(
 }
 
 // 여행기 최종안 추출 GET /api/travelogue/${travelogueId}/export
-export async function getExportUrl(
+export async function getShareUrl(
   travelogueId: number
 ): Promise<GetExportResponse> {
   return retry(() =>
@@ -187,3 +186,30 @@ export async function getExportUrl(
       .then((res) => res.data)
   );
 }
+
+// 여행기 최종 PDF 저장 GET /api/pdf
+export async function downloadPdf(travelogueId: number) {
+  try {
+    const response = await axiosInstance.get(
+      `/api/travelogue/${travelogueId}/export`,
+      {
+        responseType: "blob",
+        withCredentials: true,
+      }
+    );
+
+    const blob = new Blob([response.data], { type: "application/pdf" });
+    const url = window.URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `travelogue_${travelogueId}.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+  } catch (error) {
+    console.log("여행기 저장 실패");
+  }
+}
+ 
