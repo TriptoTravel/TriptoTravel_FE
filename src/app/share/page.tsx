@@ -13,9 +13,7 @@ import { cn } from "@/utils/cn";
 export default function SharePage() {
   const [isHovering, setIsHovering] = useState(false);
   const router = useRouter();
-  // const { travelogueId, confirmedImages } = useTrip()
-  const { confirmedImages } = useTrip();
-  const travelogueId = 30;
+  const { travelogueId, confirmedImages } = useTrip();
 
   const backgroundImage = isHovering
     ? "bg-[url('/images/background2.svg')]"
