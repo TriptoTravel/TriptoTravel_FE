@@ -3,7 +3,7 @@ import "../styles/globals.css";
 import { TripProvider } from "@/contexts/tripStore";
 
 export const metadata: Metadata = {
-  title: "Trip to Travel",
+  title: "✈️Trip to Travel✈️",
   description: "사용자 업로드 이미지 기반 여행기 자동 생성 AI 서비스입니다.",
   keywords: ["AI", "여행기", "이미지 기반", "자동 생성", "Trip to Travel"],
   authors: [
@@ -32,8 +32,8 @@ export const metadata: Metadata = {
   },
 
   icons: {
-    icon: "/favicon.ico",
-    apple: "/imageicon.svg",
+    icon: "/logo.png",
+    apple: "/logo.png",
   },
 };
 
