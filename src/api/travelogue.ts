@@ -176,7 +176,7 @@ export async function patchImageCorrection(
   );
 }
 
-// 여행기 최종안 추출 GET /api/travelogue/${travelogueId}/export
+// 여행기 최종 URL GET /api/travelogue/${travelogueId}/share
 export async function getShareUrl(
   travelogueId: number
 ): Promise<GetExportResponse> {
