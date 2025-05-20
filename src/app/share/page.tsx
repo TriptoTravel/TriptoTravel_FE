@@ -1,16 +1,26 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Header from "@/components/common/Header";
 import LogThumbnail from "@/components/common/LogThumbnail";
 import CTAButton from "@/components/buttons/CTAButton";
 import Footer from "@/components/common/Footer";
 import { useTrip } from "@/contexts/tripStore";
-import { getExportUrl } from "@/api/travelogue";
+import { downloadPdf, getShareUrl } from "@/api/travelogue";
+import { cn } from "@/utils/cn";
 
 export default function SharePage() {
+  const [isHovering, setIsHovering] = useState(false);
   const router = useRouter();
-  const { travelogueId, confirmedImages } = useTrip();
+  // const { travelogueId, confirmedImages } = useTrip()
+  const { confirmedImages } = useTrip();
+  const travelogueId = 30;
+
+  const backgroundImage = isHovering
+    ? "bg-[url('/images/background2.svg')]"
+    : "bg-[url('/images/background.svg')]";
+
   const firstImageUrl =
     confirmedImages.length > 0
       ? confirmedImages[0].image_url
@@ -19,8 +29,7 @@ export default function SharePage() {
   const handleSave = async () => {
     if (!travelogueId) return;
     try {
-      const res = await getExportUrl(travelogueId);
-      window.open(res.file_path, "_blank"); // 저장하기: file_path 새 창
+      await downloadPdf(travelogueId);
     } catch (err) {
       router.push("/fail?stage=여행기 저장");
     }
@@ -29,19 +38,41 @@ export default function SharePage() {
   const handleShare = async () => {
     if (!travelogueId) return;
     try {
-      const res = await getExportUrl(travelogueId);
-      window.open(res.export_url, "_blank"); // 공유하기: export_url 새 창
+      const res = await getShareUrl(travelogueId);
+      const shareUrl = res.share_url;
+
+      if (navigator.share) {
+        await navigator.share({
+          title: "내 여행기",
+          text: "Trip to Travel에서 만든 내 여행기를 확인해보세요",
+          url: shareUrl,
+        });
+      } else {
+        await navigator.clipboard.writeText(shareUrl);
+        alert("링크가 복사되었습니다");
+      }
     } catch (err) {
       router.push("/fail?stage=여행기 공유");
     }
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-between bg-[url('/images/background.svg')] bg-cover bg-center">
+    <div
+      className={cn(
+        "min-h-screen flex flex-col justify-between items-center bg-cover bg-center transition-[background-image] duration-700 ease-in-out",
+        backgroundImage
+      )}
+    >
       <Header variation="type-back" />
-
       <main className="flex flex-col items-center justify-center my-[60px] gap-[60px]">
-        <LogThumbnail imageUrl={firstImageUrl} />
+        <div
+          onMouseEnter={() => setIsHovering(true)}
+          onMouseLeave={() => setIsHovering(false)}
+          onClick={() => router.push("/logue")}
+          className="cursor-pointer"
+        >
+          <LogThumbnail imageUrl={firstImageUrl} />
+        </div>
         <div className="flex flex-col gap-4">
           <CTAButton
             variation="default"
@@ -60,7 +91,6 @@ export default function SharePage() {
           onClick={() => router.push("/")}
         />
       </main>
-
       <Footer />
     </div>
   );

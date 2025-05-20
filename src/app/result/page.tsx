@@ -9,7 +9,7 @@ import DraftCardList from "@/components/cards/DraftCardList";
 import CTAButton from "@/components/buttons/CTAButton";
 import { getDraftList, patchImageCorrection } from "@/api/travelogue";
 import { useTrip } from "@/contexts/tripStore";
-import type { ConfirmedImage } from "@/contexts/types";
+import type { ConfirmedImage, FinalLogue } from "@/contexts/types";
 import LoadingOverlay from "@/components/common/LoadingOverlay";
 
 type DraftItem = {
@@ -19,7 +19,7 @@ type DraftItem = {
 
 export default function ResultPage() {
   const router = useRouter();
-  const { travelogueId, confirmedImages } = useTrip();
+  const { travelogueId, confirmedImages, setFinalLogue } = useTrip();
   const [drafts, setDrafts] = useState<DraftItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -51,6 +51,11 @@ export default function ResultPage() {
       await Promise.all(
         drafts.map((item) => patchImageCorrection(item.image_id, item.draft))
       );
+      const finalLogue: FinalLogue = drafts.map((item) => ({
+        image_id: item.image_id,
+        image_logue: item.draft,
+      }));
+      setFinalLogue(finalLogue);
       router.push("/share");
     } catch (err) {
       router.push("/fail?stage=여행기 최종본 저장");

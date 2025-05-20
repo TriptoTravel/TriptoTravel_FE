@@ -48,3 +48,9 @@ export type QnaData = {
     emotion: string[];
   };
 };
+
+// 최종 여행기 문단 타입
+export type FinalLogue = {
+  image_id: number;
+  image_logue: string;
+}[];

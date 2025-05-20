@@ -10,7 +10,6 @@ type LogResultCardProps = {
     imageUrl: string
   }
   textCardProps: {
-    title: string
     content: string
   }
 }
@@ -32,7 +31,6 @@ export default function LogResultCard({ photoCardProps, textCardProps }: LogResu
         </div>
         <div className="w-[360px] h-full shrink-0">
           <TextCard
-            title={textCardProps.title}
             content={textCardProps.content}
           />
         </div>

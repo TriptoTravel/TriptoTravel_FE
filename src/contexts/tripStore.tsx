@@ -15,6 +15,7 @@ import type {
   ConfirmedImage,
   ExifData,
   QnaData,
+  FinalLogue,
 } from "./types";
 
 // 전역 상태로 관리할 변수들과 각 setter 함수 타입 정의
@@ -58,6 +59,10 @@ type TripContextType = {
   // 사진별 정보(HOW, EMOTION)
   qnaData: QnaData;
   setQnaData: (data: QnaData) => void;
+
+  // 사진별 최종 로그
+  finalLogue: FinalLogue;
+  setFinalLogue: (draft: FinalLogue) => void;
 };
 
 // Context 생성 (초기값은 undefined, Provider 내부에서만 사용 가능하도록 제한)
@@ -76,6 +81,7 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
   const [confirmedImages, setConfirmedImages] = useState<ConfirmedImage[]>([]);
   const [exifData, setExifData] = useState<ExifData>({});
   const [qnaData, setQnaData] = useState<QnaData>({});
+  const [finalLogue, setFinalLogue] = useState<FinalLogue>([]);
 
   return (
     <TripContext.Provider
@@ -100,6 +106,8 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
         setExifData,
         qnaData,
         setQnaData,
+        finalLogue,
+        setFinalLogue,
       }}
     >
       {children}
