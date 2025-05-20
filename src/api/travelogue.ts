@@ -1,3 +1,4 @@
+import axios from "axios";
 import axiosInstance from "./axiosInstance";
 import { retry } from "@/utils/retry";
 import type {
@@ -52,29 +53,28 @@ export async function getTravelogueById(travelogueId: number) {
 // 이미지 업로드 POST /api/image/upload
 export async function postImages(
   travelogueId: number,
-  files: File[]
+  files: File[],
+  onProgress?: (percent: number) => void
 ): Promise<PostImageResponse[]> {
   const formData = new FormData();
   formData.append("travelogue_id", String(travelogueId));
   files.forEach((file) => formData.append("images", file));
 
-  return retry(async () => {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}api/image/upload`,
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
-
-    if (!res.ok) {
-      const errorBody = await res.text();
-      console.error("Upload failed:", errorBody);
-      throw new Error("이미지 업로드 실패");
+  const response = await axios.post(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}api/image/upload`,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      onUploadProgress: (event) => {
+        if (!event.total) return;
+        const percent = Math.round((event.loaded * 100) / event.total);
+        onProgress?.(percent); // 퍼센트 상태 업데이트
+      },
     }
-
-    return res.json();
-  });
+  );
+  return response.data;
 }
 
 // WHO WHY 업로드 POST /api/travelogue/${travelogueId}/question
@@ -153,6 +153,13 @@ export async function postImageQna(
   );
 }
 
+// 여행기 초안 생성 PATCH /api/travelogue/{travelogue_id}/generation
+export async function patchTravelogueGeneration(
+  travelogueId: number
+): Promise<void> {
+  await axiosInstance.patch(`/api/travelogue/${travelogueId}/generation`);
+}
+
 // 여행기 초안 조회 GET /api/travelogue/{travelogue_id}/draft
 export async function getDraftList(
   travelogueId: number
@@ -182,7 +189,7 @@ export async function getShareUrl(
 ): Promise<GetExportResponse> {
   return retry(() =>
     axiosInstance
-      .get(`/api/travelogue/${travelogueId}/export`)
+      .get(`/api/travelogue/${travelogueId}/share`)
       .then((res) => res.data)
   );
 }
@@ -212,4 +219,3 @@ export async function downloadPdf(travelogueId: number) {
     console.log("여행기 저장 실패");
   }
 }
- 

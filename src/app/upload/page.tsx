@@ -16,13 +16,14 @@ export default function UploadPage() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { travelogueId, setUploadnum } = useTrip();
+  const [progress, setProgress] = useState(0);
 
   const handleNext = async () => {
     if (!travelogueId) return router.push("fail?stage=여행기 ID 조회");
 
     setIsLoading(true);
     try {
-      await postImages(travelogueId, images);
+      await postImages(travelogueId, images, (percent) => setProgress(percent));
       setUploadnum(images.length);
       router.push("/num");
     } catch (err) {
@@ -33,7 +34,7 @@ export default function UploadPage() {
 
   return (
     <div className="min-h-screen flex flex-col justify-between bg-white">
-      {isLoading && <UploadingOverlay />}
+      {isLoading && <UploadingOverlay progress={progress} />}
       <Header variation="type-back" />
 
       <main className="flex flex-col items-center justify-center my-[60px] gap-[60px] animate-fade-slide-up">
