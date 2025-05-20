@@ -22,21 +22,13 @@ export const metadata: Metadata = {
     siteName: "Trip to Travel",
     images: [
       {
-        url: "https://ibb.co/Q7TFRwqQ",
+        url: "https://i.ibb.co/nqYsvJVm/metaimage.jpg",
         width: 1200,
         height: 630,
         alt: "Trip to Travel 미리보기 이미지",
       },
     ],
     type: "website",
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "Trip to Travel",
-    description: "AI 여행기 자동 생성 서비스",
-    images: ["https://ibb.co/Q7TFRwqQ"],
-    creator: "@triptotravel",
   },
 
   icons: {
