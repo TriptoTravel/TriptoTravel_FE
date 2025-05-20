@@ -8,7 +8,11 @@ const steps = [
   { type: "video", src: "/videos/uploadout.webm", key: "video2" },
 ];
 
-export default function UploadingOverlay() {
+type UploadingOverlayProps = {
+  progress: number;
+};
+
+export default function UploadingOverlay({ progress }: UploadingOverlayProps) {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -46,6 +50,17 @@ export default function UploadingOverlay() {
         <p className="text-black items-center text-xl font-pretendard font-semibold">
           이미지를 업로드하는 중입니다!
         </p>
+        <div className="w-64 h-2 bg-gray-200 rounded-full overflow-hidden mt-2">
+          <div
+            className="h-full transition-all duration-300"
+            style={{
+              width: `${progress}%`,
+              backgroundImage:
+                "linear-gradient(to right, #ffc907, #2e9df7, #231f20)",
+            }}
+          />
+        </div>
+        <p className="text-sm text-gray-500 mt-1">{progress}%</p>
       </div>
     </div>
   );
