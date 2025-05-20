@@ -153,6 +153,13 @@ export async function postImageQna(
   );
 }
 
+// 여행기 초안 생성 PATCH /api/travelogue/{travelogue_id}/generation
+export async function patchTravelogueGeneration(
+  travelogueId: number
+): Promise<void> {
+  await axiosInstance.patch(`/api/travelogue/${travelogueId}/generation`);
+}
+
 // 여행기 초안 조회 GET /api/travelogue/{travelogue_id}/draft
 export async function getDraftList(
   travelogueId: number

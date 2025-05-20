@@ -9,17 +9,19 @@ import QnaCardList, { QnaCardListHandle } from "@/components/cards/QnaCardList";
 import CTAButton from "@/components/buttons/CTAButton";
 import GeneratingOverlay from "@/components/common/GeneratingOverlay";
 import { EMOTION_MAP } from "@/constants/emotion";
-import { postImageQna } from "@/api/travelogue";
+import { postImageQna, patchTravelogueGeneration } from "@/api/travelogue";
+import { useTrip } from "@/contexts/tripStore";
 
 export default function QnaPage() {
   const router = useRouter();
   const cardListRef = useRef<QnaCardListHandle>(null);
   const [isComplete, setIsComplete] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const { travelogueId } = useTrip();
 
   const handleNext = async () => {
     const qnaData = cardListRef.current?.getQnaData();
-    if (!qnaData) return;
+    if (!qnaData || !travelogueId) return;
 
     setIsLoading(true);
     try {
@@ -31,6 +33,7 @@ export default function QnaPage() {
           })
         )
       );
+      await patchTravelogueGeneration(travelogueId);
       router.push("/result");
     } catch (err) {
       router.push("/fail?stage=여행기 생성");
