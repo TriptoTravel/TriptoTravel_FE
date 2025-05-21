@@ -72,7 +72,7 @@ export default function NumPage() {
       try {
         setPhotoCount(selected);
         await patchImageSelectionFirst(travelogueId, selected + 4, (percent) =>
-          setProgress(percent)
+          setProgress(Math.min(percent, 99))
         );
       } catch (err) {
         router.push("/fail?stage=사진 개수 선택 전송");

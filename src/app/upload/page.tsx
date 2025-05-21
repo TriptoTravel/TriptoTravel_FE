@@ -23,7 +23,7 @@ export default function UploadPage() {
 
     setIsLoading(true);
     try {
-      await postImages(travelogueId, images, (percent) => setProgress(percent));
+      await postImages(travelogueId, images, (percent) => setProgress(Math.min(percent, 99)));
       setUploadnum(images.length);
       router.push("/num");
     } catch (err) {

@@ -35,7 +35,7 @@ export default function QnaPage() {
         )
       );
       await patchTravelogueGeneration(travelogueId, (percent) =>
-        setProgress(percent)
+        setProgress(Math.min(percent, 99))
       );
       router.push("/result");
     } catch (err) {

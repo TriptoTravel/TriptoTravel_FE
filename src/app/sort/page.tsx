@@ -69,7 +69,7 @@ export default function SortPage() {
         {
           image_ids: unconfirmedImageIds,
         },
-        (percent) => setProgress(percent)
+        (percent) => setProgress(Math.min(percent, 99))
       );
       // 4. context에 confirmedImages 저장
       setConfirmedImages(confirmedImages);
