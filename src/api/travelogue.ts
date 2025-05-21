@@ -70,7 +70,7 @@ export async function postImages(
       onUploadProgress: (event) => {
         if (!event.total) return;
         const percent = Math.round((event.loaded * 100) / event.total);
-        onProgress?.(percent); // 퍼센트 상태 업데이트
+        onProgress?.(percent);
       },
     }
   );
@@ -155,9 +155,20 @@ export async function postImageQna(
 
 // 여행기 초안 생성 PATCH /api/travelogue/{travelogue_id}/generation
 export async function patchTravelogueGeneration(
-  travelogueId: number
+  travelogueId: number,
+  onProgress?: (percent: number) => void
 ): Promise<void> {
-  await axiosInstance.patch(`/api/travelogue/${travelogueId}/generation`);
+  await axiosInstance.patch(
+    `/api/travelogue/${travelogueId}/generation`,
+    null,
+    {
+      onDownloadProgress: (event) => {
+        if (!event.total) return;
+        const percent = Math.round((event.loaded * 100) / event.total);
+        onProgress?.(percent);
+      },
+    }
+  );
 }
 
 // 여행기 초안 조회 GET /api/travelogue/{travelogue_id}/draft
