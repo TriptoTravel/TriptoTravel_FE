@@ -36,7 +36,8 @@ export default function StylePage() {
       <main className="flex flex-col items-center justify-center mt-[60px] mb-auto animate-fade-slide-up">
         <TextField
           type="question"
-          text="선호하는 여행기 문체를 선택해주세요."
+          text="여행기의 문장 스타일을 선택해주세요."
+          annotation="none"
         />
         <div className="flex flex-col items-center justify-center mt-[30px] mb-[60px] gap-[30px]">
           <StyleCard style={style ?? "default"} />
@@ -52,7 +53,10 @@ export default function StylePage() {
           </div>
         </div>
       </main>
-      <div className="flex justify-center mb-[60px] animate-fade-slide-up">
+      <div className="flex flex-col items-center justify-center mb-[60px] animate-fade-slide-up">
+        <p className="flex text-sm font-pretendard justify-start text-gray-400">
+          선택한 항목은 AI 여행기 생성에 반영됩니다.
+        </p>
         <CTAButton
           variation={style !== "default" ? "black" : "disabled"}
           label="다음 단계"

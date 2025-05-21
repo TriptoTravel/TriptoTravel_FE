@@ -65,7 +65,7 @@ export default function EXIFPage() {
       {autoSkip && (
         <div className="absolute inset-0 flex items-center justify-center z-50 bg-white">
           <p className="text-xl font-pretendard font-semibold text-black">
-            모든 사진의 시간과 위치 정보를 분석했어요! 다음 단계로 이동합니다.
+            모든 사진의 시간과 장소를 분석했어요! 다음 단계로 이동합니다.
           </p>
         </div>
       )}
@@ -73,14 +73,18 @@ export default function EXIFPage() {
 
       <Header variation="type" />
 
-      <main className="flex flex-col items-center justify-start mt-[60px] gap-[60px] animate-fade-slide-up">
+      <main className="flex flex-col items-center justify-start mt-[60px] mb-auto gap-[60px] animate-fade-slide-up">
         <TextField
           type="instruction"
-          text="사진이 찍힌 시간과 장소를 분석했어요! 비어 있는 시간과 장소를 추가해 주세요"
+          text="사진의 시간과 장소를 분석했어요! 빠진 시간과 장소를 확인하고 입력해 주세요"
+          annotation="none"
         />
         <EXIFCardList ref={cardListRef} onMetaChange={setMetaMap} />
       </main>
-      <div className="flex justify-center my-[60px] animate-fade-slide-up">
+      <div className="flex flex-col items-center justify-center mb-[60px] animate-fade-slide-up">
+        <p className="flex text-sm font-pretendard justify-start text-gray-400">
+          입력한 시간과 장소가 여행기 생성의 정확도에 영향을 줍니다.
+        </p>
         <CTAButton
           variation={allComplete ? "black" : "disabled"}
           label="다음 단계"

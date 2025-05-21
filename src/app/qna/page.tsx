@@ -50,10 +50,11 @@ export default function QnaPage() {
 
       <Header variation="type-back" />
 
-      <main className="flex flex-col items-center justify-start mt-[60px] gap-[60px] animate-fade-slide-up">
+      <main className="flex flex-col items-center justify-start mt-[60px] mb-auto gap-[60px] animate-fade-slide-up">
         <TextField
           type="instruction"
-          text="여행기 생성을 위한 질문에 답변해주세요! 답변은 정확한 여행기 생성에 도움이 됩니다."
+          text="여행의 분위기와 감정을 더 잘 담기 위해 추가 질문에 답해주세요!"
+          annotation="none"
         />
         <section className="w-full flex flex-col gap-[30px] items-center">
           <QnaCardList
@@ -62,7 +63,10 @@ export default function QnaPage() {
           />
         </section>
       </main>
-      <div className="flex justify-center mb-[60px] animate-fade-slide-up">
+      <div className="flex flex-col items-center justify-center mb-[60px] animate-fade-slide-up">
+        <p className="flex text-sm font-pretendard justify-start text-gray-400">
+          입력한 답변은 여행기 생성의 정확도에 영향을 줍니다.
+        </p>
         <CTAButton
           variation={isComplete ? "black" : "disabled"}
           label="다음 단계"

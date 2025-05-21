@@ -41,7 +41,11 @@ export default function InfoPage() {
 
       <main className="flex flex-col items-center justify-start mt-[60px] mb-auto gap-[60px] animate-fade-slide-up">
         <section className="flex flex-col items-start gap-[30px]">
-          <TextField type="question" text="누구와 함께 한 여행인가요?" />
+          <TextField
+            type="question"
+            text="누구와 함께 한 여행인가요?"
+            annotation="single"
+          />
           <div className="flex flex-wrap gap-[10px] max-w-[300px]">
             {companionOptions.map((option) => (
               <MultiSelectButton
@@ -55,7 +59,11 @@ export default function InfoPage() {
         </section>
 
         <section className="flex flex-col items-start gap-[30px]">
-          <TextField type="question" text="왜 이 여행을 떠나게 되었나요?" />
+          <TextField
+            type="question"
+            text="왜 이 여행을 떠나게 되었나요?"
+            annotation="multiple"
+          />
           <div className="flex flex-wrap gap-[10px] max-w-[360px]">
             {purposeOptions.map((option) => (
               <MultiSelectButton
@@ -68,7 +76,10 @@ export default function InfoPage() {
           </div>
         </section>
       </main>
-      <div className="flex justify-center mb-[60px] animate-fade-slide-up">
+      <div className="flex flex-col items-center justify-center mb-[60px] animate-fade-slide-up">
+        <p className="flex text-sm font-pretendard justify-start text-gray-400">
+          선택한 항목은 AI 여행기 생성에 반영됩니다.
+        </p>
         <CTAButton
           variation={who && why.length > 0 ? "black" : "disabled"}
           label="다음 단계"

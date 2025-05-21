@@ -91,6 +91,7 @@ export default function SortPage() {
         <TextField
           type="instruction"
           text="여행기에 어울리는 사진을 선별했어요! 마음에 드는 사진을 선택해 주세요"
+          annotation="none"
         />
         <MultiSelectCard
           images={imageUrls}
@@ -99,7 +100,10 @@ export default function SortPage() {
           skeletonCount={skeletonCount}
         />
       </main>
-      <div className="flex justify-center mb-[60px] animate-fade-slide-up">
+      <div className="flex flex-col items-center justify-center mb-[60px] animate-fade-slide-up">
+        <p className="flex text-sm font-pretendard justify-start text-gray-400">
+          선택한 개수보다 4장 더 많은 사진을 제공합니다. 
+        </p>
         <CTAButton
           variation={
             photoCount !== null &&
