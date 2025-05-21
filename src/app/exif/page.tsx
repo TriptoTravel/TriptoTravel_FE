@@ -30,15 +30,6 @@ export default function EXIFPage() {
         meta.created_at_state === "default" && meta.location_state === "default"
     );
 
-  useEffect(() => {
-    if (Object.keys(metaMap).length === 0 && confirmedImages.length > 0) {
-      setAutoSkip(true);
-      setTimeout(() => {
-        router.push("/qna");
-      }, 1500);
-    }
-  }, [metaMap, confirmedImages, router]);
-
   const handleNext = async () => {
     const dataMap = cardListRef.current?.getAllMetadata();
     if (!dataMap) return;
@@ -79,7 +70,14 @@ export default function EXIFPage() {
           text={`사진의 시간과 장소를 분석했어요!\n빠진 시간과 장소를 확인하고 입력해 주세요.`}
           annotation="none"
         />
-        <EXIFCardList ref={cardListRef} onMetaChange={setMetaMap} />
+        <EXIFCardList
+          ref={cardListRef}
+          onMetaChange={setMetaMap}
+          onAutoSkipTrigger={() => {
+            setAutoSkip(true);
+            setTimeout(() => router.push("/qna"), 1500);
+          }}
+        />
       </main>
       <div className="flex flex-col items-center justify-center mb-[60px] animate-fade-slide-up">
         <p className="flex text-sm font-pretendard justify-start text-gray-400">
