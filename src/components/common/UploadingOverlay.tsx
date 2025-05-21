@@ -14,6 +14,7 @@ type UploadingOverlayProps = {
 
 export default function UploadingOverlay({ progress }: UploadingOverlayProps) {
   const [index, setIndex] = useState(0);
+  const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -22,6 +23,15 @@ export default function UploadingOverlay({ progress }: UploadingOverlayProps) {
 
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    if (progress === 100) {
+      const timer = setTimeout(() => {
+        setIsSaving(true);
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [progress]);
 
   const currentStep = steps[index];
 
@@ -47,8 +57,10 @@ export default function UploadingOverlay({ progress }: UploadingOverlayProps) {
             />
           )}
         </div>
-        <p className="text-black items-center text-xl font-pretendard font-semibold">
-          이미지를 업로드하는 중입니다!
+        <p className="text-black text-xl font-pretendard font-semibold">
+          {isSaving
+            ? "이미지를 저장하는 중입니다!"
+            : "이미지를 업로드하는 중입니다!"}
         </p>
         <div className="w-64 h-2 bg-gray-200 rounded-full overflow-hidden mt-2">
           <div
