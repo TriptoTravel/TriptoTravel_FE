@@ -53,7 +53,7 @@ export default function QnaPage() {
       <main className="flex flex-col items-center justify-start mt-[60px] mb-auto gap-[60px] animate-fade-slide-up">
         <TextField
           type="instruction"
-          text="여행의 분위기와 감정을 더 잘 담기 위해 추가 질문에 답해주세요!"
+          text={`여행의 분위기와 감정을 더 잘 담기 위해\n추가 질문에 답해주세요!`}
           annotation="none"
         />
         <section className="w-full flex flex-col gap-[30px] items-center">

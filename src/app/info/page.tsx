@@ -61,7 +61,7 @@ export default function InfoPage() {
         <section className="flex flex-col items-start gap-[30px]">
           <TextField
             type="question"
-            text="왜 이 여행을 떠나게 되었나요?"
+            text="여행의 키워드는 무엇인가요?"
             annotation="multiple"
           />
           <div className="flex flex-wrap gap-[10px] max-w-[360px]">

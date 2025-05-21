@@ -71,7 +71,7 @@ export default function ResultPage() {
       <main className="flex flex-col items-center justify-start mt-[60px] mb-auto gap-[60px] animate-fade-slide-up">
         <TextField
           type="instruction"
-          text="여행기 생성이 완료되었습니다! 내용을 확인하고 자유롭게 수정하세요."
+          text={`여행기 생성이 완료되었습니다!\n내용을 확인하고 자유롭게 수정하세요.`}
           annotation="none"
         />
         <section className="w-full flex flex-col gap-[30px] items-center">

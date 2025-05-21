@@ -76,7 +76,7 @@ export default function EXIFPage() {
       <main className="flex flex-col items-center justify-start mt-[60px] mb-auto gap-[60px] animate-fade-slide-up">
         <TextField
           type="instruction"
-          text="사진의 시간과 장소를 분석했어요! 빠진 시간과 장소를 확인하고 입력해 주세요"
+          text={`사진의 시간과 장소를 분석했어요!\n빠진 시간과 장소를 확인하고 입력해 주세요.`}
           annotation="none"
         />
         <EXIFCardList ref={cardListRef} onMetaChange={setMetaMap} />

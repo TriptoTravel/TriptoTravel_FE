@@ -90,7 +90,7 @@ export default function SortPage() {
       <main className="flex flex-col items-center justify-start mt-[60px] mb-auto gap-[30px] animate-fade-slide-up">
         <TextField
           type="instruction"
-          text="여행기에 어울리는 사진을 선별했어요! 마음에 드는 사진을 선택해 주세요"
+          text={`여행기에 어울리는 사진을 선별했어요!\n마음에 드는 사진을 선택해 주세요.`}
           annotation="none"
         />
         <MultiSelectCard
