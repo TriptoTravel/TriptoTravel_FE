@@ -12,7 +12,7 @@ import LoadingOverlay from "@/components/common/LoadingOverlay";
 
 export default function HomePage() {
   const router = useRouter();
-  const { setTravelogueId } = useTrip();
+  const { setTravelogueId, travelogueId } = useTrip();
   const [showButton, setShowButton] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -34,6 +34,7 @@ export default function HomePage() {
     try {
       const response = await postTravelogue();
       setTravelogueId(response.id);
+      console.log("로그번호:", travelogueId);
       router.push("/style");
     } catch (error) {
       router.push("/fail?stage=여행기 생성");
