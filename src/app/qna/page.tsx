@@ -18,6 +18,7 @@ export default function QnaPage() {
   const [isComplete, setIsComplete] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { travelogueId } = useTrip();
+  const [progress, setProgress] = useState(0);
 
   const handleNext = async () => {
     const qnaData = cardListRef.current?.getQnaData();
@@ -33,7 +34,9 @@ export default function QnaPage() {
           })
         )
       );
-      await patchTravelogueGeneration(travelogueId);
+      await patchTravelogueGeneration(travelogueId, (percent) =>
+        setProgress(Math.min(percent, 99))
+      );
       router.push("/result");
     } catch (err) {
       router.push("/fail?stage=여행기 생성");
@@ -43,7 +46,7 @@ export default function QnaPage() {
 
   return (
     <div className="min-h-screen flex flex-col justify-between bg-white">
-      {isLoading && <GeneratingOverlay />}
+      {isLoading && <GeneratingOverlay progress={progress} />}
 
       <Header variation="type-back" />
 

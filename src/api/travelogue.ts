@@ -70,7 +70,7 @@ export async function postImages(
       onUploadProgress: (event) => {
         if (!event.total) return;
         const percent = Math.round((event.loaded * 100) / event.total);
-        onProgress?.(percent); // 퍼센트 상태 업데이트
+        onProgress?.(percent);
       },
     }
   );
@@ -92,10 +92,19 @@ export const postWhoWhy = async (
 // 이미지 1차 선별 개수 PATCH /api/image/{travelogue_id}/selection/first
 export async function patchImageSelectionFirst(
   travelogueId: number,
-  imageNum: number
+  imageNum: number,
+  onProgress?: (percent: number) => void
 ): Promise<void> {
-  const res = await axiosInstance.patch(
-    `/api/image/${travelogueId}/selection/first?image_num=${imageNum}`
+  await axiosInstance.patch(
+    `/api/image/${travelogueId}/selection/first?image_num=${imageNum}`,
+    null,
+    {
+      onUploadProgress: (event) => {
+        if (!event.total) return;
+        const percent = Math.round((event.loaded * 100) / event.total);
+        onProgress?.(percent);
+      },
+    }
   );
 }
 
@@ -111,11 +120,18 @@ export async function getActivatedImages(travelogueId: number) {
 // 이미지 2차 선별 POST /api/image/${travelogueId}/selection/second
 export async function postImageSelectionSecond(
   travelogueId: number,
-  data: PostImageSelectionSecondRequest
+  data: PostImageSelectionSecondRequest,
+  onProgress?: (percent: number) => void
 ): Promise<PostImageSelectionSecondResponse> {
   return retry(() =>
     axiosInstance
-      .post(`/api/image/${travelogueId}/selection/second`, data)
+      .post(`/api/image/${travelogueId}/selection/second`, data, {
+        onUploadProgress: (event) => {
+          if (!event.total) return;
+          const percent = Math.round((event.loaded * 100) / event.total);
+          onProgress?.(percent);
+        },
+      })
       .then((res) => res.data)
   );
 }
@@ -155,9 +171,20 @@ export async function postImageQna(
 
 // 여행기 초안 생성 PATCH /api/travelogue/{travelogue_id}/generation
 export async function patchTravelogueGeneration(
-  travelogueId: number
+  travelogueId: number,
+  onProgress?: (percent: number) => void
 ): Promise<void> {
-  await axiosInstance.patch(`/api/travelogue/${travelogueId}/generation`);
+  await axiosInstance.patch(
+    `/api/travelogue/${travelogueId}/generation`,
+    null,
+    {
+      onDownloadProgress: (event) => {
+        if (!event.total) return;
+        const percent = Math.round((event.loaded * 100) / event.total);
+        onProgress?.(percent);
+      },
+    }
+  );
 }
 
 // 여행기 초안 조회 GET /api/travelogue/{travelogue_id}/draft
