@@ -61,7 +61,7 @@ export default function EXIFPage() {
         />
         <EXIFCardList ref={cardListRef} onMetaChange={setMetaMap} />
       </main>
-      <div className="flex justify-center mb-[60px] animate-fade-slide-up">
+      <div className="flex justify-center my-[60px] animate-fade-slide-up">
         <CTAButton
           variation={allComplete ? "black" : "disabled"}
           label="다음 단계"
