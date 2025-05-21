@@ -26,6 +26,7 @@ export default function SortPage() {
   const [isLoading, setIsLoading] = useState(false);
   const skeletonCount =
     photoCount !== null ? getActivatedImageCount(photoCount, uploadnum) : 0;
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const fetchActivatedImages = async () => {
@@ -63,9 +64,13 @@ export default function SortPage() {
     setIsLoading(true);
     try {
       // 3. 확정하지 않은 이미지 전송
-      await postImageSelectionSecond(travelogueId, {
-        image_ids: unconfirmedImageIds,
-      });
+      await postImageSelectionSecond(
+        travelogueId,
+        {
+          image_ids: unconfirmedImageIds,
+        },
+        (percent) => setProgress(percent)
+      );
       // 4. context에 confirmedImages 저장
       setConfirmedImages(confirmedImages);
       router.push("/exif");
@@ -79,7 +84,7 @@ export default function SortPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      {isLoading && <AnalyzingOverlay />}
+      {isLoading && <AnalyzingOverlay progress={progress} />}
       <Header variation="type" />
 
       <main className="flex flex-col items-center justify-start mt-[60px] mb-auto gap-[30px] animate-fade-slide-up">

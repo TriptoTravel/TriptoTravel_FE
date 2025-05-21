@@ -111,11 +111,18 @@ export async function getActivatedImages(travelogueId: number) {
 // 이미지 2차 선별 POST /api/image/${travelogueId}/selection/second
 export async function postImageSelectionSecond(
   travelogueId: number,
-  data: PostImageSelectionSecondRequest
+  data: PostImageSelectionSecondRequest,
+  onProgress?: (percent: number) => void
 ): Promise<PostImageSelectionSecondResponse> {
   return retry(() =>
     axiosInstance
-      .post(`/api/image/${travelogueId}/selection/second`, data)
+      .post(`/api/image/${travelogueId}/selection/second`, data, {
+        onUploadProgress: (event) => {
+          if (!event.total) return;
+          const percent = Math.round((event.loaded * 100) / event.total);
+          onProgress?.(percent);
+        },
+      })
       .then((res) => res.data)
   );
 }
