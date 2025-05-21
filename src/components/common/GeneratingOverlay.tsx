@@ -24,13 +24,18 @@ export default function GeneratingOverlay({
         <p className="text-black items-center text-xl font-pretendard font-semibold">
           여행기를 생성하는 중입니다!
         </p>
-        <div className="w-64 h-2 bg-gray-200 rounded-full overflow-hidden mt-2">
+        <div className="w-64 h-2 relative rounded-full overflow-hidden mt-2">
           <div
-            className="h-full transition-all duration-300"
+            className="absolute inset-0"
             style={{
-              width: `${progress}%`,
               backgroundImage:
                 "linear-gradient(to right, #ffc907, #2e9df7, #231f20)",
+            }}
+          />
+          <div
+            className="absolute top-0 right-0 h-full bg-gray-200 transition-all duration-300"
+            style={{
+              width: `${100 - progress}%`,
             }}
           />
         </div>
