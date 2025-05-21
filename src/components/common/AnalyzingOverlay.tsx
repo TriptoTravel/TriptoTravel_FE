@@ -19,7 +19,7 @@ export default function AnalyzingOverlay({ progress }: AnalyzingOverlayProps) {
           />
         </div>
         <p className="text-black items-center text-xl font-pretendard font-semibold">
-          이미지를 분석하는 중입니다!
+          선택한 사진의 시간과 장소를 분석하는 중입니다!
         </p>
         <div className="w-64 h-2 relative rounded-full overflow-hidden mt-2">
           <div

@@ -24,10 +24,11 @@ export type EXIFCardListHandle = {
 
 type EXIFCardListProps = {
   onMetaChange: (metaMap: ImageMetaMap) => void;
+  onAutoSkipTrigger: () => void;
 };
 
 const EXIFCardList = forwardRef<EXIFCardListHandle, EXIFCardListProps>(
-  ({ onMetaChange }, ref) => {
+  ({ onMetaChange, onAutoSkipTrigger }, ref) => {
     const { travelogueId, confirmedImages } = useTrip();
     const [items, setItems] = useState<ImageMetadataItem[]>([]);
     const [metaMap, setMetaMap] = useState<ImageMetaMap>({});
@@ -56,6 +57,10 @@ const EXIFCardList = forwardRef<EXIFCardListHandle, EXIFCardListProps>(
       getImagesWithoutMetadata(travelogueId)
         .then((res) => {
           setItems(res.image_metadata_list);
+          if (res.image_metadata_list.length === 0) {
+            onAutoSkipTrigger();
+            return;
+          }
           const initialMap: ImageMetaMap = {};
           res.image_metadata_list.forEach((item) => {
             initialMap[item.image_id] = {
