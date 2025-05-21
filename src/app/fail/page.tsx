@@ -3,7 +3,7 @@ import FailPageContent from "./FailPageContent";
 
 export default function FailPage() {
   return (
-    <Suspense fallback={<div>로딩 중</div>}>
+    <Suspense fallback={<div />}>
       <FailPageContent />
     </Suspense>
   );
