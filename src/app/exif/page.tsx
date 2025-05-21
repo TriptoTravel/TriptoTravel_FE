@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
@@ -12,12 +12,15 @@ import EXIFCardList, {
 import CTAButton from "@/components/buttons/CTAButton";
 import { patchImageMetadata } from "@/api/travelogue";
 import LoadingOverlay from "@/components/common/LoadingOverlay";
+import { useTrip } from "@/contexts/tripStore";
 
 export default function EXIFPage() {
   const router = useRouter();
   const cardListRef = useRef<EXIFCardListHandle>(null);
+  const { confirmedImages } = useTrip();
   const [metaMap, setMetaMap] = useState<ImageMetaMap>({});
   const [isLoading, setIsLoading] = useState(false);
+  const [autoSkip, setAutoSkip] = useState(false);
 
   // 실시간 상태 검사
   const allComplete =
@@ -26,6 +29,15 @@ export default function EXIFPage() {
       (meta) =>
         meta.created_at_state === "default" && meta.location_state === "default"
     );
+
+  useEffect(() => {
+    if (Object.keys(metaMap).length === 0 && confirmedImages.length > 0) {
+      setAutoSkip(true);
+      setTimeout(() => {
+        router.push("/qna");
+      }, 1500);
+    }
+  }, [metaMap, confirmedImages, router]);
 
   const handleNext = async () => {
     const dataMap = cardListRef.current?.getAllMetadata();
@@ -50,6 +62,13 @@ export default function EXIFPage() {
 
   return (
     <div className="min-h-screen flex flex-col justify-between bg-white">
+      {autoSkip && (
+        <div className="absolute inset-0 flex items-center justify-center z-50 bg-white">
+          <p className="text-xl font-pretendard font-semibold text-black">
+            모든 사진의 시간과 위치 정보를 분석했어요! 다음 단계로 이동합니다.
+          </p>
+        </div>
+      )}
       {isLoading && <LoadingOverlay />}
 
       <Header variation="type" />
