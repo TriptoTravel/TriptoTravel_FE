@@ -3,12 +3,18 @@ import { cn } from "@/utils/cn";
 type TextFieldProps = {
   type: "instruction" | "question" | "answer";
   text: string;
+  annotation: "single" | "multiple" | "none";
 };
 
-export default function TextField({ type, text }: TextFieldProps) {
+export default function TextField({ type, text, annotation }: TextFieldProps) {
   const isWithPrefix = type === "question" || type === "answer";
   const prefix = type === "question" ? "Q" : type === "answer" ? "A" : null;
-
+  const annotationText =
+    annotation === "single"
+      ? "단일 선택"
+      : annotation === "multiple"
+        ? "복수 선택"
+        : null;
   return (
     <div
       className={cn(
@@ -22,9 +28,17 @@ export default function TextField({ type, text }: TextFieldProps) {
           {prefix}
         </div>
       )}
-      <p className="text-black text-lg font-semibold font-pretendard leading-snug break-words whitespace-pre-line">
-        {text}
+      <p className="text-black text-lg font-semibold font-pretendard leading-snug break-words">
+        {text.split("\n").map((line, idx) => (
+          <span key={idx}>
+            {line}
+            {idx !== text.split("\n").length - 1 && <br />}
+          </span>
+        ))}
       </p>
+      {annotationText && (
+        <p className="flex text-[10px] mt-1 text-gray-500">{annotationText}</p>
+      )}
     </div>
   );
 }

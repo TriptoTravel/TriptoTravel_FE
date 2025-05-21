@@ -33,9 +33,9 @@ export default function UploadIconButton({ onUpload }: UploadIconButtonProps) {
         />
       </label>
       <p className="text-[18px] font-semibold text-center w-full">
-        아이콘을 클릭해
+        아이콘을 눌러
         <br />
-        사진을 업로드하세요
+        사진을 업로드해 주세요
       </p>
     </div>
   );

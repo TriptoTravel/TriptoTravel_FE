@@ -94,6 +94,7 @@ export default function NumPage() {
         <TextField
           type="question"
           text="여행기를 몇 장의 사진으로 구성할까요?"
+          annotation="none"
         />
 
         <div className="flex gap-2 w-full items-start mt-[60px] mb-[314px]">

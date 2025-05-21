@@ -50,9 +50,9 @@ export default function EXIFCard({
         onSave={timeMeta.onSave}
       />
 
-      {/* 위치 */}
+      {/* 장소 */}
       <EXIFCardMeta
-        label="위치"
+        label="장소"
         value={locationMeta.value}
         state={locationMeta.state}
         onEdit={locationMeta.onEdit}
