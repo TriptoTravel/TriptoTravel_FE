@@ -38,6 +38,7 @@ export default function NumPage() {
   } = useTrip();
   const [selected, setSelected] = useState<number | null>(photoCount);
   const [isLoading, setIsLoading] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   const handleNext = async () => {
     if (
@@ -70,7 +71,9 @@ export default function NumPage() {
 
       try {
         setPhotoCount(selected);
-        await patchImageSelectionFirst(travelogueId, selected + 4);
+        await patchImageSelectionFirst(travelogueId, selected + 4, (percent) =>
+          setProgress(Math.min(percent, 99))
+        );
       } catch (err) {
         router.push("/fail?stage=사진 개수 선택 전송");
         return;
@@ -84,7 +87,7 @@ export default function NumPage() {
 
   return (
     <div className="min-h-screen flex flex-col justify-between items-center bg-white">
-      {isLoading && <SortingOverlay />}
+      {isLoading && <SortingOverlay progress={progress} />}
       <Header variation="type-back" />
 
       <main className="flex flex-col items-center justify-center my-[60px] animate-fade-slide-up">
