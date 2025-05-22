@@ -9,11 +9,13 @@ import Footer from "@/components/common/Footer";
 import { useTrip } from "@/contexts/tripStore";
 import { downloadPdf, getShareUrl } from "@/api/travelogue";
 import { cn } from "@/utils/cn";
+import LoadingOverlay from "@/components/common/LoadingOverlay";
 
 export default function SharePage() {
   const [isHovering, setIsHovering] = useState(false);
   const router = useRouter();
   const { travelogueId, confirmedImages } = useTrip();
+  const [isLoading, setIsLoading] = useState(false);
 
   const backgroundImage = isHovering
     ? "bg-[url('/images/background2.svg')]"
@@ -26,15 +28,19 @@ export default function SharePage() {
 
   const handleSave = async () => {
     if (!travelogueId) return;
+    setIsLoading(true);
     try {
       await downloadPdf(travelogueId);
     } catch (err) {
       router.push("/fail?stage=여행기 저장");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleShare = async () => {
     if (!travelogueId) return;
+    setIsLoading(true);
     try {
       const res = await getShareUrl(travelogueId);
       const shareUrl = res.share_url;
@@ -51,6 +57,8 @@ export default function SharePage() {
       }
     } catch (err) {
       router.push("/fail?stage=여행기 공유");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -62,6 +70,8 @@ export default function SharePage() {
       )}
     >
       <Header variation="type-back" />
+      {isLoading && <LoadingOverlay />}
+
       <main className="flex flex-col items-center justify-center my-[60px] gap-[60px]">
         <div
           onMouseEnter={() => setIsHovering(true)}
@@ -74,7 +84,7 @@ export default function SharePage() {
         <div className="flex flex-col gap-4">
           <CTAButton
             variation="default"
-            label="저장하기"
+            label="PDF로 저장하기"
             onClick={handleSave}
           />
           <CTAButton
@@ -85,7 +95,7 @@ export default function SharePage() {
         </div>
         <CTAButton
           variation="black"
-          label="처음부터 다시하기"
+          label="여행기 다시 만들기"
           onClick={() => router.push("/")}
         />
       </main>

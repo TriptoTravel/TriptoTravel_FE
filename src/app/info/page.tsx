@@ -44,7 +44,7 @@ export default function InfoPage() {
           <TextField
             type="question"
             text="누구와 함께 한 여행인가요?"
-            annotation="single"
+            annotation="none"
           />
           <div className="flex flex-wrap gap-[10px] max-w-[300px]">
             {companionOptions.map((option) => (

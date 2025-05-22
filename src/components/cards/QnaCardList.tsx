@@ -54,41 +54,25 @@ const QnaCardList = forwardRef<QnaCardListHandle, QnaCardListProps>(
         })),
     }));
 
-    const checkCompletion = (map: typeof qnaMap) => {
-      const completed = images.every(
-        (img) =>
-          map[img.image_id]?.how.trim() && map[img.image_id]?.emotion.length > 0
-      );
-      onChange?.(completed);
-    };
-
     const updateHow = (imageId: number, answer: string) => {
-      setQnaMap((prev) => {
-        const updated = {
-          ...prev,
-          [imageId]: {
-            ...prev[imageId],
-            how: answer,
-          },
-        };
-        checkCompletion(updated);
-        return updated;
-      });
-    };
+      setQnaMap((prev) => ({
+        ...prev,
+        [imageId]: {
+          ...prev[imageId],
+          how: answer,
+        },
+      }))
+    }
 
     const updateEmotion = (imageId: number, emotions: string[]) => {
-      setQnaMap((prev) => {
-        const updated = {
-          ...prev,
-          [imageId]: {
-            ...prev[imageId],
-            emotion: emotions,
-          },
-        };
-        checkCompletion(updated);
-        return updated;
-      });
-    };
+      setQnaMap((prev) => ({
+        ...prev,
+        [imageId]: {
+          ...prev[imageId],
+          emotion: emotions,
+        },
+      }))
+    }
 
     return (
       <div className="flex flex-col items-center gap-[60px]">

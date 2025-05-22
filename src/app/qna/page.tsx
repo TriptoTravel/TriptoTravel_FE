@@ -56,7 +56,7 @@ export default function QnaPage() {
           text={`여행의 분위기와 감정을 더 잘 담기 위해\n추가 질문에 답해주세요!`}
           annotation="none"
         />
-        <section className="w-full flex flex-col gap-[30px] items-center">
+        <section className="w-full flex flex-col gap-[30px] mb-[60px] items-center">
           <QnaCardList
             ref={cardListRef}
             onChange={(completed) => setIsComplete(completed)}

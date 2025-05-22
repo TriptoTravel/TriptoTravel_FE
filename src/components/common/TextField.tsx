@@ -13,7 +13,7 @@ export default function TextField({ type, text, annotation }: TextFieldProps) {
     annotation === "single"
       ? "단일 선택"
       : annotation === "multiple"
-        ? "복수 선택"
+        ? "복수 선택 가능"
         : null;
   return (
     <div

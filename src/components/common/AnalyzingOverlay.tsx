@@ -8,18 +8,16 @@ export default function AnalyzingOverlay({ progress }: AnalyzingOverlayProps) {
     <div className="fixed inset-0 bg-white flex items-center justify-center z-50">
       <div className="flex flex-col items-center gap-4 mb-20">
         <div className="w-40 h-40">
-          <video
-            key="analyzeimage"
-            src="/videos/analyze.webm"
-            autoPlay
-            muted
-            playsInline
-            loop
+          <img
+            src="/images/analyze.svg"
+            alt="이미지 분석 중"
             className="w-full h-full object-contain"
           />
         </div>
-        <p className="text-black items-center text-xl font-pretendard font-semibold">
-          선택한 사진의 시간과 장소를 분석하는 중입니다!
+        <p className="text-black items-center text-center text-xl font-pretendard font-semibold">
+          선택한 사진의 시간과 장소를
+          <br />
+          분석하는 중입니다!
         </p>
         <div className="w-64 h-2 relative rounded-full overflow-hidden mt-2">
           <div
