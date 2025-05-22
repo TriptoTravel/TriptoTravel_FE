@@ -9,13 +9,9 @@ export default function SortingOverlay({ progress }: SortingOverlayProps) {
     <div className="fixed inset-0 bg-white flex items-center justify-center z-50">
       <div className="flex flex-col items-center gap-4 mb-20">
         <div className="w-40 h-40">
-          <video
-            key="sortimage"
-            src="/videos/sort.webm"
-            autoPlay
-            muted
-            playsInline
-            loop
+          <img
+            src="/images/sort.svg"
+            alt="이미지 선별 중"
             className="w-full h-full object-contain"
           />
         </div>

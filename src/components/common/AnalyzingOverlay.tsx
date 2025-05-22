@@ -8,13 +8,9 @@ export default function AnalyzingOverlay({ progress }: AnalyzingOverlayProps) {
     <div className="fixed inset-0 bg-white flex items-center justify-center z-50">
       <div className="flex flex-col items-center gap-4 mb-20">
         <div className="w-40 h-40">
-          <video
-            key="analyzeimage"
-            src="/videos/analyze.webm"
-            autoPlay
-            muted
-            playsInline
-            loop
+          <img
+            src="/images/analyze.svg"
+            alt="이미지 분석 중"
             className="w-full h-full object-contain"
           />
         </div>
