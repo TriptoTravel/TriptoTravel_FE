@@ -21,15 +21,11 @@ export default function FailPageContent() {
       <main className="flex flex-col items-center justify-center my-[60px] gap-[60px]">
         <div className="flex flex-col items-center justify-center gap-[20px]">
           <div className="w-40 h-40 flex items-center justify-center overflow-hidden">
-            <video
-              key="failimage"
-              src="/videos/fail.webm"
-              autoPlay
-              muted
-              playsInline
-              loop
-              className="w-full h-full object-contain"
-            />
+          <img
+            src="/images/fail.svg"
+            alt="실패"
+            className="w-full h-full object-contain"
+          />
           </div>
           <p className="font-pretendard text-[18px] font-semibold">
             {stage}에 실패했습니다!
