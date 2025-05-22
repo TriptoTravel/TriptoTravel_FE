@@ -157,6 +157,20 @@ export async function patchImageMetadata(
   );
 }
 
+// 이미지 시간순 정렬 GET /api/images/timeorder
+export async function getTimeOrderedImageIds(
+  imageIds: number[]
+): Promise<number[]> {
+  const params = new URLSearchParams();
+  imageIds.forEach((id) => params.append("image_ids", id.toString()));
+
+  const response = await axiosInstance.get<{ image_ids: number[] }>(
+    `/api/images/timeorder?${params.toString()}`
+  );
+
+  return response.data.image_ids;
+}
+
 // 감정, 상황 데이터 업로드 POST /api/image/${imageId}/question
 export async function postImageQna(
   imageId: number,
