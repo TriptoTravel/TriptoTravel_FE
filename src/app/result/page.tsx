@@ -74,7 +74,7 @@ export default function ResultPage() {
           text={`여행기 생성이 완료되었습니다!\n내용을 확인하고 자유롭게 수정하세요.`}
           annotation="none"
         />
-        <section className="w-full flex flex-col gap-[30px] items-center">
+        <section className="w-full flex flex-col gap-[30px] mb-[60px] items-center">
           <DraftCardList
             drafts={drafts}
             confirmedImages={confirmedImages as ConfirmedImage[]}
