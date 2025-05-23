@@ -25,7 +25,7 @@ export default function LandingAnimation() {
         transitionTimer = setTimeout(() => {
           setIndex(2);
           setOpacityLevel(1);
-        }, 500);
+        }, 1000);
       }, durations[1]);
     } 
     

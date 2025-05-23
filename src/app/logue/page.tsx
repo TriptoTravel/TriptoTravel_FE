@@ -4,6 +4,7 @@ import { useTrip } from "@/contexts/tripStore";
 import Header from "@/components/common/Header";
 import LogResultCard from "@/components/cards/LogResultCard";
 import Footer from "@/components/common/Footer";
+import ScrollToTopButton from "@/components/buttons/ScrollToTopButton";
 
 export default function LoguePage() {
   const { confirmedImages, finalLogue } = useTrip();
@@ -35,6 +36,7 @@ export default function LoguePage() {
         ))}
       </main>
       <Footer />
+      <ScrollToTopButton />
     </div>
   );
 }
