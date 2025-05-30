@@ -104,7 +104,7 @@ export default function EXIFPage() {
           }}
         />
       </main>
-      <div className="flex flex-col items-center justify-center mb-[60px] animate-fade-slide-up">
+      <div className="flex flex-col items-center justify-center my-[60px] animate-fade-slide-up">
         <p className="flex text-sm font-pretendard justify-start text-gray-400">
           입력한 시간과 장소가 여행기 생성의 정확도에 영향을 줍니다.
         </p>
