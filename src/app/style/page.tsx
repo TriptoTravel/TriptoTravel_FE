@@ -19,7 +19,7 @@ const styleOptions: Exclude<TripStyle, "default">[] = [
 export default function StylePage() {
   const { travelogueId, style, setStyle } = useTrip();
   const router = useRouter();
-  console.log("로그번호:", travelogueId);
+  console.log(travelogueId);
   const handleSelect = (option: TripStyle) => {
     setStyle(style === option ? "default" : option);
   };

@@ -20,10 +20,11 @@ export default function UploadPage() {
 
   const handleNext = async () => {
     if (!travelogueId) return router.push("fail?stage=여행기 ID 조회");
-
     setIsLoading(true);
     try {
-      await postImages(travelogueId, images, (percent) => setProgress(Math.min(percent, 99)));
+      await postImages(travelogueId, images, (percent) =>
+        setProgress(Math.min(percent, 99))
+      );
       setUploadnum(images.length);
       router.push("/num");
     } catch (err) {
