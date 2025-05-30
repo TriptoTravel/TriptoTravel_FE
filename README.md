@@ -40,17 +40,13 @@
 
 ## ⚙️ 기술 스택
 
-* **Frontend**: React, TypeScript, TailwindCSS, Netlify
-* **Backend**: FastAPI, Gunicorn, SQLAlchemy, Qoddi, Supabase(PostgreSQL)
-* **AI Server**: Google Cloud Platform (Compute Engine, GCS)
+* **Frontend**: React, TypeScript, TailwindCSS
+* **Backend**: FastAPI, SQLAlchemy, Supabase(PostgreSQL)
 * **AI Models**:
-
-  * **CLIP (OpenAI)**: 이미지-텍스트 유사도 기반 사진 선별
-  * **PHash**: 유사 이미지 제거
-  * **BLIP (Salesforce)**: 이미지 캡셔닝 (한국 데이터 기반 파인튜닝)
-  * **GPT-4 Turbo (OpenAI)**: 여행기 문장 생성
-  * **LLaVA**: 시각-텍스트 통합 정보 기반 문맥 조정 여행기 생성
-* **Infra**: Docker, GitHub Actions, Nginx
+  * **CLIP**: 이미지-텍스트 유사도 기반 사진 선별 (+PHash, DBSCAN, Laplacian)  
+  * **BLIP**: 이미지 캡셔닝 (한국 데이터 기반 파인튜닝)
+  * **GPT-4 Turbo**: 여행기 문장 생성
+* **Cloud**: Netlify, Qoddi, Google Cloud Platform (Compute Engine, GCS)
 
 ---
 
@@ -58,36 +54,20 @@
 
 ### 📌 전체 파이프라인
 
-1. **CLIP + PHash**: 사진 업로드 후 유사 이미지 제거 및 목적 키워드 기반 중요도 분석
-2. **BLIP (Fine-tuned)**: 선별된 사진에 대해 캡션 자동 생성
+1. **CLIP**: 사진 업로드 후 유사 이미지 제거 및 목적 키워드 기반 중요도 분석
+2. **BLIP**: 선별된 사진에 대해 캡션 생성
 3. **사용자 입력 반영**: 감정(emotion), 행동(how), 문체 스타일 등 수집
-4. **GPT-4 Turbo + LLaVA**: 모든 정보 기반 초안 생성 → 사용자 수정 → 최종본 저장
+4. **GPT-4 Turbo**: 모든 정보 기반 초안 생성
 
 ### 📍 BLIP 파인튜닝
-
 * **데이터**: 한국 관광지, 음식, 풍경 중심의 블로그/인스타 이미지 데이터셋 수집
 * **방식**: Pretrained BLIP 모델에 대해 image-caption pair supervised fine-tuning
 * **효과**: 기존 BLIP 대비 감성 표현 및 한국 맥락 인식 성능 향상
 
-### 🧠 모델별 역할
-
-* **CLIP**: 사용자 입력 여행 목적 텍스트와 각 사진 간 의미 유사도 계산 (중요도 순 정렬)
-* **PHash**: 유사한 이미지 자동 제거 (중복 제거)
-* **BLIP**: 각 이미지에 자연어 설명 자동 생성 (이미지 캡션)
-* **GPT-4**: 감정, 장소, 캡션, 문체 기반 개별 문장 생성 (초안)
-* **LLaVA**: 전체 문맥 흐름 조정 및 통합 여행기 완성 (최종본)
-
 ---
 
 ## 🏗️ 시스템 아키텍처
-
-* GitHub Actions로 CI/CD 자동화
-* Front: React → Netlify에 배포
-* Back: FastAPI → Qoddi에 배포 (Gunicorn + Nginx)
-* AI Server: GCP Compute Engine에 상시 활성화
-* Data 저장: GCP Cloud Storage (이미지), Supabase(PostgreSQL)
-
-![image](https://github.com/user-attachments/assets/481cd065-de73-49eb-b3ce-b346b2152d2e)
+![image](https://github.com/user-attachments/assets/6c444cbc-77bc-4f9e-8912-86f6bb0ad02f)
 
 ---
 
@@ -105,18 +85,11 @@
 ---
 
 ## 🗃️ 데이터베이스 설계
-
-* 총 11개 테이블 사용
-* 핵심 테이블: travelogue (여행 단위), image (사진 단위), style, metadata, question\_response 등
-* travelogue\_image: 중간 매핑 테이블로 여행기-이미지 연결
-* metadata: EXIF에서 추출한 날짜/위치 저장
-* question\_response: 감정 및 활동 정보 저장
-* draft, final 테이블: 각 이미지에 대한 여행기 초안/최종본 저장
+![image](https://github.com/user-attachments/assets/27797c9f-da71-4f60-894b-ba53e2f427d7)
 
 ---
 
 ## 📡 API 명세
-
 
 | 주요 기능        | 엔드포인트                                         | 메서드   | 설명                                  |
 | --------- | --------------------------------------------- | ----- | ----------------------------------- |
@@ -126,9 +99,3 @@
 | 감정/행동 입력  | `/api/image/question-response`                | POST  | 이미지별 emotion/how 저장                 |
 | 여행기 초안 생성 | `/generate-caption` + `/generate-travel-log`  | POST  | AI 초안 생성 후 반환                       |
 | 최종본 저장    | `/api/travelogue/final`                       | PATCH | 사용자 수정 후 최종본 저장                     |
-
----
-
-## 📄 라이선스
-
-MIT License
