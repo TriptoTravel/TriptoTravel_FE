@@ -25,22 +25,38 @@ export default function QnaPage() {
     if (!qnaData || !travelogueId) return;
 
     setIsLoading(true);
+    setProgress(0);
+
     try {
-      await Promise.all(
-        qnaData.map((item) =>
-          postImageQna(item.image_id, {
-            how: item.how,
-            emotion: item.emotion.map((e) => EMOTION_MAP[e]),
-          })
-        )
-      );
-      await patchTravelogueGeneration(travelogueId, (percent) =>
-        setProgress(Math.min(percent, 99))
-      );
+      // 1. 감정/상황 업로드: progress 0~70%
+      const total = qnaData.length;
+      let completed = 0;
+
+      for (const item of qnaData) {
+        await postImageQna(item.image_id, {
+          how: item.how,
+          emotion: item.emotion.map((e) => EMOTION_MAP[e]),
+        });
+        completed++;
+        const percent = Math.floor((completed / total) * 70); // 0~70%
+        setProgress(percent);
+      }
+
+      // 2. 여행기 생성 요청 (남은 30%는 fake progress)
+      setProgress(75);
+      let fake = 75;
+      const interval = setInterval(() => {
+        fake += 2;
+        setProgress(Math.min(fake, 99));
+      }, 300);
+
+      await patchTravelogueGeneration(travelogueId);
+      clearInterval(interval);
+      setProgress(100);
+
       router.push("/result");
     } catch (err) {
       router.push("/fail?stage=여행기 생성");
-    } finally {
     }
   };
 
