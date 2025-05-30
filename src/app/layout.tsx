@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "../styles/globals.css";
 import { TripProvider } from "@/contexts/tripStore";
+export { viewport } from "./generateViewport"
 
 export const metadata: Metadata = {
   title: "Trip to Travel",
@@ -10,11 +11,7 @@ export const metadata: Metadata = {
     { name: "Trip to Travel Team", url: "https://triptotravel.netlify.app" },
   ],
   creator: "Trip to Travel",
-  themeColor: "#ffffff",
-  colorScheme: "light",
-  viewport: "width=device-width, initial-scale=1",
   robots: "index, follow",
-
   openGraph: {
     title: "Trip to Travel",
     description: "AI가 자동으로 당신의 여행기를 완성해줍니다.",
@@ -30,7 +27,6 @@ export const metadata: Metadata = {
     ],
     type: "website",
   },
-
   icons: {
     icon: "/logo.png",
     apple: "/logo.png",
