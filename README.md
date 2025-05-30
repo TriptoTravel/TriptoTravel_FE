@@ -89,13 +89,17 @@
 
 ---
 
-## 📡 API 명세
+## 📡 주요 API 명세
 
-| 주요 기능        | 엔드포인트                                         | 메서드   | 설명                                  |
-| --------- | --------------------------------------------- | ----- | ----------------------------------- |
-| 이미지 업로드   | `/api/image/upload`                           | POST  | base64 이미지 업로드 → GCP 저장 → URI DB 저장 |
-| 2차 선별 시작  | `/api/image/{travelogue_id}/selection/second` | POST  | AI 서버로 목적 + 이미지 URI 전달 후 중요도 반환     |
-| 메타데이터 추출  | `/api/image/exif`                             | PATCH | EXIF 데이터 저장 또는 수동 입력                |
-| 감정/행동 입력  | `/api/image/question-response`                | POST  | 이미지별 emotion/how 저장                 |
-| 여행기 초안 생성 | `/generate-caption` + `/generate-travel-log`  | POST  | AI 초안 생성 후 반환                       |
-| 최종본 저장    | `/api/travelogue/final`                       | PATCH | 사용자 수정 후 최종본 저장                     |
+| 주요 기능 | Endpoint                                                   | 설명 |
+|--------|------------------------------------------------------------|------|
+| POST   | `/api/travelogue/{travelogue_id}/question/total`          | 여행 목적 및 전체 질문 테이블 튜플 생성 |
+| POST   | `/api/image/upload`                                        | 이미지 튜플 생성 및 업로드 |
+| PATCH  | `/api/image/{travelogue_id}/selection/first`               | 이미지 중요도 평가 및 1차 선별 수행 |
+| POST   | `/api/image/{travelogue_id}/selection/second`              | 이미지 2차 선별, 캡셔닝, 메타데이터 추출 |
+| PATCH  | `/api/image/{image_id}/metadata`                           | 이미지 메타데이터 튜플 수정 |
+| POST   | `/api/image/{image_id}/question`                           | 이미지에 대한 사전 질문 응답 튜플 생성 |
+| PATCH  | `/api/travelogue/{travelogue_id}/generation`               | 여행기 초안 생성 및 저장 |
+| PATCH  | `/api/image/{image_id}/correction`                         | 여행기 final 필드 수정 |
+| GET    | `/api/travelogue/{travelogue_id}/export`                   | 여행기 PDF 저장 |
+| GET    | `/api/travelogue/{travelogue_id}/share`                    | 여행기 PDF 공유 링크 발급 |
