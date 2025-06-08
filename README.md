@@ -60,7 +60,7 @@
 4. **GPT-4 Turbo**: 모든 정보 기반 초안 생성
 
 ### 📍 BLIP 파인튜닝
-* **데이터**: 한국 관광지, 음식, 풍경 중심의 블로그/인스타 이미지 데이터셋 수집
+* **데이터**: AI HUB 국내관광 이미지 및 캡션 12000쌍
 * **방식**: Pretrained BLIP 모델에 대해 image-caption pair supervised fine-tuning
 * **효과**: 기존 BLIP 대비 감성 표현 및 한국 맥락 인식 성능 향상
 
